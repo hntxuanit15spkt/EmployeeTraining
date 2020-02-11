@@ -8,8 +8,30 @@ namespace EmployeeTraining
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            EmployeeService employeeService = new EmployeeService();
-            var emps = employeeService.GetAll();
+            try
+            {
+                throw new Exception("some test exception");
+                EmployeeService employeeService = new EmployeeService();
+                //var emps = employeeService.GetAll();
+            }
+            catch(Exception ex)
+            {
+                HandleCoreServicesException(ex);
+            }
+        }
+
+        /// <summary>
+        /// Handles all CoreServices exception.
+        /// </summary>
+        /// <param name="ex">The CoreService exception.</param>
+        /// <returns></returns>
+        public  void HandleCoreServicesException(Exception ex)
+        {
+            if (DomainUtil.HandleException(ex, "CoreServicesPolicy"))
+            {
+                // the line below is only useful if PostHandling action is 'NotifyRethrow'
+                throw ex;
+            }
         }
     }
 }

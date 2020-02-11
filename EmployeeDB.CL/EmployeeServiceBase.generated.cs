@@ -233,10 +233,11 @@ namespace EmployeeDB.CL
 				#region Handle transaction rollback and exception
                 if (transactionManager != null && transactionManager.IsOpen) 
 					transactionManager.Rollback();
-				
-				//Handle exception based on policy
-     //           if (DomainUtil.HandleException(exc, layerExceptionPolicy)) 
-					//throw;
+
+				// Handle exception based on policy
+
+				if (DomainUtil.HandleException(exc, layerExceptionPolicy))
+					throw;
 				#endregion Handle transaction rollback and exception
 			}
 			return list;

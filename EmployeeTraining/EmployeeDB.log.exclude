@@ -1,0 +1,80 @@
+----------------------------------------
+Exceptions Error: 100 : Timestamp: 11/02/2020 02:36:40
+Message: <Exception handlingInstanceId="50f03860-9bd7-4383-a8c8-390d32ae0e2a">
+  <Description>An exception of type 'System.Data.SqlClient.SqlException' occurred and was caught.</Description>
+  <DateTime>2020-02-11 09:36:40Z</DateTime>
+  <ExceptionType>System.Data.SqlClient.SqlException, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</ExceptionType>
+  <Message>A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)</Message>
+  <Source>.Net SqlClient Data Provider</Source>
+  <HelpLink />
+  <Property name="Errors">System.Data.SqlClient.SqlErrorCollection</Property>
+  <Property name="ClientConnectionId">00000000-0000-0000-0000-000000000000</Property>
+  <Property name="Class">20</Property>
+  <Property name="LineNumber">0</Property>
+  <Property name="Number">53</Property>
+  <Property name="Procedure">&lt;undefined value&gt;</Property>
+  <Property name="Server" />
+  <Property name="State">0</Property>
+  <Property name="ErrorCode">-2146232060</Property>
+  <Property name="Data">System.Collections.ListDictionaryInternal</Property>
+  <Property name="TargetSite">Void .ctor(System.Data.ProviderBase.DbConnectionPoolIdentity, System.Data.SqlClient.SqlConnectionString, System.Data.SqlClient.SqlCredential, System.Object, System.String, System.Security.SecureString, Boolean, System.Data.SqlClient.SqlConnectionString, System.Data.SqlClient.SessionData, System.Data.ProviderBase.DbConnectionPool, System.String, Boolean, System.Data.SqlClient.SqlAuthenticationProviderManager)</Property>
+  <Property name="HResult">-2146232060</Property>
+  <StackTrace>   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, DbConnectionPool pool, String accessToken, Boolean applyTransientFaultHandling, SqlAuthenticationProviderManager sqlAuthProviderManager)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal&amp; connection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal&amp; connection)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal&amp; connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.GetNewOpenConnection()
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.GetWrappedConnection()
+   at Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteReader(DbCommand command)
+   at EmployeeDB.DAL.Utility.ExecuteReader(Database database, DbCommand dbCommand) in D:\Nettiers\Employee\EmployeeDB.DAL\Utility.cs:line 355
+   at EmployeeDB.DAL.SqlClient.SqlEmployeeProviderBase.GetAll(TransactionManager transactionManager, Int32 start, Int32 pageLength, Int32&amp; count) in D:\Nettiers\Employee\EmployeeDB.DAL.SqlClient\SqlEmployeeProviderBase.generated.cs:line 424
+   at EmployeeDB.DAL.Bases.EntityProviderBaseCore`2.GetAll(TransactionManager mgr, Int32 start, Int32 pageLength) in D:\Nettiers\Employee\EmployeeDB.DAL\Bases\EntityProviderBaseCore.generated.cs:line 119
+   at EmployeeDB.DAL.Bases.EntityProviderBaseCore`2.GetAll(TransactionManager mgr) in D:\Nettiers\Employee\EmployeeDB.DAL\Bases\EntityProviderBaseCore.generated.cs:line 95
+   at EmployeeDB.CL.EmployeeServiceBase.GetAll() in D:\Nettiers\Employee\EmployeeDB.CL\EmployeeServiceBase.generated.cs:line 229</StackTrace>
+  <additionalInfo>
+    <info name="MachineName" value="XUANHUYNH-PC" />
+    <info name="TimeStamp" value="11/02/2020 02:36:40" />
+    <info name="FullName" value="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <info name="AppDomainName" value="/LM/W3SVC/2/ROOT-8-132258621665477760" />
+    <info name="ThreadIdentity" value="" />
+    <info name="WindowsIdentity" value="IIS APPPOOL\DefaultAppPool" />
+  </additionalInfo>
+  <InnerException>
+    <ExceptionType>System.ComponentModel.Win32Exception, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</ExceptionType>
+    <Message>The network path was not found</Message>
+    <Source />
+    <HelpLink />
+    <Property name="NativeErrorCode">53</Property>
+    <Property name="ErrorCode">-2147467259</Property>
+    <Property name="Data">System.Collections.ListDictionaryInternal</Property>
+    <Property name="TargetSite">&lt;undefined value&gt;</Property>
+    <Property name="HResult">-2147467259</Property>
+    <StackTrace />
+  </InnerException>
+</Exception>
+Category: Exceptions
+Priority: 0
+EventId: 100
+Severity: Error
+Title:EmployeeDB Exception Handling
+Machine: XUANHUYNH-PC
+App Domain: /LM/W3SVC/2/ROOT-8-132258621665477760
+ProcessId: 3384
+Process Name: c:\windows\system32\inetsrv\w3wp.exe
+Thread Name: 
+Win32 ThreadId:10000
+Extended Properties: HelpLink.ProdName - Microsoft SQL Server
+HelpLink.EvtSrc - MSSQLServer
+HelpLink.EvtID - 53
+HelpLink.BaseHelpUrl - http://go.microsoft.com/fwlink
+HelpLink.LinkId - 20476
+
+----------------------------------------
