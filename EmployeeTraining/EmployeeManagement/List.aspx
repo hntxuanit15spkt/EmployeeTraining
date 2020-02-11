@@ -11,10 +11,9 @@
             background: left 3px top 5px no-repeat #563d7c;
         }
     </style>
-    <asp:Button runat="server" ID="BtnCreate" Text="Create new employee" CssClass="insert" />
+    <asp:Button runat="server" ID="BtnCreate" Text="Create new employee" CssClass="insert" OnClick="Redirect_Click" />
     <asp:GridView ID="EmployeeGrid" runat="server" AutoGenerateColumns="False">
         <Columns>
-            <asp:CommandField ShowEditButton="True" />
             <asp:BoundField DataField="FullName" HeaderText="FullName"></asp:BoundField>
             <asp:BoundField DataField="DOB" HeaderText="DOB"></asp:BoundField>
             <asp:TemplateField HeaderText="Addresses">
@@ -29,7 +28,15 @@
                     </asp:Repeater>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:CommandField ShowDeleteButton="true" />
+            <asp:TemplateField>
+                <ItemTemplate>
+                    <asp:LinkButton ID="lnkUpdate" runat="server" CommandArgument='<%# Eval("EmployeeId") %>' OnClick="lnk_OnUpdate">Update</asp:LinkButton>
+                    <asp:ImageButton ID="DeleteButton" runat="server" CommandArgument='<%# Eval("EmployeeId") %>' CommandName="Delete" OnCommand="CommandBtn_Click"  OnClientClick="return confirm('Are you sure you want to delete this employee?');" AlternateText="Delete" />     
+                </ItemTemplate>
+            </asp:TemplateField>
+            <%--<asp:CommandField ShowEditButton="True" />--%>
+            <%--<asp:LinkButton ID="lnkUpdate" runat="server" CommandArgument='<%# Eval("EmployeeId") %>' OnClick="lnk_OnUpdate">Update</asp:LinkButton>
+            <asp:CommandField ShowDeleteButton="true" />--%>
         </Columns>
     </asp:GridView>
 </asp:Content>
