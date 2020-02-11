@@ -143,36 +143,7 @@
     <div style="padding: 10px 0px;">
         <asp:Panel ID="Panel1" runat="server" Visible="false">
             <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
-            &nbsp;<asp:Label ID="lblMsg" runat="server"></asp:Label>
+            &nbsp;<asp:Label ID="lblMsg" runat="server" ForeColor="Red"></asp:Label>
         </asp:Panel>
     </div>
-    <%--<div>
-        <b>Database Records</b>
-        <div>
-            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="false" CellPadding="5">
-                <Columns>
-                    <asp:TemplateField HeaderText="SL No.">
-                        <ItemTemplate>
-                            <%#Eval("ID") %>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="First Name">
-                        <ItemTemplate>
-                            <%#Eval("FirstName") %>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Last Name">
-                        <ItemTemplate>
-                            <%#Eval("LastName") %>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Contact No">
-                        <ItemTemplate>
-                            <%#Eval("ContactNo") %>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                </Columns>
-            </asp:GridView>
-        </div>
-    </div>--%>
 </asp:Content>
