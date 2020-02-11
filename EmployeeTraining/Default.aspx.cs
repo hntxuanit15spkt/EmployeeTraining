@@ -8,16 +8,16 @@ namespace EmployeeTraining
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
-            {
-                throw new Exception("some test exception");
-                EmployeeService employeeService = new EmployeeService();
-                //var emps = employeeService.GetAll();
-            }
-            catch(Exception ex)
-            {
-                HandleCoreServicesException(ex);
-            }
+            //try
+            //{
+            //    //throw new Exception("some test exception");
+            //    EmployeeService employeeService = new EmployeeService();
+            //    //var emps = employeeService.GetAll();
+            //}
+            //catch(Exception ex)
+            //{
+            //    HandleCoreServicesException(ex);
+            //}
         }
 
         /// <summary>

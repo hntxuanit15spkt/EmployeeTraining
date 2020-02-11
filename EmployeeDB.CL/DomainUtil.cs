@@ -47,10 +47,6 @@ namespace EmployeeDB.CL
             {
 				return true;
             }
-            catch(Exception)
-            {
-                return true;
-            }
 		}
 
         #region Helper Methods
