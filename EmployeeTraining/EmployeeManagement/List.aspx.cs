@@ -1,4 +1,6 @@
 ﻿using EmployeeDB.CL;
+using EmployeeDB.DAL;
+using EmployeeDB.DAL.Bases;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -63,7 +65,7 @@ namespace EmployeeTraining.EmployeeManagement
             Response.Redirect("Update.aspx?employeeID=" + employeeID);
         }
 
-        protected void CommandBtn_Click(Object sender, CommandEventArgs e)
+        protected void CommandBtn_Click(Object sender, System.Web.UI.WebControls.CommandEventArgs e)
         {
             switch (e.CommandName)
             {
@@ -75,9 +77,35 @@ namespace EmployeeTraining.EmployeeManagement
         }
         private void DeleteEmployee(string employeeId)
         {
-            EmployeeService employeeService = new EmployeeService();
-            employeeService.Delete(int.Parse(employeeId));
+            TransactionManager transactionManager = null;
+            try
+            {
+                transactionManager = ConnectionScope.CreateTransaction();
+                NetTiersProvider dataProvider = ConnectionScope.Current.DataProvider;
+                //transactionManager.BeginTransaction();
+                var listAddress = dataProvider.AddressProvider.GetByEmployeeId(int.Parse(employeeId));
+                if (dataProvider.AddressProvider.Delete(listAddress) == 0)
+                {
+                    transactionManager.Rollback();
+                }
+                var employee = dataProvider.EmployeeProvider.Find($"EmployeeId={employeeId}").FirstOrDefault();
+                if (!dataProvider.EmployeeProvider.Delete(employee))
+                {
+                    transactionManager.Rollback();
+                }
+                transactionManager.Commit();
+            }
+            catch (Exception exc)
+            {
+                if (transactionManager != null && transactionManager.IsOpen)
+                    transactionManager.Rollback();
+            }
         }
+        //private void DeleteEmployee(string employeeId)
+        //{
+        //    EmployeeService employeeService = new EmployeeService();
+        //    employeeService.Delete(int.Parse(employeeId));
+        //}
         private void FillGridView()
         {
             EmployeeService employeeService = new EmployeeService();
