@@ -12,6 +12,9 @@
         }
     </style>
     <asp:Button runat="server" ID="BtnCreate" Text="Create new employee" CssClass="insert" OnClick="Redirect_Click" />
+    <br />
+    <asp:Label ID="lblMsg" ForeColor="Red" runat="server" ></asp:Label>
+    <br />
     <asp:GridView ID="EmployeeGrid" runat="server" AutoGenerateColumns="False">
         <Columns>
             <asp:BoundField DataField="FullName" HeaderText="FullName"></asp:BoundField>

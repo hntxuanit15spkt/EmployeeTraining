@@ -18,6 +18,7 @@ namespace EmployeeTraining.EmployeeManagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Clear();
             if (!IsPostBack)
             {
                 FillGridView();
@@ -70,26 +71,28 @@ namespace EmployeeTraining.EmployeeManagement
             switch (e.CommandName)
             {
                 case "Delete":
-                    DeleteEmployee((string)e.CommandArgument);
+                    if (!DeleteEmployee((string)e.CommandArgument))
+                    {
+                        lblMsg.Text = "An error occurred while deleting!";
+                    }
                     break;
             }
             FillGridView();
         }
-        private void DeleteEmployee(string employeeId)
+        private bool DeleteEmployee(string employeeId)
         {
             TransactionManager transactionManager = null;
             try
             {
                 transactionManager = ConnectionScope.CreateTransaction();
                 NetTiersProvider dataProvider = ConnectionScope.Current.DataProvider;
-                //transactionManager.BeginTransaction();
                 var listAddress = dataProvider.AddressProvider.GetByEmployeeId(int.Parse(employeeId));
-                if (dataProvider.AddressProvider.Delete(listAddress) == 0)
+                if (dataProvider.AddressProvider.Delete(transactionManager, listAddress) == 0)
                 {
                     transactionManager.Rollback();
                 }
                 var employee = dataProvider.EmployeeProvider.Find($"EmployeeId={employeeId}").FirstOrDefault();
-                if (!dataProvider.EmployeeProvider.Delete(employee))
+                if (!dataProvider.EmployeeProvider.Delete(transactionManager, employee))
                 {
                     transactionManager.Rollback();
                 }
@@ -99,7 +102,9 @@ namespace EmployeeTraining.EmployeeManagement
             {
                 if (transactionManager != null && transactionManager.IsOpen)
                     transactionManager.Rollback();
+                return false;
             }
+            return true;
         }
         //private void DeleteEmployee(string employeeId)
         //{
@@ -138,6 +143,11 @@ namespace EmployeeTraining.EmployeeManagement
             }
             EmployeeGrid.DataSource = table;
             EmployeeGrid.DataBind();
+        }
+
+        private void Clear()
+        {
+            lblMsg.Text = string.Empty;
         }
     }
 }
