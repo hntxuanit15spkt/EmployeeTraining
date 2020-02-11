@@ -1,0 +1,332 @@
+﻿
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>11.0.60610.01</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4D13F7FE-D714-43E2-9560-09DD918F2C57}</ProjectGuid>
+    <ProjectType>Local</ProjectType>
+	<TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <OutputType>Library</OutputType>
+    <ApplicationIcon>
+	</ApplicationIcon>
+    <AssemblyKeyContainerName>
+	</AssemblyKeyContainerName>
+    <AssemblyName>EmployeeDB.Web</AssemblyName>
+    <AssemblyOriginatorKeyFile>..\EmployeeDB.snk</AssemblyOriginatorKeyFile>
+	<SignAssembly>false</SignAssembly>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <RootNamespace>EmployeeDB.Web</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject></StartupObject>
+    <FileUpgradeFlags></FileUpgradeFlags>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>EmployeeDB.Web.xml</DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>EmployeeDB.Web.xml</DocumentationFile>
+	 <DebugType>pdbonly</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GenerateDebug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>EmployeeDB.Web.xml</DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System"/>
+	<Reference Include="System.Core">
+		<RequiredTargetFramework>4.5</RequiredTargetFramework>
+	</Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations"/>
+    <Reference Include="System.Web"/>
+    <Reference Include="System.Data"/>
+    <Reference Include="System.Design"/>
+    <Reference Include="System.Xml"/>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Drawing" />
+     
+	<ProjectReference Include="..\EmployeeDB.BLL\EmployeeDB.BLL.csproj">
+      <Name>EmployeeDB.BLL</Name>
+      <Project>{5F365426-EB93-49F0-851D-41D0573EEC18}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+	
+    <ProjectReference Include="..\EmployeeDB.DAL\EmployeeDB.DAL.csproj">
+        <Name>EmployeeDB.DAL</Name>
+        <Project>{CBDA0374-DA57-4CAA-A0B5-5BB1E06DD55A}</Project>
+        <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+	
+	
+    <ProjectReference Include="..\EmployeeDB.CL\EmployeeDB.CL.csproj">
+        <Name>EmployeeDB.CL</Name>
+        <Project>{46AE2F98-E6D3-4D42-B163-F49F6B0775A6}</Project>
+        <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"</Package>
+    </ProjectReference>
+	
+    
+    	
+	
+	
+	
+	</ItemGroup>
+	
+		
+	<!-- Custom code folder: D:\Shared\Tuan\Employee\EmployeeDB.Web\App_Code -->
+	<ItemGroup>	
+		<Folder Include="App_Code\" />
+        <Compile Include="App_Code\**\*.cs">
+          <SubType>Code</SubType>
+        </Compile>		
+	</ItemGroup>
+
+	<!-- Include any user files -->
+	<ItemGroup>	
+		<Compile Include="**\*.user.*" Exclude="**\*.csproj.user;**\.svn\**" >
+          <SubType>Code</SubType>
+        </Compile>		
+	</ItemGroup>
+	
+	<ItemGroup>
+		<Compile Include="..\AssemblyInfo.cs">
+		  <SubType>Code</SubType>
+		</Compile>
+			
+
+		
+		
+
+		
+			<Compile Include="Data\BaseDataSource.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="Data\BaseDataSourceDesigner.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="Data\CustomDataSource.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="Data\CustomDataSourceDesigner.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="Data\CustomParameter.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="Data\DataParameter.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="Data\EntityDataSource.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="Data\EntityDataSourceFilter.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="Data\EntityRelationship.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="Data\EntityRelationshipMember.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="Data\EntityTransactionModule.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="Data\ILinkedDataSource.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="Data\ManyToManyListRelationship.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="Data\ManyToManyViewRelationship.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="Data\OneToManyGridRelationship.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="Data\OneToOneViewRelationship.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="Data\ProviderDataSource.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="Data\ProviderDataSourceDesigner.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="Data\ReadOnlyDataSource.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="Data\ReadOnlyDataSourceDesigner.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="Data\SqlParameter.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="DataSourceControls\DepartmentsDataSource.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="UI\RepeaterControls\DepartmentsRepeater.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="DataSourceControls\EmployeeDepartmentsDataSource.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="UI\RepeaterControls\EmployeeDepartmentsRepeater.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="DataSourceControls\EmployeeDataSource.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="UI\RepeaterControls\EmployeeRepeater.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="DataSourceControls\CountriesDataSource.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="UI\RepeaterControls\CountriesRepeater.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="DataSourceControls\SkillLevelsDataSource.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="UI\RepeaterControls\SkillLevelsRepeater.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="DataSourceControls\SkillDataSource.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="UI\RepeaterControls\SkillRepeater.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="DataSourceControls\BankAccountsDataSource.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="UI\RepeaterControls\BankAccountsRepeater.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="DataSourceControls\EmployeeSalaryDataSource.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="UI\RepeaterControls\EmployeeSalaryRepeater.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="DataSourceControls\AddressDataSource.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="UI\RepeaterControls\AddressRepeater.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="DataSourceControls\EmployeeSkillsDataSource.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="UI\RepeaterControls\EmployeeSkillsRepeater.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="UI\FormUtil.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="UI\FormUtilBase.generated.cs">
+			  <SubType>Code</SubType>
+			  <DependentUpon>FormUtil.cs</DependentUpon>
+			</Compile>			
+			<Compile Include="UI\MultiBindableTemplate.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="UI\MultiFormView.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="UI\EntityGridView.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="UI\EntityDropDownList.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="UI\BoundRadioButtonField.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			<Compile Include="UI\BoundEntityDropDownField.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="UI\GridViewSearchPanel.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="UI\GridViewSearchPanelState.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="UI\EntityLabel.cs">
+			  <SubType>Code</SubType>
+			</Compile>
+			<Compile Include="UI\HyperlinkField.cs">
+			  <SubType>Code</SubType>
+			</Compile>			
+			
+		
+		
+		
+		 <AppDesigner Include="Properties\" />
+	</ItemGroup>
+	
+	
+	
+	
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+	<PostBuildEvent>
+	</PostBuildEvent>
+  </PropertyGroup>
+
+</Project>

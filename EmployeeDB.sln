@@ -1,0 +1,102 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeDB.BLL", "EmployeeDB.BLL\EmployeeDB.BLL.csproj", "{5F365426-EB93-49F0-851D-41D0573EEC18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeDB.DAL", "EmployeeDB.DAL\EmployeeDB.DAL.csproj", "{CBDA0374-DA57-4CAA-A0B5-5BB1E06DD55A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeDB.DAL.SqlClient", "EmployeeDB.DAL.SqlClient\EmployeeDB.DAL.SqlClient.csproj", "{2CC58518-F144-4F13-A744-80348125B3EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeDB.CL", "EmployeeDB.CL\EmployeeDB.CL.csproj", "{46AE2F98-E6D3-4D42-B163-F49F6B0775A6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2CC58518-F144-4F13-A744-80348125B3EB} = {2CC58518-F144-4F13-A744-80348125B3EB}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeDB.Web", "EmployeeDB.Web\EmployeeDB.Web.csproj", "{4D13F7FE-D714-43E2-9560-09DD918F2C57}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "EmployeeDB.Website", "EmployeeDB.Website\", "{D2FB2845-8D61-407F-8404-00FD9F8DC313}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		ProjectReferences = "{5F365426-EB93-49F0-851D-41D0573EEC18}|EmployeeDB.BLL.dll;{CBDA0374-DA57-4CAA-A0B5-5BB1E06DD55A}|EmployeeDB.DAL.dll;{2CC58518-F144-4F13-A744-80348125B3EB}|EmployeeDB.DAL.SqlClient.dll;{46AE2F98-E6D3-4D42-B163-F49F6B0775A6}|EmployeeDB.CL.dll;{4D13F7FE-D714-43E2-9560-09DD918F2C57}|EmployeeDB.Web.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/EmployeeDB.Website"
+		Debug.AspNetCompiler.PhysicalPath = "EmployeeDB.Website\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\EmployeeDB.Website\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/EmployeeDB.Website"
+		Release.AspNetCompiler.PhysicalPath = "EmployeeDB.Website\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\EmployeeDB.Website\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "2005"
+		SlnRelativePath = "EmployeeDB.Website\"
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetTiers", "NetTiers", "{F3A10C8D-3227-449F-A2CB-014DE2D7F415}"
+	ProjectSection(SolutionItems) = preProject
+		AssemblyInfo.cs = AssemblyInfo.cs
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeTraining", "EmployeeTraining\EmployeeTraining.csproj", "{4C9361DF-64DE-4F65-A78A-B89B279FDB04}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2CC58518-F144-4F13-A744-80348125B3EB} = {2CC58518-F144-4F13-A744-80348125B3EB}
+		{5F365426-EB93-49F0-851D-41D0573EEC18} = {5F365426-EB93-49F0-851D-41D0573EEC18}
+		{CBDA0374-DA57-4CAA-A0B5-5BB1E06DD55A} = {CBDA0374-DA57-4CAA-A0B5-5BB1E06DD55A}
+		{46AE2F98-E6D3-4D42-B163-F49F6B0775A6} = {46AE2F98-E6D3-4D42-B163-F49F6B0775A6}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5F365426-EB93-49F0-851D-41D0573EEC18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F365426-EB93-49F0-851D-41D0573EEC18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F365426-EB93-49F0-851D-41D0573EEC18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F365426-EB93-49F0-851D-41D0573EEC18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBDA0374-DA57-4CAA-A0B5-5BB1E06DD55A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBDA0374-DA57-4CAA-A0B5-5BB1E06DD55A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBDA0374-DA57-4CAA-A0B5-5BB1E06DD55A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBDA0374-DA57-4CAA-A0B5-5BB1E06DD55A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CC58518-F144-4F13-A744-80348125B3EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CC58518-F144-4F13-A744-80348125B3EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CC58518-F144-4F13-A744-80348125B3EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CC58518-F144-4F13-A744-80348125B3EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46AE2F98-E6D3-4D42-B163-F49F6B0775A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46AE2F98-E6D3-4D42-B163-F49F6B0775A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46AE2F98-E6D3-4D42-B163-F49F6B0775A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46AE2F98-E6D3-4D42-B163-F49F6B0775A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D13F7FE-D714-43E2-9560-09DD918F2C57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D13F7FE-D714-43E2-9560-09DD918F2C57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D13F7FE-D714-43E2-9560-09DD918F2C57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D13F7FE-D714-43E2-9560-09DD918F2C57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2FB2845-8D61-407F-8404-00FD9F8DC313}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2FB2845-8D61-407F-8404-00FD9F8DC313}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2FB2845-8D61-407F-8404-00FD9F8DC313}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2FB2845-8D61-407F-8404-00FD9F8DC313}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{4C9361DF-64DE-4F65-A78A-B89B279FDB04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C9361DF-64DE-4F65-A78A-B89B279FDB04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C9361DF-64DE-4F65-A78A-B89B279FDB04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C9361DF-64DE-4F65-A78A-B89B279FDB04}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5F365426-EB93-49F0-851D-41D0573EEC18} = {F3A10C8D-3227-449F-A2CB-014DE2D7F415}
+		{CBDA0374-DA57-4CAA-A0B5-5BB1E06DD55A} = {F3A10C8D-3227-449F-A2CB-014DE2D7F415}
+		{2CC58518-F144-4F13-A744-80348125B3EB} = {F3A10C8D-3227-449F-A2CB-014DE2D7F415}
+		{46AE2F98-E6D3-4D42-B163-F49F6B0775A6} = {F3A10C8D-3227-449F-A2CB-014DE2D7F415}
+		{4D13F7FE-D714-43E2-9560-09DD918F2C57} = {F3A10C8D-3227-449F-A2CB-014DE2D7F415}
+		{D2FB2845-8D61-407F-8404-00FD9F8DC313} = {F3A10C8D-3227-449F-A2CB-014DE2D7F415}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {608E27BC-4A43-4470-AE03-F115E8FEFCCA}
+	EndGlobalSection
+EndGlobal

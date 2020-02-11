@@ -1,0 +1,262 @@
+<NetTiersReport DALNameSpace="EmployeeDB.DAL" SolutionLink="file:\\\D:\Shared\Tuan\Employee\EmployeeDB.sln" ConnectionString="Data Source=.\SQL2012EXP;Initial Catalog=Employee;User ID=sa;Password=*IFSsapass!" FactoryType="EmployeeDB.BLL.EntityFactory">
+  <initialization startTime="132096487889101750" executionTime="00:00:02.5740000">
+    <Message level="0" startTime="132096487889101750" message="Validating parameters." />
+    <Message level="2" startTime="132096487892689750" message="Generating .netTiers Entity Mapping" />
+    <Message level="0" startTime="132096487892845750" message="Loading templates." executionTime="00:00:02.1840000" />
+    <Message level="0" startTime="132096487914685750" message="Creating folders and copying dependencies." />
+  </initialization>
+  <customStoredProcedures includeCustoms="true" />
+  <common startTime="132096487914841750" executionTime="00:00:02.2152000">
+    <File name="ListBase.cs" startTime="132096487914841750" />
+    <File name="TList.cs" startTime="132096487914841750" />
+    <File name="VList.cs" startTime="132096487914997750" />
+    <File name="WeakRefDictionary.cs" startTime="132096487914997750" />
+    <File name="TestUtility.cs" startTime="132096487914997750" />
+    <File name="IEntity.cs" startTime="132096487914997750" />
+    <File name="IEntityId.cs" startTime="132096487915153750" />
+    <File name="IEntityKey.cs" startTime="132096487915153750" />
+    <File name="EntityFactory.cs" startTime="132096487915153750" />
+    <File name="EntityFactoryBase.cs" startTime="132096487915153750" />
+    <File name="IEntityFactory.cs" startTime="132096487915153750" />
+    <File name="IEntityCacheItem.cs" startTime="132096487915309750" />
+    <File name="EntityCache.cs" startTime="132096487915309750" />
+    <File name="EntityLocator.cs" startTime="132096487915309750" />
+    <File name="EntityManager.cs" startTime="132096487915309750" />
+    <File name="BrokenRule.cs" startTime="132096487915465750" />
+    <File name="BrokenRulesList.cs" startTime="132096487915465750" />
+    <File name="CommonRules.cs" startTime="132096487915465750" />
+    <File name="ValidationRuleArgs.cs" startTime="132096487915465750" />
+    <File name="ValidationRuleHandler.cs" startTime="132096487915621750" />
+    <File name="ValidationRuleInfo.cs" startTime="132096487915621750" />
+    <File name="ValidationRules.cs" startTime="132096487915621750" />
+    <File name="EntityBaseCore.generated.cs" startTime="132096487915621750" />
+    <File name="EntityBase.cs" startTime="132096487915777750" />
+    <File name="EntityKeyBaseCore.generated.cs" startTime="132096487915777750" />
+    <File name="EntityKeyBase.cs" startTime="132096487915777750" />
+    <File name="SecurityContext.cs" startTime="132096487915777750" />
+    <File name="SecurityContextBase.generated.cs" startTime="132096487915933750" />
+    <File name="ContextView.cs" startTime="132096487915933750" />
+    <File name="IProcessor.cs" startTime="132096487915933750" />
+    <File name="IProcessorResult.cs" startTime="132096487915933750" />
+    <File name="ProcessorBase.cs" startTime="132096487915933750" />
+    <File name="GenericProcessorResult.cs" startTime="132096487916089750" />
+    <File name="DomainUtil.cs" startTime="132096487916089750" />
+    <File name="IConnectionScope.cs" startTime="132096487916089750" />
+    <File name="ConnectionScope.cs" startTime="132096487916089750" />
+    <File name="ConnectionScopeBase.cs" startTime="132096487916245750" />
+    <File name="IComponentService.cs" startTime="132096487916245750" />
+    <File name="ServiceBase.cst.cs" startTime="132096487916245750" />
+    <File name="ServiceBaseCore.cst.cs" startTime="132096487916245750" />
+    <File name="ServiceViewBase.cst.cs" startTime="132096487916401750" />
+    <File name="ServiceViewBaseCore.cst.cs" startTime="132096487916401750" />
+    <File name="ServiceResult.cs" startTime="132096487916401750" />
+    <File name="EntityFilter.cs" startTime="132096487916557750" />
+    <File name="EntityPropertyComparer.cs" startTime="132096487916557750" />
+    <File name="GenericTypeConverter.cs" startTime="132096487916557750" />
+    <File name="Procedures.xml" startTime="132096487916557750" />
+    <File name="Utility.cs" startTime="132096487917961750" />
+    <File name="ITransactionManager.cs" startTime="132096487917961750" />
+    <File name="TransactionManager.cs" startTime="132096487917961750" />
+    <File name="FileConfigurationSouce.cs" startTime="132096487918117750" />
+    <File name="FileConfigurationSouceElement.cs" startTime="132096487918117750" />
+    <File name="DataRepository.cs" startTime="132096487918117750" />
+    <File name="IEntityProvider.cs" startTime="132096487918273750" />
+    <File name="IEntityViewProvider.cs" startTime="132096487918273750" />
+    <File name="EntityProviderBase.cs" startTime="132096487918273750" />
+    <File name="EntityProviderBaseCore.generated.cs" startTime="132096487918429750" />
+    <File name="EntityViewProviderBase.cs" startTime="132096487918429750" />
+    <File name="EntityViewProviderBaseCore.generated.cs" startTime="132096487918741750" />
+    <File name="INetTiersProvider.cs" startTime="132096487918741750" />
+    <File name="NetTiersProvider.cs" startTime="132096487918897750" />
+    <File name="NetTiersProviderBase.cs" startTime="132096487919053750" />
+    <File name="NetTiersProviderCollection.cs" startTime="132096487919209750" />
+    <File name="NetTiersServiceSection.cs" startTime="132096487919209750" />
+    <File name="ExpressionParserBase.cs" startTime="132096487919209750" />
+    <File name="SqlExpressionParser.cs" startTime="132096487919209750" />
+    <File name="SqlStringBuilder.cs" startTime="132096487919209750" />
+    <File name="SqlUtil.cs" startTime="132096487919365750" />
+    <File name="StringTokenizer.cs" startTime="132096487919365750" />
+    <File name="SqlClient\SqlNetTiersProvider.cs" startTime="132096487919521750" />
+    <File name="StoredProcedureProvider.cs" startTime="132096487919521750" />
+    <File name="BaseDataSource.cs" startTime="132096487919677750" />
+    <File name="BaseDataSourceDesigner.cs" startTime="132096487921861750" />
+    <File name="CustomDataSource.cs" startTime="132096487922329750" />
+    <File name="CustomDataSourceDesigner.cs" startTime="132096487922953750" />
+    <File name="CustomParameter.cs" startTime="132096487923109750" />
+    <File name="DataParameter.cs" startTime="132096487923265750" />
+    <File name="EntityDataSource.cs" startTime="132096487923421750" />
+    <File name="EntityDataSourceFilter.cs" startTime="132096487925137750" />
+    <File name="EntityRelationship.cs" startTime="132096487925293750" />
+    <File name="EntityRelationshipMember.cs" startTime="132096487925761750" />
+    <File name="EntityTransactionModule.cs" startTime="132096487926385750" />
+    <File name="ILinkedDataSource.cs" startTime="132096487926541750" />
+    <File name="ManyToManyListRelationship.cs" startTime="132096487926697750" />
+    <File name="ManyToManyViewRelationship.cs" startTime="132096487926853750" />
+    <File name="OneToManyGridRelationship.cs" startTime="132096487926853750" />
+    <File name="OneToOneViewRelationship.cs" startTime="132096487927009750" />
+    <File name="ProviderDataSource.cs" startTime="132096487927009750" />
+    <File name="ProviderDataSourceDesigner.cs" startTime="132096487927633750" />
+    <File name="ReadOnlyDataSource.cs" startTime="132096487927789750" />
+    <File name="ReadOnlyDataSourceDesigner.cs" startTime="132096487928101750" />
+    <File name="SqlParameter.cs" startTime="132096487928101750" />
+    <File name="DepartmentsDataSource.cs" startTime="132096487928881750" />
+    <File name="EmployeeDepartmentsDataSource.cs" startTime="132096487929817750" />
+    <File name="EmployeeDataSource.cs" startTime="132096487929817750" />
+    <File name="CountriesDataSource.cs" startTime="132096487929817750" />
+    <File name="SkillLevelsDataSource.cs" startTime="132096487929973750" />
+    <File name="SkillDataSource.cs" startTime="132096487929973750" />
+    <File name="BankAccountsDataSource.cs" startTime="132096487930129750" />
+    <File name="EmployeeSalaryDataSource.cs" startTime="132096487930129750" />
+    <File name="AddressDataSource.cs" startTime="132096487930129750" />
+    <File name="EmployeeSkillsDataSource.cs" startTime="132096487930285750" />
+    <File name="FormUtil.cs" startTime="132096487930285750" />
+    <File name="FormUtilBase.generated.cs" startTime="132096487930441750" />
+    <File name="MultiBindableTemplate.cs" startTime="132096487933093750" />
+    <File name="MultiFormView.cs" startTime="132096487933249750" />
+    <File name="EntityGridView.cs" startTime="132096487933405750" />
+    <File name="EntityDropDownList.cs" startTime="132096487934185750" />
+    <File name="BoundEntityDropDownField.cs" startTime="132096487934497750" />
+    <File name="BoundRadioButtonField.cs" startTime="132096487934653750" />
+    <File name="GridViewSearchPanel.cs" startTime="132096487934809750" />
+    <File name="GridViewSearchPanelState.cs" startTime="132096487935277750" />
+    <File name="EntityLabel.cs" startTime="132096487935277750" />
+    <File name="HyperlinkField.cs" startTime="132096487935433750" />
+    <File name="DepartmentsRepeater.cs" startTime="132096487935589750" />
+    <File name="EmployeeDepartmentsRepeater.cs" startTime="132096487935745750" />
+    <File name="EmployeeRepeater.cs" startTime="132096487935901750" />
+    <File name="CountriesRepeater.cs" startTime="132096487935901750" />
+    <File name="SkillLevelsRepeater.cs" startTime="132096487935901750" />
+    <File name="SkillRepeater.cs" startTime="132096487935901750" />
+    <File name="BankAccountsRepeater.cs" startTime="132096487935901750" />
+    <File name="EmployeeSalaryRepeater.cs" startTime="132096487935901750" />
+    <File name="AddressRepeater.cs" startTime="132096487936057750" />
+    <File name="EmployeeSkillsRepeater.cs" startTime="132096487936057750" />
+    <File name="Web.config" startTime="132096487936057750" />
+    <File name="Enterprise Library v5_0 website configuration files" startTime="132096487936213750" />
+    <File name="Default.aspx" startTime="132096487936369750" />
+    <File name="Default.aspx.cs" startTime="132096487936525750" />
+    <File name="EmployeeDB.sln" startTime="132096487936525750" />
+    <File name="CL.csproj" startTime="132096487936681750" />
+    <File name="EmployeeDB.BLL.csproj" startTime="132096487936681750" />
+    <File name="EmployeeDB.DAL.DAL.csproj" startTime="132096487936681750" />
+    <File name="EmployeeDB.BLL.DAL.SqlClient.csproj" startTime="132096487936837750" />
+    <File name="EmployeeDB.Web.csproj" startTime="132096487936837750" />
+    <File name="EmployeeDB.build" startTime="132096487936837750" />
+    <File name="EntityHelper.cs" startTime="132096487936837750" />
+    <File name="EntityUtil.cs" startTime="132096487936837750" />
+  </common>
+  <Table name="Departments" startTime="132096487936993750" executionTime="00:00:00.0468000">
+    <File name="Departments.generated.cs" startTime="132096487936993750" executionTime="00:00:00.0156000" />
+    <File name="IDepartments.cs" startTime="132096487937149750" executionTime="00:00:00" />
+    <File name="Departments.cs" startTime="132096487937149750" executionTime="00:00:00" />
+    <File name="DepartmentsService.cs" startTime="132096487937149750" executionTime="00:00:00" />
+    <File name="DepartmentsServiceBase.generated.cs" startTime="132096487937149750" executionTime="00:00:00.0156000" />
+    <File name="DepartmentsProviderBase.generatedCore.cs" startTime="132096487937305750" executionTime="00:00:00" />
+    <File name="DepartmentsProviderBase.generated.cs" startTime="132096487937305750" executionTime="00:00:00.0156000" />
+    <File name="SqlClient\SqlDepartmentsProviderBase.generated.cs" startTime="132096487937461750" executionTime="00:00:00" />
+    <File name="SqlClient\DepartmentsTest.cs" startTime="132096487937461750" executionTime="00:00:00" />
+  </Table>
+  <Table name="EmployeeDepartments" startTime="132096487937461750" executionTime="00:00:00.0624000">
+    <File name="EmployeeDepartments.generated.cs" startTime="132096487937461750" executionTime="00:00:00.0156000" />
+    <File name="IEmployeeDepartments.cs" startTime="132096487937617750" executionTime="00:00:00" />
+    <File name="EmployeeDepartments.cs" startTime="132096487937617750" executionTime="00:00:00" />
+    <File name="EmployeeDepartmentsService.cs" startTime="132096487937617750" executionTime="00:00:00" />
+    <File name="EmployeeDepartmentsServiceBase.generated.cs" startTime="132096487937617750" executionTime="00:00:00.0312000" />
+    <File name="EmployeeDepartmentsProviderBase.generatedCore.cs" startTime="132096487937929750" executionTime="00:00:00" />
+    <File name="EmployeeDepartmentsProviderBase.generated.cs" startTime="132096487937929750" executionTime="00:00:00" />
+    <File name="SqlClient\SqlEmployeeDepartmentsProviderBase.generated.cs" startTime="132096487937929750" executionTime="00:00:00" />
+    <File name="SqlClient\EmployeeDepartmentsTest.cs" startTime="132096487938085750" executionTime="00:00:00" />
+  </Table>
+  <Table name="Employee" startTime="132096487938085750" executionTime="00:00:00.0624000">
+    <File name="Employee.generated.cs" startTime="132096487938085750" executionTime="00:00:00.0156000" />
+    <File name="IEmployee.cs" startTime="132096487938241750" executionTime="00:00:00" />
+    <File name="Employee.cs" startTime="132096487938241750" executionTime="00:00:00" />
+    <File name="EmployeeService.cs" startTime="132096487938241750" executionTime="00:00:00" />
+    <File name="EmployeeServiceBase.generated.cs" startTime="132096487938241750" executionTime="00:00:00.0156000" />
+    <File name="EmployeeProviderBase.generatedCore.cs" startTime="132096487938397750" executionTime="00:00:00.0156000" />
+    <File name="EmployeeProviderBase.generated.cs" startTime="132096487938553750" executionTime="00:00:00" />
+    <File name="SqlClient\SqlEmployeeProviderBase.generated.cs" startTime="132096487938553750" executionTime="00:00:00" />
+    <File name="SqlClient\EmployeeTest.cs" startTime="132096487938553750" executionTime="00:00:00.0156000" />
+  </Table>
+  <Table name="Countries" startTime="132096487938709750" executionTime="00:00:00.0624000">
+    <File name="Countries.generated.cs" startTime="132096487938709750" executionTime="00:00:00" />
+    <File name="ICountries.cs" startTime="132096487938709750" executionTime="00:00:00" />
+    <File name="Countries.cs" startTime="132096487938709750" executionTime="00:00:00.0156000" />
+    <File name="CountriesService.cs" startTime="132096487938865750" executionTime="00:00:00" />
+    <File name="CountriesServiceBase.generated.cs" startTime="132096487938865750" executionTime="00:00:00.0156000" />
+    <File name="CountriesProviderBase.generatedCore.cs" startTime="132096487939021750" executionTime="00:00:00" />
+    <File name="CountriesProviderBase.generated.cs" startTime="132096487939021750" executionTime="00:00:00.0156000" />
+    <File name="SqlClient\SqlCountriesProviderBase.generated.cs" startTime="132096487939177750" executionTime="00:00:00" />
+    <File name="SqlClient\CountriesTest.cs" startTime="132096487939177750" executionTime="00:00:00.0156000" />
+  </Table>
+  <Table name="SkillLevels" startTime="132096487939333750" executionTime="00:00:00.1248000">
+    <File name="SkillLevels.generated.cs" startTime="132096487939333750" executionTime="00:00:00.0156000" />
+    <File name="ISkillLevels.cs" startTime="132096487939489750" executionTime="00:00:00.0156000" />
+    <File name="SkillLevels.cs" startTime="132096487939645750" executionTime="00:00:00" />
+    <File name="SkillLevelsService.cs" startTime="132096487939645750" executionTime="00:00:00.0312000" />
+    <File name="SkillLevelsServiceBase.generated.cs" startTime="132096487939957750" executionTime="00:00:00.0312000" />
+    <File name="SkillLevelsProviderBase.generatedCore.cs" startTime="132096487940269750" executionTime="00:00:00.0156000" />
+    <File name="SkillLevelsProviderBase.generated.cs" startTime="132096487940425750" executionTime="00:00:00" />
+    <File name="SqlClient\SqlSkillLevelsProviderBase.generated.cs" startTime="132096487940425750" executionTime="00:00:00.0156000" />
+    <File name="SqlClient\SkillLevelsTest.cs" startTime="132096487940581750" executionTime="00:00:00" />
+  </Table>
+  <Table name="Skill" startTime="132096487940581750" executionTime="00:00:00.1092000">
+    <File name="Skill.generated.cs" startTime="132096487940581750" executionTime="00:00:00.0312000" />
+    <File name="ISkill.cs" startTime="132096487940893750" executionTime="00:00:00" />
+    <File name="Skill.cs" startTime="132096487940893750" executionTime="00:00:00.0156000" />
+    <File name="SkillService.cs" startTime="132096487941049750" executionTime="00:00:00" />
+    <File name="SkillServiceBase.generated.cs" startTime="132096487941049750" executionTime="00:00:00.0312000" />
+    <File name="SkillProviderBase.generatedCore.cs" startTime="132096487941361750" executionTime="00:00:00" />
+    <File name="SkillProviderBase.generated.cs" startTime="132096487941517750" executionTime="00:00:00" />
+    <File name="SqlClient\SqlSkillProviderBase.generated.cs" startTime="132096487941517750" executionTime="00:00:00" />
+    <File name="SqlClient\SkillTest.cs" startTime="132096487941673750" executionTime="00:00:00" />
+  </Table>
+  <Table name="BankAccounts" startTime="132096487941673750" executionTime="00:00:00.1092000">
+    <File name="BankAccounts.generated.cs" startTime="132096487941673750" executionTime="00:00:00.0312000" />
+    <File name="IBankAccounts.cs" startTime="132096487941985750" executionTime="00:00:00" />
+    <File name="BankAccounts.cs" startTime="132096487941985750" executionTime="00:00:00" />
+    <File name="BankAccountsService.cs" startTime="132096487941985750" executionTime="00:00:00.0156000" />
+    <File name="BankAccountsServiceBase.generated.cs" startTime="132096487942141750" executionTime="00:00:00.0312000" />
+    <File name="BankAccountsProviderBase.generatedCore.cs" startTime="132096487942453750" executionTime="00:00:00" />
+    <File name="BankAccountsProviderBase.generated.cs" startTime="132096487942453750" executionTime="00:00:00.0156000" />
+    <File name="SqlClient\SqlBankAccountsProviderBase.generated.cs" startTime="132096487942609750" executionTime="00:00:00.0156000" />
+    <File name="SqlClient\BankAccountsTest.cs" startTime="132096487942765750" executionTime="00:00:00" />
+  </Table>
+  <Table name="EmployeeSalary" startTime="132096487942765750" executionTime="00:00:00.0936000">
+    <File name="EmployeeSalary.generated.cs" startTime="132096487942765750" executionTime="00:00:00.0312000" />
+    <File name="IEmployeeSalary.cs" startTime="132096487943077750" executionTime="00:00:00" />
+    <File name="EmployeeSalary.cs" startTime="132096487943077750" executionTime="00:00:00" />
+    <File name="EmployeeSalaryService.cs" startTime="132096487943077750" executionTime="00:00:00" />
+    <File name="EmployeeSalaryServiceBase.generated.cs" startTime="132096487943077750" executionTime="00:00:00.0312000" />
+    <File name="EmployeeSalaryProviderBase.generatedCore.cs" startTime="132096487943389750" executionTime="00:00:00.0156000" />
+    <File name="EmployeeSalaryProviderBase.generated.cs" startTime="132096487943545750" executionTime="00:00:00" />
+    <File name="SqlClient\SqlEmployeeSalaryProviderBase.generated.cs" startTime="132096487943545750" executionTime="00:00:00.0156000" />
+    <File name="SqlClient\EmployeeSalaryTest.cs" startTime="132096487943701750" executionTime="00:00:00" />
+  </Table>
+  <Table name="Address" startTime="132096487943701750" executionTime="00:00:00.0936000">
+    <File name="Address.generated.cs" startTime="132096487943701750" executionTime="00:00:00.0312000" />
+    <File name="IAddress.cs" startTime="132096487944013750" executionTime="00:00:00" />
+    <File name="Address.cs" startTime="132096487944013750" executionTime="00:00:00" />
+    <File name="AddressService.cs" startTime="132096487944013750" executionTime="00:00:00" />
+    <File name="AddressServiceBase.generated.cs" startTime="132096487944013750" executionTime="00:00:00.0312000" />
+    <File name="AddressProviderBase.generatedCore.cs" startTime="132096487944325750" executionTime="00:00:00.0156000" />
+    <File name="AddressProviderBase.generated.cs" startTime="132096487944481750" executionTime="00:00:00" />
+    <File name="SqlClient\SqlAddressProviderBase.generated.cs" startTime="132096487944481750" executionTime="00:00:00.0156000" />
+    <File name="SqlClient\AddressTest.cs" startTime="132096487944637750" executionTime="00:00:00" />
+  </Table>
+  <Table name="EmployeeSkills" startTime="132096487944637750" executionTime="00:00:00.1248000">
+    <File name="EmployeeSkills.generated.cs" startTime="132096487944637750" executionTime="00:00:00.0312000" />
+    <File name="IEmployeeSkills.cs" startTime="132096487945105750" executionTime="00:00:00" />
+    <File name="EmployeeSkills.cs" startTime="132096487945105750" executionTime="00:00:00" />
+    <File name="EmployeeSkillsService.cs" startTime="132096487945105750" executionTime="00:00:00" />
+    <File name="EmployeeSkillsServiceBase.generated.cs" startTime="132096487945105750" executionTime="00:00:00.0468000" />
+    <File name="EmployeeSkillsProviderBase.generatedCore.cs" startTime="132096487945573750" executionTime="00:00:00.0156000" />
+    <File name="EmployeeSkillsProviderBase.generated.cs" startTime="132096487945729750" executionTime="00:00:00" />
+    <File name="SqlClient\SqlEmployeeSkillsProviderBase.generated.cs" startTime="132096487945729750" executionTime="00:00:00.0156000" />
+    <File name="SqlClient\EmployeeSkillsTest.cs" startTime="132096487945885750" executionTime="00:00:00" />
+  </Table>
+  <summary>
+    <objectCount>226</objectCount>
+    <messageCount>0</messageCount>
+  </summary>
+</NetTiersReport>

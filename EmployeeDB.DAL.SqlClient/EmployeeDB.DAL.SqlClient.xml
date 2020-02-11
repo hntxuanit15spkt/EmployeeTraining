@@ -1,0 +1,2394 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EmployeeDB.DAL.SqlClient</name>
+    </assembly>
+    <members>
+        <member name="T:EmployeeDB.DAL.SqlClient.SqlDepartmentsProvider">
+            <summary>
+             This class is the SqlClient Data Access Logic Component implementation for the <see cref="T:EmployeeDB.BLL.Departments"/> entity.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlDepartmentsProvider.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlDepartmentsProvider"/> instance.
+            Uses connection string to connect to datasource.
+            </summary>
+            <param name="connectionString">The connection string to the database.</param>
+            <param name="useStoredProcedure">A boolean value that indicates if we use the stored procedures or embedded queries.</param>
+            <param name="providerInvariantName">Name of the invariant provider use by the DbProviderFactory.</param>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.SqlDepartmentsProviderBase">
+            <summary>
+             This class is the SqlClient Data Access Logic Component implementation for the <see cref="T:EmployeeDB.BLL.Departments"/> entity.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlDepartmentsProviderBase.#ctor">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlDepartmentsProviderBase"/> instance.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlDepartmentsProviderBase.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlDepartmentsProviderBase"/> instance.
+            Uses connection string to connect to datasource.
+            </summary>
+            <param name="connectionString">The connection string to the database.</param>
+            <param name="useStoredProcedure">A boolean value that indicates if we should use stored procedures or embedded queries.</param>
+            <param name="providerInvariantName">Name of the invariant provider use by the DbProviderFactory.</param>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlDepartmentsProviderBase.ConnectionString">
+            <summary>
+            Gets or sets the connection string.
+            </summary>
+            <value>The connection string.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlDepartmentsProviderBase.UseStoredProcedure">
+            <summary>
+            Gets or sets a value indicating whether to use stored procedures.
+            </summary>
+            <value><c>true</c> if we choose to use use stored procedures; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlDepartmentsProviderBase.ProviderInvariantName">
+            <summary>
+            Gets or sets the invariant provider name listed in the DbProviderFactories machine.config section.
+            </summary>
+            <value>The name of the provider invariant.</value>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlDepartmentsProviderBase.Delete(EmployeeDB.DAL.TransactionManager,System.String)">
+            <summary>
+            	Deletes a row from the DataSource.
+            </summary>
+            <param name="_departmentCode">. Primary Key.</param>	
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <remarks>Deletes based on primary key(s).</remarks>
+            <returns>Returns true if operation suceeded.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlDepartmentsProviderBase.Find(EmployeeDB.DAL.TransactionManager,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Returns rows meeting the whereClause condition from the DataSource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="whereClause">Specifies the condition for the rows returned by a query (Name='John Doe', Name='John Doe' AND Id='1', Name='John Doe' OR Id='1').</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <remarks>Operators must be capitalized (OR, AND).</remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.Departments objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlDepartmentsProviderBase.Find(EmployeeDB.DAL.TransactionManager,EmployeeDB.DAL.IFilterParameterCollection,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Returns rows from the DataSource that meet the parameter conditions.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="parameters">A collection of <see cref="T:EmployeeDB.DAL.SqlFilterParameter"/> objects.</param>
+            <param name="orderBy">Specifies the sort criteria for the rows in the DataSource (Name ASC; BirthDay DESC, Name ASC);</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <returns>Returns a typed collection of EmployeeDB.BLL.Departments objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlDepartmentsProviderBase.GetAll(EmployeeDB.DAL.TransactionManager,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets All rows from the DataSource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.Departments objects.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlDepartmentsProviderBase.GetPaged(EmployeeDB.DAL.TransactionManager,System.String,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            Gets a page of rows from the DataSource.
+            </summary>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">Number of rows in the DataSource.</param>
+            <param name="whereClause">Specifies the condition for the rows returned by a query (Name='John Doe', Name='John Doe' AND Id='1', Name='John Doe' OR Id='1').</param>
+            <param name="orderBy">Specifies the sort criteria for the rows in the DataSource (Name ASC; BirthDay DESC, Name ASC);</param>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.Departments objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlDepartmentsProviderBase.GetByDepartmentCode(EmployeeDB.DAL.TransactionManager,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets rows from the datasource based on the PK_Departments index.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="_departmentCode"></param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out parameter to get total records for query.</param>
+            <returns>Returns an instance of the <see cref="T:EmployeeDB.BLL.Departments"/> class.</returns>
+            <remarks></remarks>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlDepartmentsProviderBase.BulkInsert(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.TList{EmployeeDB.BLL.Departments})">
+            <summary>
+            Lets you efficiently bulk insert many entities to the database.
+            </summary>
+            <param name="transactionManager">The transaction manager.</param>
+            <param name="entities">The entities.</param>
+            <remarks>
+            	After inserting into the datasource, the EmployeeDB.BLL.Departments object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>	
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlDepartmentsProviderBase.Insert(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.Departments)">
+            <summary>
+            	Inserts a EmployeeDB.BLL.Departments object into the datasource using a transaction.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="entity">EmployeeDB.BLL.Departments object to insert.</param>
+            <remarks>
+            	After inserting into the datasource, the EmployeeDB.BLL.Departments object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>	
+            <returns>Returns true if operation is successful.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlDepartmentsProviderBase.Update(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.Departments)">
+            <summary>
+            	Update an existing row in the datasource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="entity">EmployeeDB.BLL.Departments object to update.</param>
+            <remarks>
+            	After updating the datasource, the EmployeeDB.BLL.Departments object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>
+            <returns>Returns true if operation is successful.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.SqlEmployeeDepartmentsProvider">
+            <summary>
+             This class is the SqlClient Data Access Logic Component implementation for the <see cref="T:EmployeeDB.BLL.EmployeeDepartments"/> entity.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeDepartmentsProvider.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlEmployeeDepartmentsProvider"/> instance.
+            Uses connection string to connect to datasource.
+            </summary>
+            <param name="connectionString">The connection string to the database.</param>
+            <param name="useStoredProcedure">A boolean value that indicates if we use the stored procedures or embedded queries.</param>
+            <param name="providerInvariantName">Name of the invariant provider use by the DbProviderFactory.</param>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.SqlEmployeeDepartmentsProviderBase">
+            <summary>
+             This class is the SqlClient Data Access Logic Component implementation for the <see cref="T:EmployeeDB.BLL.EmployeeDepartments"/> entity.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeDepartmentsProviderBase.#ctor">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlEmployeeDepartmentsProviderBase"/> instance.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeDepartmentsProviderBase.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlEmployeeDepartmentsProviderBase"/> instance.
+            Uses connection string to connect to datasource.
+            </summary>
+            <param name="connectionString">The connection string to the database.</param>
+            <param name="useStoredProcedure">A boolean value that indicates if we should use stored procedures or embedded queries.</param>
+            <param name="providerInvariantName">Name of the invariant provider use by the DbProviderFactory.</param>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlEmployeeDepartmentsProviderBase.ConnectionString">
+            <summary>
+            Gets or sets the connection string.
+            </summary>
+            <value>The connection string.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlEmployeeDepartmentsProviderBase.UseStoredProcedure">
+            <summary>
+            Gets or sets a value indicating whether to use stored procedures.
+            </summary>
+            <value><c>true</c> if we choose to use use stored procedures; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlEmployeeDepartmentsProviderBase.ProviderInvariantName">
+            <summary>
+            Gets or sets the invariant provider name listed in the DbProviderFactories machine.config section.
+            </summary>
+            <value>The name of the provider invariant.</value>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeDepartmentsProviderBase.Delete(EmployeeDB.DAL.TransactionManager,System.Int32)">
+            <summary>
+            	Deletes a row from the DataSource.
+            </summary>
+            <param name="_employeeDepartmentId">. Primary Key.</param>	
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <remarks>Deletes based on primary key(s).</remarks>
+            <returns>Returns true if operation suceeded.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeDepartmentsProviderBase.Find(EmployeeDB.DAL.TransactionManager,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Returns rows meeting the whereClause condition from the DataSource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="whereClause">Specifies the condition for the rows returned by a query (Name='John Doe', Name='John Doe' AND Id='1', Name='John Doe' OR Id='1').</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <remarks>Operators must be capitalized (OR, AND).</remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.EmployeeDepartments objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeDepartmentsProviderBase.Find(EmployeeDB.DAL.TransactionManager,EmployeeDB.DAL.IFilterParameterCollection,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Returns rows from the DataSource that meet the parameter conditions.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="parameters">A collection of <see cref="T:EmployeeDB.DAL.SqlFilterParameter"/> objects.</param>
+            <param name="orderBy">Specifies the sort criteria for the rows in the DataSource (Name ASC; BirthDay DESC, Name ASC);</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <returns>Returns a typed collection of EmployeeDB.BLL.EmployeeDepartments objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeDepartmentsProviderBase.GetAll(EmployeeDB.DAL.TransactionManager,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets All rows from the DataSource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.EmployeeDepartments objects.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeDepartmentsProviderBase.GetPaged(EmployeeDB.DAL.TransactionManager,System.String,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            Gets a page of rows from the DataSource.
+            </summary>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">Number of rows in the DataSource.</param>
+            <param name="whereClause">Specifies the condition for the rows returned by a query (Name='John Doe', Name='John Doe' AND Id='1', Name='John Doe' OR Id='1').</param>
+            <param name="orderBy">Specifies the sort criteria for the rows in the DataSource (Name ASC; BirthDay DESC, Name ASC);</param>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.EmployeeDepartments objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeDepartmentsProviderBase.GetByDepartmentCode(EmployeeDB.DAL.TransactionManager,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets rows from the datasource based on the FK_EmployeeDepartments_Departments key.
+            	FK_EmployeeDepartments_Departments Description: 
+            </summary>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="_departmentCode"></param>
+            <param name="count">out parameter to get total records for query</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.EmployeeDepartments objects.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeDepartmentsProviderBase.GetByEmployeeId(EmployeeDB.DAL.TransactionManager,System.Nullable{System.Int32},System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets rows from the datasource based on the FK_EmployeeDepartments_Employee key.
+            	FK_EmployeeDepartments_Employee Description: 
+            </summary>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="_employeeId"></param>
+            <param name="count">out parameter to get total records for query</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.EmployeeDepartments objects.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeDepartmentsProviderBase.GetByEmployeeDepartmentId(EmployeeDB.DAL.TransactionManager,System.Int32,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets rows from the datasource based on the PK_EmployeeDepartments index.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="_employeeDepartmentId"></param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out parameter to get total records for query.</param>
+            <returns>Returns an instance of the <see cref="T:EmployeeDB.BLL.EmployeeDepartments"/> class.</returns>
+            <remarks></remarks>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeDepartmentsProviderBase.BulkInsert(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.TList{EmployeeDB.BLL.EmployeeDepartments})">
+            <summary>
+            Lets you efficiently bulk insert many entities to the database.
+            </summary>
+            <param name="transactionManager">The transaction manager.</param>
+            <param name="entities">The entities.</param>
+            <remarks>
+            	After inserting into the datasource, the EmployeeDB.BLL.EmployeeDepartments object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>	
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeDepartmentsProviderBase.Insert(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.EmployeeDepartments)">
+            <summary>
+            	Inserts a EmployeeDB.BLL.EmployeeDepartments object into the datasource using a transaction.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="entity">EmployeeDB.BLL.EmployeeDepartments object to insert.</param>
+            <remarks>
+            	After inserting into the datasource, the EmployeeDB.BLL.EmployeeDepartments object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>	
+            <returns>Returns true if operation is successful.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeDepartmentsProviderBase.Update(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.EmployeeDepartments)">
+            <summary>
+            	Update an existing row in the datasource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="entity">EmployeeDB.BLL.EmployeeDepartments object to update.</param>
+            <remarks>
+            	After updating the datasource, the EmployeeDB.BLL.EmployeeDepartments object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>
+            <returns>Returns true if operation is successful.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.SqlEmployeeProvider">
+            <summary>
+             This class is the SqlClient Data Access Logic Component implementation for the <see cref="T:EmployeeDB.BLL.Employee"/> entity.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeProvider.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlEmployeeProvider"/> instance.
+            Uses connection string to connect to datasource.
+            </summary>
+            <param name="connectionString">The connection string to the database.</param>
+            <param name="useStoredProcedure">A boolean value that indicates if we use the stored procedures or embedded queries.</param>
+            <param name="providerInvariantName">Name of the invariant provider use by the DbProviderFactory.</param>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.SqlEmployeeProviderBase">
+            <summary>
+             This class is the SqlClient Data Access Logic Component implementation for the <see cref="T:EmployeeDB.BLL.Employee"/> entity.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeProviderBase.#ctor">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlEmployeeProviderBase"/> instance.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeProviderBase.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlEmployeeProviderBase"/> instance.
+            Uses connection string to connect to datasource.
+            </summary>
+            <param name="connectionString">The connection string to the database.</param>
+            <param name="useStoredProcedure">A boolean value that indicates if we should use stored procedures or embedded queries.</param>
+            <param name="providerInvariantName">Name of the invariant provider use by the DbProviderFactory.</param>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlEmployeeProviderBase.ConnectionString">
+            <summary>
+            Gets or sets the connection string.
+            </summary>
+            <value>The connection string.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlEmployeeProviderBase.UseStoredProcedure">
+            <summary>
+            Gets or sets a value indicating whether to use stored procedures.
+            </summary>
+            <value><c>true</c> if we choose to use use stored procedures; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlEmployeeProviderBase.ProviderInvariantName">
+            <summary>
+            Gets or sets the invariant provider name listed in the DbProviderFactories machine.config section.
+            </summary>
+            <value>The name of the provider invariant.</value>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeProviderBase.Delete(EmployeeDB.DAL.TransactionManager,System.Int32)">
+            <summary>
+            	Deletes a row from the DataSource.
+            </summary>
+            <param name="_employeeId">. Primary Key.</param>	
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <remarks>Deletes based on primary key(s).</remarks>
+            <returns>Returns true if operation suceeded.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeProviderBase.Find(EmployeeDB.DAL.TransactionManager,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Returns rows meeting the whereClause condition from the DataSource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="whereClause">Specifies the condition for the rows returned by a query (Name='John Doe', Name='John Doe' AND Id='1', Name='John Doe' OR Id='1').</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <remarks>Operators must be capitalized (OR, AND).</remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.Employee objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeProviderBase.Find(EmployeeDB.DAL.TransactionManager,EmployeeDB.DAL.IFilterParameterCollection,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Returns rows from the DataSource that meet the parameter conditions.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="parameters">A collection of <see cref="T:EmployeeDB.DAL.SqlFilterParameter"/> objects.</param>
+            <param name="orderBy">Specifies the sort criteria for the rows in the DataSource (Name ASC; BirthDay DESC, Name ASC);</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <returns>Returns a typed collection of EmployeeDB.BLL.Employee objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeProviderBase.GetAll(EmployeeDB.DAL.TransactionManager,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets All rows from the DataSource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.Employee objects.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeProviderBase.GetPaged(EmployeeDB.DAL.TransactionManager,System.String,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            Gets a page of rows from the DataSource.
+            </summary>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">Number of rows in the DataSource.</param>
+            <param name="whereClause">Specifies the condition for the rows returned by a query (Name='John Doe', Name='John Doe' AND Id='1', Name='John Doe' OR Id='1').</param>
+            <param name="orderBy">Specifies the sort criteria for the rows in the DataSource (Name ASC; BirthDay DESC, Name ASC);</param>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.Employee objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeProviderBase.GetByEmployeeId(EmployeeDB.DAL.TransactionManager,System.Int32,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets rows from the datasource based on the PK_Employee index.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="_employeeId"></param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out parameter to get total records for query.</param>
+            <returns>Returns an instance of the <see cref="T:EmployeeDB.BLL.Employee"/> class.</returns>
+            <remarks></remarks>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeProviderBase.BulkInsert(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.TList{EmployeeDB.BLL.Employee})">
+            <summary>
+            Lets you efficiently bulk insert many entities to the database.
+            </summary>
+            <param name="transactionManager">The transaction manager.</param>
+            <param name="entities">The entities.</param>
+            <remarks>
+            	After inserting into the datasource, the EmployeeDB.BLL.Employee object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>	
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeProviderBase.Insert(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.Employee)">
+            <summary>
+            	Inserts a EmployeeDB.BLL.Employee object into the datasource using a transaction.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="entity">EmployeeDB.BLL.Employee object to insert.</param>
+            <remarks>
+            	After inserting into the datasource, the EmployeeDB.BLL.Employee object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>	
+            <returns>Returns true if operation is successful.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeProviderBase.Update(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.Employee)">
+            <summary>
+            	Update an existing row in the datasource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="entity">EmployeeDB.BLL.Employee object to update.</param>
+            <remarks>
+            	After updating the datasource, the EmployeeDB.BLL.Employee object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>
+            <returns>Returns true if operation is successful.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.SqlCountriesProvider">
+            <summary>
+             This class is the SqlClient Data Access Logic Component implementation for the <see cref="T:EmployeeDB.BLL.Countries"/> entity.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlCountriesProvider.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlCountriesProvider"/> instance.
+            Uses connection string to connect to datasource.
+            </summary>
+            <param name="connectionString">The connection string to the database.</param>
+            <param name="useStoredProcedure">A boolean value that indicates if we use the stored procedures or embedded queries.</param>
+            <param name="providerInvariantName">Name of the invariant provider use by the DbProviderFactory.</param>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.SqlCountriesProviderBase">
+            <summary>
+             This class is the SqlClient Data Access Logic Component implementation for the <see cref="T:EmployeeDB.BLL.Countries"/> entity.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlCountriesProviderBase.#ctor">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlCountriesProviderBase"/> instance.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlCountriesProviderBase.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlCountriesProviderBase"/> instance.
+            Uses connection string to connect to datasource.
+            </summary>
+            <param name="connectionString">The connection string to the database.</param>
+            <param name="useStoredProcedure">A boolean value that indicates if we should use stored procedures or embedded queries.</param>
+            <param name="providerInvariantName">Name of the invariant provider use by the DbProviderFactory.</param>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlCountriesProviderBase.ConnectionString">
+            <summary>
+            Gets or sets the connection string.
+            </summary>
+            <value>The connection string.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlCountriesProviderBase.UseStoredProcedure">
+            <summary>
+            Gets or sets a value indicating whether to use stored procedures.
+            </summary>
+            <value><c>true</c> if we choose to use use stored procedures; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlCountriesProviderBase.ProviderInvariantName">
+            <summary>
+            Gets or sets the invariant provider name listed in the DbProviderFactories machine.config section.
+            </summary>
+            <value>The name of the provider invariant.</value>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlCountriesProviderBase.Delete(EmployeeDB.DAL.TransactionManager,System.String)">
+            <summary>
+            	Deletes a row from the DataSource.
+            </summary>
+            <param name="_countryCode">. Primary Key.</param>	
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <remarks>Deletes based on primary key(s).</remarks>
+            <returns>Returns true if operation suceeded.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlCountriesProviderBase.Find(EmployeeDB.DAL.TransactionManager,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Returns rows meeting the whereClause condition from the DataSource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="whereClause">Specifies the condition for the rows returned by a query (Name='John Doe', Name='John Doe' AND Id='1', Name='John Doe' OR Id='1').</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <remarks>Operators must be capitalized (OR, AND).</remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.Countries objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlCountriesProviderBase.Find(EmployeeDB.DAL.TransactionManager,EmployeeDB.DAL.IFilterParameterCollection,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Returns rows from the DataSource that meet the parameter conditions.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="parameters">A collection of <see cref="T:EmployeeDB.DAL.SqlFilterParameter"/> objects.</param>
+            <param name="orderBy">Specifies the sort criteria for the rows in the DataSource (Name ASC; BirthDay DESC, Name ASC);</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <returns>Returns a typed collection of EmployeeDB.BLL.Countries objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlCountriesProviderBase.GetAll(EmployeeDB.DAL.TransactionManager,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets All rows from the DataSource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.Countries objects.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlCountriesProviderBase.GetPaged(EmployeeDB.DAL.TransactionManager,System.String,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            Gets a page of rows from the DataSource.
+            </summary>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">Number of rows in the DataSource.</param>
+            <param name="whereClause">Specifies the condition for the rows returned by a query (Name='John Doe', Name='John Doe' AND Id='1', Name='John Doe' OR Id='1').</param>
+            <param name="orderBy">Specifies the sort criteria for the rows in the DataSource (Name ASC; BirthDay DESC, Name ASC);</param>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.Countries objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlCountriesProviderBase.GetByCountryCode(EmployeeDB.DAL.TransactionManager,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets rows from the datasource based on the PK_Countries index.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="_countryCode"></param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out parameter to get total records for query.</param>
+            <returns>Returns an instance of the <see cref="T:EmployeeDB.BLL.Countries"/> class.</returns>
+            <remarks></remarks>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlCountriesProviderBase.BulkInsert(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.TList{EmployeeDB.BLL.Countries})">
+            <summary>
+            Lets you efficiently bulk insert many entities to the database.
+            </summary>
+            <param name="transactionManager">The transaction manager.</param>
+            <param name="entities">The entities.</param>
+            <remarks>
+            	After inserting into the datasource, the EmployeeDB.BLL.Countries object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>	
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlCountriesProviderBase.Insert(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.Countries)">
+            <summary>
+            	Inserts a EmployeeDB.BLL.Countries object into the datasource using a transaction.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="entity">EmployeeDB.BLL.Countries object to insert.</param>
+            <remarks>
+            	After inserting into the datasource, the EmployeeDB.BLL.Countries object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>	
+            <returns>Returns true if operation is successful.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlCountriesProviderBase.Update(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.Countries)">
+            <summary>
+            	Update an existing row in the datasource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="entity">EmployeeDB.BLL.Countries object to update.</param>
+            <remarks>
+            	After updating the datasource, the EmployeeDB.BLL.Countries object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>
+            <returns>Returns true if operation is successful.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.SqlSkillLevelsProvider">
+            <summary>
+             This class is the SqlClient Data Access Logic Component implementation for the <see cref="T:EmployeeDB.BLL.SkillLevels"/> entity.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillLevelsProvider.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlSkillLevelsProvider"/> instance.
+            Uses connection string to connect to datasource.
+            </summary>
+            <param name="connectionString">The connection string to the database.</param>
+            <param name="useStoredProcedure">A boolean value that indicates if we use the stored procedures or embedded queries.</param>
+            <param name="providerInvariantName">Name of the invariant provider use by the DbProviderFactory.</param>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.SqlSkillLevelsProviderBase">
+            <summary>
+             This class is the SqlClient Data Access Logic Component implementation for the <see cref="T:EmployeeDB.BLL.SkillLevels"/> entity.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillLevelsProviderBase.#ctor">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlSkillLevelsProviderBase"/> instance.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillLevelsProviderBase.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlSkillLevelsProviderBase"/> instance.
+            Uses connection string to connect to datasource.
+            </summary>
+            <param name="connectionString">The connection string to the database.</param>
+            <param name="useStoredProcedure">A boolean value that indicates if we should use stored procedures or embedded queries.</param>
+            <param name="providerInvariantName">Name of the invariant provider use by the DbProviderFactory.</param>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlSkillLevelsProviderBase.ConnectionString">
+            <summary>
+            Gets or sets the connection string.
+            </summary>
+            <value>The connection string.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlSkillLevelsProviderBase.UseStoredProcedure">
+            <summary>
+            Gets or sets a value indicating whether to use stored procedures.
+            </summary>
+            <value><c>true</c> if we choose to use use stored procedures; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlSkillLevelsProviderBase.ProviderInvariantName">
+            <summary>
+            Gets or sets the invariant provider name listed in the DbProviderFactories machine.config section.
+            </summary>
+            <value>The name of the provider invariant.</value>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillLevelsProviderBase.Delete(EmployeeDB.DAL.TransactionManager,System.String)">
+            <summary>
+            	Deletes a row from the DataSource.
+            </summary>
+            <param name="_levelCode">. Primary Key.</param>	
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <remarks>Deletes based on primary key(s).</remarks>
+            <returns>Returns true if operation suceeded.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillLevelsProviderBase.Find(EmployeeDB.DAL.TransactionManager,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Returns rows meeting the whereClause condition from the DataSource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="whereClause">Specifies the condition for the rows returned by a query (Name='John Doe', Name='John Doe' AND Id='1', Name='John Doe' OR Id='1').</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <remarks>Operators must be capitalized (OR, AND).</remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.SkillLevels objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillLevelsProviderBase.Find(EmployeeDB.DAL.TransactionManager,EmployeeDB.DAL.IFilterParameterCollection,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Returns rows from the DataSource that meet the parameter conditions.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="parameters">A collection of <see cref="T:EmployeeDB.DAL.SqlFilterParameter"/> objects.</param>
+            <param name="orderBy">Specifies the sort criteria for the rows in the DataSource (Name ASC; BirthDay DESC, Name ASC);</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <returns>Returns a typed collection of EmployeeDB.BLL.SkillLevels objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillLevelsProviderBase.GetAll(EmployeeDB.DAL.TransactionManager,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets All rows from the DataSource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.SkillLevels objects.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillLevelsProviderBase.GetPaged(EmployeeDB.DAL.TransactionManager,System.String,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            Gets a page of rows from the DataSource.
+            </summary>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">Number of rows in the DataSource.</param>
+            <param name="whereClause">Specifies the condition for the rows returned by a query (Name='John Doe', Name='John Doe' AND Id='1', Name='John Doe' OR Id='1').</param>
+            <param name="orderBy">Specifies the sort criteria for the rows in the DataSource (Name ASC; BirthDay DESC, Name ASC);</param>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.SkillLevels objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillLevelsProviderBase.GetByLevelCode(EmployeeDB.DAL.TransactionManager,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets rows from the datasource based on the PK_SkillLevel index.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="_levelCode"></param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out parameter to get total records for query.</param>
+            <returns>Returns an instance of the <see cref="T:EmployeeDB.BLL.SkillLevels"/> class.</returns>
+            <remarks></remarks>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillLevelsProviderBase.BulkInsert(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.TList{EmployeeDB.BLL.SkillLevels})">
+            <summary>
+            Lets you efficiently bulk insert many entities to the database.
+            </summary>
+            <param name="transactionManager">The transaction manager.</param>
+            <param name="entities">The entities.</param>
+            <remarks>
+            	After inserting into the datasource, the EmployeeDB.BLL.SkillLevels object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>	
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillLevelsProviderBase.Insert(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.SkillLevels)">
+            <summary>
+            	Inserts a EmployeeDB.BLL.SkillLevels object into the datasource using a transaction.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="entity">EmployeeDB.BLL.SkillLevels object to insert.</param>
+            <remarks>
+            	After inserting into the datasource, the EmployeeDB.BLL.SkillLevels object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>	
+            <returns>Returns true if operation is successful.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillLevelsProviderBase.Update(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.SkillLevels)">
+            <summary>
+            	Update an existing row in the datasource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="entity">EmployeeDB.BLL.SkillLevels object to update.</param>
+            <remarks>
+            	After updating the datasource, the EmployeeDB.BLL.SkillLevels object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>
+            <returns>Returns true if operation is successful.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.SqlSkillProvider">
+            <summary>
+             This class is the SqlClient Data Access Logic Component implementation for the <see cref="T:EmployeeDB.BLL.Skill"/> entity.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillProvider.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlSkillProvider"/> instance.
+            Uses connection string to connect to datasource.
+            </summary>
+            <param name="connectionString">The connection string to the database.</param>
+            <param name="useStoredProcedure">A boolean value that indicates if we use the stored procedures or embedded queries.</param>
+            <param name="providerInvariantName">Name of the invariant provider use by the DbProviderFactory.</param>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.SqlSkillProviderBase">
+            <summary>
+             This class is the SqlClient Data Access Logic Component implementation for the <see cref="T:EmployeeDB.BLL.Skill"/> entity.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillProviderBase.#ctor">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlSkillProviderBase"/> instance.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillProviderBase.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlSkillProviderBase"/> instance.
+            Uses connection string to connect to datasource.
+            </summary>
+            <param name="connectionString">The connection string to the database.</param>
+            <param name="useStoredProcedure">A boolean value that indicates if we should use stored procedures or embedded queries.</param>
+            <param name="providerInvariantName">Name of the invariant provider use by the DbProviderFactory.</param>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlSkillProviderBase.ConnectionString">
+            <summary>
+            Gets or sets the connection string.
+            </summary>
+            <value>The connection string.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlSkillProviderBase.UseStoredProcedure">
+            <summary>
+            Gets or sets a value indicating whether to use stored procedures.
+            </summary>
+            <value><c>true</c> if we choose to use use stored procedures; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlSkillProviderBase.ProviderInvariantName">
+            <summary>
+            Gets or sets the invariant provider name listed in the DbProviderFactories machine.config section.
+            </summary>
+            <value>The name of the provider invariant.</value>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillProviderBase.Delete(EmployeeDB.DAL.TransactionManager,System.String)">
+            <summary>
+            	Deletes a row from the DataSource.
+            </summary>
+            <param name="_skillCode">. Primary Key.</param>	
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <remarks>Deletes based on primary key(s).</remarks>
+            <returns>Returns true if operation suceeded.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillProviderBase.Find(EmployeeDB.DAL.TransactionManager,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Returns rows meeting the whereClause condition from the DataSource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="whereClause">Specifies the condition for the rows returned by a query (Name='John Doe', Name='John Doe' AND Id='1', Name='John Doe' OR Id='1').</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <remarks>Operators must be capitalized (OR, AND).</remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.Skill objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillProviderBase.Find(EmployeeDB.DAL.TransactionManager,EmployeeDB.DAL.IFilterParameterCollection,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Returns rows from the DataSource that meet the parameter conditions.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="parameters">A collection of <see cref="T:EmployeeDB.DAL.SqlFilterParameter"/> objects.</param>
+            <param name="orderBy">Specifies the sort criteria for the rows in the DataSource (Name ASC; BirthDay DESC, Name ASC);</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <returns>Returns a typed collection of EmployeeDB.BLL.Skill objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillProviderBase.GetAll(EmployeeDB.DAL.TransactionManager,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets All rows from the DataSource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.Skill objects.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillProviderBase.GetPaged(EmployeeDB.DAL.TransactionManager,System.String,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            Gets a page of rows from the DataSource.
+            </summary>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">Number of rows in the DataSource.</param>
+            <param name="whereClause">Specifies the condition for the rows returned by a query (Name='John Doe', Name='John Doe' AND Id='1', Name='John Doe' OR Id='1').</param>
+            <param name="orderBy">Specifies the sort criteria for the rows in the DataSource (Name ASC; BirthDay DESC, Name ASC);</param>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.Skill objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillProviderBase.GetBySkillCode(EmployeeDB.DAL.TransactionManager,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets rows from the datasource based on the PK_Skill index.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="_skillCode"></param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out parameter to get total records for query.</param>
+            <returns>Returns an instance of the <see cref="T:EmployeeDB.BLL.Skill"/> class.</returns>
+            <remarks></remarks>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillProviderBase.BulkInsert(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.TList{EmployeeDB.BLL.Skill})">
+            <summary>
+            Lets you efficiently bulk insert many entities to the database.
+            </summary>
+            <param name="transactionManager">The transaction manager.</param>
+            <param name="entities">The entities.</param>
+            <remarks>
+            	After inserting into the datasource, the EmployeeDB.BLL.Skill object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>	
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillProviderBase.Insert(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.Skill)">
+            <summary>
+            	Inserts a EmployeeDB.BLL.Skill object into the datasource using a transaction.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="entity">EmployeeDB.BLL.Skill object to insert.</param>
+            <remarks>
+            	After inserting into the datasource, the EmployeeDB.BLL.Skill object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>	
+            <returns>Returns true if operation is successful.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlSkillProviderBase.Update(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.Skill)">
+            <summary>
+            	Update an existing row in the datasource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="entity">EmployeeDB.BLL.Skill object to update.</param>
+            <remarks>
+            	After updating the datasource, the EmployeeDB.BLL.Skill object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>
+            <returns>Returns true if operation is successful.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.SqlBankAccountsProvider">
+            <summary>
+             This class is the SqlClient Data Access Logic Component implementation for the <see cref="T:EmployeeDB.BLL.BankAccounts"/> entity.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlBankAccountsProvider.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlBankAccountsProvider"/> instance.
+            Uses connection string to connect to datasource.
+            </summary>
+            <param name="connectionString">The connection string to the database.</param>
+            <param name="useStoredProcedure">A boolean value that indicates if we use the stored procedures or embedded queries.</param>
+            <param name="providerInvariantName">Name of the invariant provider use by the DbProviderFactory.</param>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.SqlBankAccountsProviderBase">
+            <summary>
+             This class is the SqlClient Data Access Logic Component implementation for the <see cref="T:EmployeeDB.BLL.BankAccounts"/> entity.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlBankAccountsProviderBase.#ctor">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlBankAccountsProviderBase"/> instance.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlBankAccountsProviderBase.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlBankAccountsProviderBase"/> instance.
+            Uses connection string to connect to datasource.
+            </summary>
+            <param name="connectionString">The connection string to the database.</param>
+            <param name="useStoredProcedure">A boolean value that indicates if we should use stored procedures or embedded queries.</param>
+            <param name="providerInvariantName">Name of the invariant provider use by the DbProviderFactory.</param>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlBankAccountsProviderBase.ConnectionString">
+            <summary>
+            Gets or sets the connection string.
+            </summary>
+            <value>The connection string.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlBankAccountsProviderBase.UseStoredProcedure">
+            <summary>
+            Gets or sets a value indicating whether to use stored procedures.
+            </summary>
+            <value><c>true</c> if we choose to use use stored procedures; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlBankAccountsProviderBase.ProviderInvariantName">
+            <summary>
+            Gets or sets the invariant provider name listed in the DbProviderFactories machine.config section.
+            </summary>
+            <value>The name of the provider invariant.</value>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlBankAccountsProviderBase.Delete(EmployeeDB.DAL.TransactionManager,System.Int32)">
+            <summary>
+            	Deletes a row from the DataSource.
+            </summary>
+            <param name="_bankAccountId">. Primary Key.</param>	
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <remarks>Deletes based on primary key(s).</remarks>
+            <returns>Returns true if operation suceeded.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlBankAccountsProviderBase.Find(EmployeeDB.DAL.TransactionManager,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Returns rows meeting the whereClause condition from the DataSource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="whereClause">Specifies the condition for the rows returned by a query (Name='John Doe', Name='John Doe' AND Id='1', Name='John Doe' OR Id='1').</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <remarks>Operators must be capitalized (OR, AND).</remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.BankAccounts objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlBankAccountsProviderBase.Find(EmployeeDB.DAL.TransactionManager,EmployeeDB.DAL.IFilterParameterCollection,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Returns rows from the DataSource that meet the parameter conditions.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="parameters">A collection of <see cref="T:EmployeeDB.DAL.SqlFilterParameter"/> objects.</param>
+            <param name="orderBy">Specifies the sort criteria for the rows in the DataSource (Name ASC; BirthDay DESC, Name ASC);</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <returns>Returns a typed collection of EmployeeDB.BLL.BankAccounts objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlBankAccountsProviderBase.GetAll(EmployeeDB.DAL.TransactionManager,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets All rows from the DataSource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.BankAccounts objects.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlBankAccountsProviderBase.GetPaged(EmployeeDB.DAL.TransactionManager,System.String,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            Gets a page of rows from the DataSource.
+            </summary>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">Number of rows in the DataSource.</param>
+            <param name="whereClause">Specifies the condition for the rows returned by a query (Name='John Doe', Name='John Doe' AND Id='1', Name='John Doe' OR Id='1').</param>
+            <param name="orderBy">Specifies the sort criteria for the rows in the DataSource (Name ASC; BirthDay DESC, Name ASC);</param>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.BankAccounts objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlBankAccountsProviderBase.GetByEmployeeId(EmployeeDB.DAL.TransactionManager,System.Int32,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets rows from the datasource based on the FK_BankAccounts_Employee key.
+            	FK_BankAccounts_Employee Description: 
+            </summary>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="_employeeId"></param>
+            <param name="count">out parameter to get total records for query</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.BankAccounts objects.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlBankAccountsProviderBase.GetByBankAccountId(EmployeeDB.DAL.TransactionManager,System.Int32,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets rows from the datasource based on the PK_BankAccounts index.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="_bankAccountId"></param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out parameter to get total records for query.</param>
+            <returns>Returns an instance of the <see cref="T:EmployeeDB.BLL.BankAccounts"/> class.</returns>
+            <remarks></remarks>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlBankAccountsProviderBase.BulkInsert(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.TList{EmployeeDB.BLL.BankAccounts})">
+            <summary>
+            Lets you efficiently bulk insert many entities to the database.
+            </summary>
+            <param name="transactionManager">The transaction manager.</param>
+            <param name="entities">The entities.</param>
+            <remarks>
+            	After inserting into the datasource, the EmployeeDB.BLL.BankAccounts object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>	
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlBankAccountsProviderBase.Insert(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.BankAccounts)">
+            <summary>
+            	Inserts a EmployeeDB.BLL.BankAccounts object into the datasource using a transaction.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="entity">EmployeeDB.BLL.BankAccounts object to insert.</param>
+            <remarks>
+            	After inserting into the datasource, the EmployeeDB.BLL.BankAccounts object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>	
+            <returns>Returns true if operation is successful.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlBankAccountsProviderBase.Update(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.BankAccounts)">
+            <summary>
+            	Update an existing row in the datasource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="entity">EmployeeDB.BLL.BankAccounts object to update.</param>
+            <remarks>
+            	After updating the datasource, the EmployeeDB.BLL.BankAccounts object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>
+            <returns>Returns true if operation is successful.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.SqlEmployeeSalaryProvider">
+            <summary>
+             This class is the SqlClient Data Access Logic Component implementation for the <see cref="T:EmployeeDB.BLL.EmployeeSalary"/> entity.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSalaryProvider.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlEmployeeSalaryProvider"/> instance.
+            Uses connection string to connect to datasource.
+            </summary>
+            <param name="connectionString">The connection string to the database.</param>
+            <param name="useStoredProcedure">A boolean value that indicates if we use the stored procedures or embedded queries.</param>
+            <param name="providerInvariantName">Name of the invariant provider use by the DbProviderFactory.</param>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.SqlEmployeeSalaryProviderBase">
+            <summary>
+             This class is the SqlClient Data Access Logic Component implementation for the <see cref="T:EmployeeDB.BLL.EmployeeSalary"/> entity.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSalaryProviderBase.#ctor">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlEmployeeSalaryProviderBase"/> instance.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSalaryProviderBase.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlEmployeeSalaryProviderBase"/> instance.
+            Uses connection string to connect to datasource.
+            </summary>
+            <param name="connectionString">The connection string to the database.</param>
+            <param name="useStoredProcedure">A boolean value that indicates if we should use stored procedures or embedded queries.</param>
+            <param name="providerInvariantName">Name of the invariant provider use by the DbProviderFactory.</param>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlEmployeeSalaryProviderBase.ConnectionString">
+            <summary>
+            Gets or sets the connection string.
+            </summary>
+            <value>The connection string.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlEmployeeSalaryProviderBase.UseStoredProcedure">
+            <summary>
+            Gets or sets a value indicating whether to use stored procedures.
+            </summary>
+            <value><c>true</c> if we choose to use use stored procedures; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlEmployeeSalaryProviderBase.ProviderInvariantName">
+            <summary>
+            Gets or sets the invariant provider name listed in the DbProviderFactories machine.config section.
+            </summary>
+            <value>The name of the provider invariant.</value>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSalaryProviderBase.Delete(EmployeeDB.DAL.TransactionManager,System.Int32)">
+            <summary>
+            	Deletes a row from the DataSource.
+            </summary>
+            <param name="_employeeSalaryId">. Primary Key.</param>	
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <remarks>Deletes based on primary key(s).</remarks>
+            <returns>Returns true if operation suceeded.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSalaryProviderBase.Find(EmployeeDB.DAL.TransactionManager,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Returns rows meeting the whereClause condition from the DataSource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="whereClause">Specifies the condition for the rows returned by a query (Name='John Doe', Name='John Doe' AND Id='1', Name='John Doe' OR Id='1').</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <remarks>Operators must be capitalized (OR, AND).</remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.EmployeeSalary objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSalaryProviderBase.Find(EmployeeDB.DAL.TransactionManager,EmployeeDB.DAL.IFilterParameterCollection,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Returns rows from the DataSource that meet the parameter conditions.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="parameters">A collection of <see cref="T:EmployeeDB.DAL.SqlFilterParameter"/> objects.</param>
+            <param name="orderBy">Specifies the sort criteria for the rows in the DataSource (Name ASC; BirthDay DESC, Name ASC);</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <returns>Returns a typed collection of EmployeeDB.BLL.EmployeeSalary objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSalaryProviderBase.GetAll(EmployeeDB.DAL.TransactionManager,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets All rows from the DataSource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.EmployeeSalary objects.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSalaryProviderBase.GetPaged(EmployeeDB.DAL.TransactionManager,System.String,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            Gets a page of rows from the DataSource.
+            </summary>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">Number of rows in the DataSource.</param>
+            <param name="whereClause">Specifies the condition for the rows returned by a query (Name='John Doe', Name='John Doe' AND Id='1', Name='John Doe' OR Id='1').</param>
+            <param name="orderBy">Specifies the sort criteria for the rows in the DataSource (Name ASC; BirthDay DESC, Name ASC);</param>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.EmployeeSalary objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSalaryProviderBase.GetByEmployeeId(EmployeeDB.DAL.TransactionManager,System.Nullable{System.Int32},System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets rows from the datasource based on the FK_EmployeeSalary_Employee key.
+            	FK_EmployeeSalary_Employee Description: 
+            </summary>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="_employeeId"></param>
+            <param name="count">out parameter to get total records for query</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.EmployeeSalary objects.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSalaryProviderBase.GetByEmployeeSalaryId(EmployeeDB.DAL.TransactionManager,System.Int32,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets rows from the datasource based on the PK_EmployeeSalary index.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="_employeeSalaryId"></param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out parameter to get total records for query.</param>
+            <returns>Returns an instance of the <see cref="T:EmployeeDB.BLL.EmployeeSalary"/> class.</returns>
+            <remarks></remarks>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSalaryProviderBase.BulkInsert(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.TList{EmployeeDB.BLL.EmployeeSalary})">
+            <summary>
+            Lets you efficiently bulk insert many entities to the database.
+            </summary>
+            <param name="transactionManager">The transaction manager.</param>
+            <param name="entities">The entities.</param>
+            <remarks>
+            	After inserting into the datasource, the EmployeeDB.BLL.EmployeeSalary object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>	
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSalaryProviderBase.Insert(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.EmployeeSalary)">
+            <summary>
+            	Inserts a EmployeeDB.BLL.EmployeeSalary object into the datasource using a transaction.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="entity">EmployeeDB.BLL.EmployeeSalary object to insert.</param>
+            <remarks>
+            	After inserting into the datasource, the EmployeeDB.BLL.EmployeeSalary object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>	
+            <returns>Returns true if operation is successful.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSalaryProviderBase.Update(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.EmployeeSalary)">
+            <summary>
+            	Update an existing row in the datasource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="entity">EmployeeDB.BLL.EmployeeSalary object to update.</param>
+            <remarks>
+            	After updating the datasource, the EmployeeDB.BLL.EmployeeSalary object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>
+            <returns>Returns true if operation is successful.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.SqlAddressProvider">
+            <summary>
+             This class is the SqlClient Data Access Logic Component implementation for the <see cref="T:EmployeeDB.BLL.Address"/> entity.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlAddressProvider.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlAddressProvider"/> instance.
+            Uses connection string to connect to datasource.
+            </summary>
+            <param name="connectionString">The connection string to the database.</param>
+            <param name="useStoredProcedure">A boolean value that indicates if we use the stored procedures or embedded queries.</param>
+            <param name="providerInvariantName">Name of the invariant provider use by the DbProviderFactory.</param>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.SqlAddressProviderBase">
+            <summary>
+             This class is the SqlClient Data Access Logic Component implementation for the <see cref="T:EmployeeDB.BLL.Address"/> entity.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlAddressProviderBase.#ctor">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlAddressProviderBase"/> instance.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlAddressProviderBase.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlAddressProviderBase"/> instance.
+            Uses connection string to connect to datasource.
+            </summary>
+            <param name="connectionString">The connection string to the database.</param>
+            <param name="useStoredProcedure">A boolean value that indicates if we should use stored procedures or embedded queries.</param>
+            <param name="providerInvariantName">Name of the invariant provider use by the DbProviderFactory.</param>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlAddressProviderBase.ConnectionString">
+            <summary>
+            Gets or sets the connection string.
+            </summary>
+            <value>The connection string.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlAddressProviderBase.UseStoredProcedure">
+            <summary>
+            Gets or sets a value indicating whether to use stored procedures.
+            </summary>
+            <value><c>true</c> if we choose to use use stored procedures; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlAddressProviderBase.ProviderInvariantName">
+            <summary>
+            Gets or sets the invariant provider name listed in the DbProviderFactories machine.config section.
+            </summary>
+            <value>The name of the provider invariant.</value>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlAddressProviderBase.Delete(EmployeeDB.DAL.TransactionManager,System.Int32)">
+            <summary>
+            	Deletes a row from the DataSource.
+            </summary>
+            <param name="_addressId">. Primary Key.</param>	
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <remarks>Deletes based on primary key(s).</remarks>
+            <returns>Returns true if operation suceeded.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlAddressProviderBase.Find(EmployeeDB.DAL.TransactionManager,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Returns rows meeting the whereClause condition from the DataSource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="whereClause">Specifies the condition for the rows returned by a query (Name='John Doe', Name='John Doe' AND Id='1', Name='John Doe' OR Id='1').</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <remarks>Operators must be capitalized (OR, AND).</remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.Address objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlAddressProviderBase.Find(EmployeeDB.DAL.TransactionManager,EmployeeDB.DAL.IFilterParameterCollection,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Returns rows from the DataSource that meet the parameter conditions.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="parameters">A collection of <see cref="T:EmployeeDB.DAL.SqlFilterParameter"/> objects.</param>
+            <param name="orderBy">Specifies the sort criteria for the rows in the DataSource (Name ASC; BirthDay DESC, Name ASC);</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <returns>Returns a typed collection of EmployeeDB.BLL.Address objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlAddressProviderBase.GetAll(EmployeeDB.DAL.TransactionManager,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets All rows from the DataSource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.Address objects.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlAddressProviderBase.GetPaged(EmployeeDB.DAL.TransactionManager,System.String,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            Gets a page of rows from the DataSource.
+            </summary>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">Number of rows in the DataSource.</param>
+            <param name="whereClause">Specifies the condition for the rows returned by a query (Name='John Doe', Name='John Doe' AND Id='1', Name='John Doe' OR Id='1').</param>
+            <param name="orderBy">Specifies the sort criteria for the rows in the DataSource (Name ASC; BirthDay DESC, Name ASC);</param>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.Address objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlAddressProviderBase.GetByCountryCode(EmployeeDB.DAL.TransactionManager,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets rows from the datasource based on the FK_Address_Countries key.
+            	FK_Address_Countries Description: 
+            </summary>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="_countryCode"></param>
+            <param name="count">out parameter to get total records for query</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.Address objects.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlAddressProviderBase.GetByEmployeeId(EmployeeDB.DAL.TransactionManager,System.Int32,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets rows from the datasource based on the FK_Address_Employee key.
+            	FK_Address_Employee Description: 
+            </summary>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="_employeeId"></param>
+            <param name="count">out parameter to get total records for query</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.Address objects.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlAddressProviderBase.GetByAddressId(EmployeeDB.DAL.TransactionManager,System.Int32,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets rows from the datasource based on the PK_Address index.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="_addressId"></param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out parameter to get total records for query.</param>
+            <returns>Returns an instance of the <see cref="T:EmployeeDB.BLL.Address"/> class.</returns>
+            <remarks></remarks>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlAddressProviderBase.BulkInsert(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.TList{EmployeeDB.BLL.Address})">
+            <summary>
+            Lets you efficiently bulk insert many entities to the database.
+            </summary>
+            <param name="transactionManager">The transaction manager.</param>
+            <param name="entities">The entities.</param>
+            <remarks>
+            	After inserting into the datasource, the EmployeeDB.BLL.Address object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>	
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlAddressProviderBase.Insert(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.Address)">
+            <summary>
+            	Inserts a EmployeeDB.BLL.Address object into the datasource using a transaction.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="entity">EmployeeDB.BLL.Address object to insert.</param>
+            <remarks>
+            	After inserting into the datasource, the EmployeeDB.BLL.Address object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>	
+            <returns>Returns true if operation is successful.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlAddressProviderBase.Update(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.Address)">
+            <summary>
+            	Update an existing row in the datasource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="entity">EmployeeDB.BLL.Address object to update.</param>
+            <remarks>
+            	After updating the datasource, the EmployeeDB.BLL.Address object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>
+            <returns>Returns true if operation is successful.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProvider">
+            <summary>
+             This class is the SqlClient Data Access Logic Component implementation for the <see cref="T:EmployeeDB.BLL.EmployeeSkills"/> entity.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProvider.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProvider"/> instance.
+            Uses connection string to connect to datasource.
+            </summary>
+            <param name="connectionString">The connection string to the database.</param>
+            <param name="useStoredProcedure">A boolean value that indicates if we use the stored procedures or embedded queries.</param>
+            <param name="providerInvariantName">Name of the invariant provider use by the DbProviderFactory.</param>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProviderBase">
+            <summary>
+             This class is the SqlClient Data Access Logic Component implementation for the <see cref="T:EmployeeDB.BLL.EmployeeSkills"/> entity.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProviderBase.#ctor">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProviderBase"/> instance.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProviderBase.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProviderBase"/> instance.
+            Uses connection string to connect to datasource.
+            </summary>
+            <param name="connectionString">The connection string to the database.</param>
+            <param name="useStoredProcedure">A boolean value that indicates if we should use stored procedures or embedded queries.</param>
+            <param name="providerInvariantName">Name of the invariant provider use by the DbProviderFactory.</param>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProviderBase.ConnectionString">
+            <summary>
+            Gets or sets the connection string.
+            </summary>
+            <value>The connection string.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProviderBase.UseStoredProcedure">
+            <summary>
+            Gets or sets a value indicating whether to use stored procedures.
+            </summary>
+            <value><c>true</c> if we choose to use use stored procedures; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProviderBase.ProviderInvariantName">
+            <summary>
+            Gets or sets the invariant provider name listed in the DbProviderFactories machine.config section.
+            </summary>
+            <value>The name of the provider invariant.</value>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProviderBase.Delete(EmployeeDB.DAL.TransactionManager,System.Int32)">
+            <summary>
+            	Deletes a row from the DataSource.
+            </summary>
+            <param name="_employeeSkillId">. Primary Key.</param>	
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <remarks>Deletes based on primary key(s).</remarks>
+            <returns>Returns true if operation suceeded.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProviderBase.Find(EmployeeDB.DAL.TransactionManager,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Returns rows meeting the whereClause condition from the DataSource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="whereClause">Specifies the condition for the rows returned by a query (Name='John Doe', Name='John Doe' AND Id='1', Name='John Doe' OR Id='1').</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <remarks>Operators must be capitalized (OR, AND).</remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.EmployeeSkills objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProviderBase.Find(EmployeeDB.DAL.TransactionManager,EmployeeDB.DAL.IFilterParameterCollection,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Returns rows from the DataSource that meet the parameter conditions.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="parameters">A collection of <see cref="T:EmployeeDB.DAL.SqlFilterParameter"/> objects.</param>
+            <param name="orderBy">Specifies the sort criteria for the rows in the DataSource (Name ASC; BirthDay DESC, Name ASC);</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <returns>Returns a typed collection of EmployeeDB.BLL.EmployeeSkills objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProviderBase.GetAll(EmployeeDB.DAL.TransactionManager,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets All rows from the DataSource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out. The number of rows that match this query.</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.EmployeeSkills objects.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProviderBase.GetPaged(EmployeeDB.DAL.TransactionManager,System.String,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            Gets a page of rows from the DataSource.
+            </summary>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">Number of rows in the DataSource.</param>
+            <param name="whereClause">Specifies the condition for the rows returned by a query (Name='John Doe', Name='John Doe' AND Id='1', Name='John Doe' OR Id='1').</param>
+            <param name="orderBy">Specifies the sort criteria for the rows in the DataSource (Name ASC; BirthDay DESC, Name ASC);</param>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.EmployeeSkills objects.</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProviderBase.GetBySkillCode(EmployeeDB.DAL.TransactionManager,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets rows from the datasource based on the FK_EmployeeSkills_Skill key.
+            	FK_EmployeeSkills_Skill Description: 
+            </summary>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="_skillCode"></param>
+            <param name="count">out parameter to get total records for query</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.EmployeeSkills objects.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProviderBase.GetBySkillLevel(EmployeeDB.DAL.TransactionManager,System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets rows from the datasource based on the FK_EmployeeSkills_SkillLevels key.
+            	FK_EmployeeSkills_SkillLevels Description: 
+            </summary>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="_skillLevel"></param>
+            <param name="count">out parameter to get total records for query</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.EmployeeSkills objects.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProviderBase.GetByEmployeeId(EmployeeDB.DAL.TransactionManager,System.Nullable{System.Int32},System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets rows from the datasource based on the FK_EmployeeSkills_Employee key.
+            	FK_EmployeeSkills_Employee Description: 
+            </summary>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="_employeeId"></param>
+            <param name="count">out parameter to get total records for query</param>
+            <remarks></remarks>
+            <returns>Returns a typed collection of EmployeeDB.BLL.EmployeeSkills objects.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProviderBase.GetByEmployeeSkillId(EmployeeDB.DAL.TransactionManager,System.Int32,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            	Gets rows from the datasource based on the PK_EmployeeSkills index.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="_employeeSkillId"></param>
+            <param name="start">Row number at which to start reading.</param>
+            <param name="pageLength">Number of rows to return.</param>
+            <param name="count">out parameter to get total records for query.</param>
+            <returns>Returns an instance of the <see cref="T:EmployeeDB.BLL.EmployeeSkills"/> class.</returns>
+            <remarks></remarks>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProviderBase.BulkInsert(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.TList{EmployeeDB.BLL.EmployeeSkills})">
+            <summary>
+            Lets you efficiently bulk insert many entities to the database.
+            </summary>
+            <param name="transactionManager">The transaction manager.</param>
+            <param name="entities">The entities.</param>
+            <remarks>
+            	After inserting into the datasource, the EmployeeDB.BLL.EmployeeSkills object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>	
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProviderBase.Insert(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.EmployeeSkills)">
+            <summary>
+            	Inserts a EmployeeDB.BLL.EmployeeSkills object into the datasource using a transaction.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="entity">EmployeeDB.BLL.EmployeeSkills object to insert.</param>
+            <remarks>
+            	After inserting into the datasource, the EmployeeDB.BLL.EmployeeSkills object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>	
+            <returns>Returns true if operation is successful.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlEmployeeSkillsProviderBase.Update(EmployeeDB.DAL.TransactionManager,EmployeeDB.BLL.EmployeeSkills)">
+            <summary>
+            	Update an existing row in the datasource.
+            </summary>
+            <param name="transactionManager"><see cref="T:EmployeeDB.DAL.TransactionManager"/> object</param>
+            <param name="entity">EmployeeDB.BLL.EmployeeSkills object to update.</param>
+            <remarks>
+            	After updating the datasource, the EmployeeDB.BLL.EmployeeSkills object will be updated
+            	to refelect any changes made by the datasource. (ie: identity or computed columns)
+            </remarks>
+            <returns>Returns true if operation is successful.</returns>
+            <exception cref="T:System.Exception">The command could not be executed.</exception>
+            <exception cref="T:System.Data.DataException">The <paramref name="transactionManager"/> is not open.</exception>
+            <exception cref="T:System.Data.Common.DbException">The command could not be executed.</exception>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider">
+            <summary>
+            This class is the Sql implementation of the NetTiersProvider.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.#ctor">
+             <summary>
+             Initializes a new instance of the <see cref="T:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider"/> class.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Initializes the provider.
+            </summary>
+            <param name="name">The friendly name of the provider.</param>
+            <param name="config">A collection of the name/value pairs representing the provider-specific attributes specified in the configuration for this provider.</param>
+            <exception cref="T:System.ArgumentNullException">The name of the provider is null.</exception>
+            <exception cref="T:System.InvalidOperationException">An attempt is made to call <see cref="M:System.Configuration.Provider.ProviderBase.Initialize(System.String,System.Collections.Specialized.NameValueCollection)"></see> on a provider after the provider has already been initialized.</exception>
+            <exception cref="T:System.ArgumentException">The name of the provider has a length of zero.</exception>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.CreateTransaction">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.TransactionManager"/> instance from the current datasource.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.UseStoredProcedure">
+            <summary>
+            Gets a value indicating whether to use stored procedure or not.
+            </summary>
+            <value>
+            	<c>true</c> if this repository use stored procedures; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ConnectionString">
+            <summary>
+            Gets or sets the connection string.
+            </summary>
+            <value>The connection string.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ProviderInvariantName">
+            <summary>
+            Gets or sets the invariant provider name listed in the DbProviderFactories machine.config section.
+            </summary>
+            <value>The name of the provider invariant.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.IsTransactionSupported">
+            <summary>
+             Indicates if the current <see cref="T:EmployeeDB.DAL.Bases.NetTiersProvider"/> implementation supports Transacton.
+            </summary>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.DepartmentsProvider">
+            <summary>
+             This class is the Data Access Logic Component for the <see cref="T:EmployeeDB.BLL.Departments"/> business entity.
+             It exposes CRUD methods as well as selecting on index, foreign keys and custom stored procedures.
+            </summary>
+             <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.SqlDepartmentsProvider">
+            <summary>
+            Gets the current <see cref="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.SqlDepartmentsProvider"/>.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.EmployeeDepartmentsProvider">
+            <summary>
+             This class is the Data Access Logic Component for the <see cref="T:EmployeeDB.BLL.EmployeeDepartments"/> business entity.
+             It exposes CRUD methods as well as selecting on index, foreign keys and custom stored procedures.
+            </summary>
+             <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.SqlEmployeeDepartmentsProvider">
+            <summary>
+            Gets the current <see cref="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.SqlEmployeeDepartmentsProvider"/>.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.EmployeeProvider">
+            <summary>
+             This class is the Data Access Logic Component for the <see cref="T:EmployeeDB.BLL.Employee"/> business entity.
+             It exposes CRUD methods as well as selecting on index, foreign keys and custom stored procedures.
+            </summary>
+             <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.SqlEmployeeProvider">
+            <summary>
+            Gets the current <see cref="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.SqlEmployeeProvider"/>.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.CountriesProvider">
+            <summary>
+             This class is the Data Access Logic Component for the <see cref="T:EmployeeDB.BLL.Countries"/> business entity.
+             It exposes CRUD methods as well as selecting on index, foreign keys and custom stored procedures.
+            </summary>
+             <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.SqlCountriesProvider">
+            <summary>
+            Gets the current <see cref="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.SqlCountriesProvider"/>.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.SkillLevelsProvider">
+            <summary>
+             This class is the Data Access Logic Component for the <see cref="T:EmployeeDB.BLL.SkillLevels"/> business entity.
+             It exposes CRUD methods as well as selecting on index, foreign keys and custom stored procedures.
+            </summary>
+             <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.SqlSkillLevelsProvider">
+            <summary>
+            Gets the current <see cref="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.SqlSkillLevelsProvider"/>.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.SkillProvider">
+            <summary>
+             This class is the Data Access Logic Component for the <see cref="T:EmployeeDB.BLL.Skill"/> business entity.
+             It exposes CRUD methods as well as selecting on index, foreign keys and custom stored procedures.
+            </summary>
+             <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.SqlSkillProvider">
+            <summary>
+            Gets the current <see cref="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.SqlSkillProvider"/>.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.BankAccountsProvider">
+            <summary>
+             This class is the Data Access Logic Component for the <see cref="T:EmployeeDB.BLL.BankAccounts"/> business entity.
+             It exposes CRUD methods as well as selecting on index, foreign keys and custom stored procedures.
+            </summary>
+             <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.SqlBankAccountsProvider">
+            <summary>
+            Gets the current <see cref="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.SqlBankAccountsProvider"/>.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.EmployeeSalaryProvider">
+            <summary>
+             This class is the Data Access Logic Component for the <see cref="T:EmployeeDB.BLL.EmployeeSalary"/> business entity.
+             It exposes CRUD methods as well as selecting on index, foreign keys and custom stored procedures.
+            </summary>
+             <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.SqlEmployeeSalaryProvider">
+            <summary>
+            Gets the current <see cref="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.SqlEmployeeSalaryProvider"/>.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.AddressProvider">
+            <summary>
+             This class is the Data Access Logic Component for the <see cref="T:EmployeeDB.BLL.Address"/> business entity.
+             It exposes CRUD methods as well as selecting on index, foreign keys and custom stored procedures.
+            </summary>
+             <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.SqlAddressProvider">
+            <summary>
+            Gets the current <see cref="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.SqlAddressProvider"/>.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.EmployeeSkillsProvider">
+            <summary>
+             This class is the Data Access Logic Component for the <see cref="T:EmployeeDB.BLL.EmployeeSkills"/> business entity.
+             It exposes CRUD methods as well as selecting on index, foreign keys and custom stored procedures.
+            </summary>
+             <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.SqlEmployeeSkillsProvider">
+            <summary>
+            Gets the current <see cref="P:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.SqlEmployeeSkillsProvider"/>.
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteNonQuery(System.String,System.Object[])">
+            <summary>
+            Executes the non query.
+            </summary>
+            <param name="storedProcedureName">Name of the stored procedure.</param>
+            <param name="parameterValues">The parameter values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteNonQuery(EmployeeDB.DAL.TransactionManager,System.String,System.Object[])">
+            <summary>
+            Executes the non query.
+            </summary>
+            <param name="transactionManager">The transaction manager.</param>
+            <param name="storedProcedureName">Name of the stored procedure.</param>
+            <param name="parameterValues">The parameter values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteNonQuery(System.Data.Common.DbCommand)">
+            <summary>
+            Executes the non query.
+            </summary>
+            <param name="commandWrapper">The command wrapper.</param>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteNonQuery(EmployeeDB.DAL.TransactionManager,System.Data.Common.DbCommand)">
+            <summary>
+            Executes the non query.
+            </summary>
+            <param name="transactionManager">The transaction manager.</param>
+            <param name="commandWrapper">The command wrapper.</param>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteNonQuery(System.Data.CommandType,System.String)">
+            <summary>
+            Executes the non query.
+            </summary>
+            <param name="commandType">Type of the command.</param>
+            <param name="commandText">The command text.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteNonQuery(EmployeeDB.DAL.TransactionManager,System.Data.CommandType,System.String)">
+            <summary>
+            Executes the non query.
+            </summary>
+            <param name="transactionManager">The transaction manager.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="commandText">The command text.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteReader(System.String,System.Object[])">
+            <summary>
+            Executes the reader.
+            </summary>
+            <param name="storedProcedureName">Name of the stored procedure.</param>
+            <param name="parameterValues">The parameter values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteReader(EmployeeDB.DAL.TransactionManager,System.String,System.Object[])">
+            <summary>
+            Executes the reader.
+            </summary>
+            <param name="transactionManager">The transaction manager.</param>
+            <param name="storedProcedureName">Name of the stored procedure.</param>
+            <param name="parameterValues">The parameter values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteReader(System.Data.Common.DbCommand)">
+            <summary>
+            Executes the reader.
+            </summary>
+            <param name="commandWrapper">The command wrapper.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteReader(EmployeeDB.DAL.TransactionManager,System.Data.Common.DbCommand)">
+            <summary>
+            Executes the reader.
+            </summary>
+            <param name="transactionManager">The transaction manager.</param>
+            <param name="commandWrapper">The command wrapper.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteReader(System.Data.CommandType,System.String)">
+            <summary>
+            Executes the reader.
+            </summary>
+            <param name="commandType">Type of the command.</param>
+            <param name="commandText">The command text.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteReader(EmployeeDB.DAL.TransactionManager,System.Data.CommandType,System.String)">
+            <summary>
+            Executes the reader.
+            </summary>
+            <param name="transactionManager">The transaction manager.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="commandText">The command text.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteDataSet(System.String,System.Object[])">
+            <summary>
+            Executes the data set.
+            </summary>
+            <param name="storedProcedureName">Name of the stored procedure.</param>
+            <param name="parameterValues">The parameter values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteDataSet(EmployeeDB.DAL.TransactionManager,System.String,System.Object[])">
+            <summary>
+            Executes the data set.
+            </summary>
+            <param name="transactionManager">The transaction manager.</param>
+            <param name="storedProcedureName">Name of the stored procedure.</param>
+            <param name="parameterValues">The parameter values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteDataSet(System.Data.Common.DbCommand)">
+            <summary>
+            Executes the data set.
+            </summary>
+            <param name="commandWrapper">The command wrapper.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteDataSet(EmployeeDB.DAL.TransactionManager,System.Data.Common.DbCommand)">
+            <summary>
+            Executes the data set.
+            </summary>
+            <param name="transactionManager">The transaction manager.</param>
+            <param name="commandWrapper">The command wrapper.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteDataSet(System.Data.CommandType,System.String)">
+            <summary>
+            Executes the data set.
+            </summary>
+            <param name="commandType">Type of the command.</param>
+            <param name="commandText">The command text.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteDataSet(EmployeeDB.DAL.TransactionManager,System.Data.CommandType,System.String)">
+            <summary>
+            Executes the data set.
+            </summary>
+            <param name="transactionManager">The transaction manager.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="commandText">The command text.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteScalar(System.String,System.Object[])">
+            <summary>
+            Executes the scalar.
+            </summary>
+            <param name="storedProcedureName">Name of the stored procedure.</param>
+            <param name="parameterValues">The parameter values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteScalar(EmployeeDB.DAL.TransactionManager,System.String,System.Object[])">
+            <summary>
+            Executes the scalar.
+            </summary>
+            <param name="transactionManager">The transaction manager.</param>
+            <param name="storedProcedureName">Name of the stored procedure.</param>
+            <param name="parameterValues">The parameter values.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteScalar(System.Data.Common.DbCommand)">
+            <summary>
+            Executes the scalar.
+            </summary>
+            <param name="commandWrapper">The command wrapper.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteScalar(EmployeeDB.DAL.TransactionManager,System.Data.Common.DbCommand)">
+            <summary>
+            Executes the scalar.
+            </summary>
+            <param name="transactionManager">The transaction manager.</param>
+            <param name="commandWrapper">The command wrapper.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteScalar(System.Data.CommandType,System.String)">
+            <summary>
+            Executes the scalar.
+            </summary>
+            <param name="commandType">Type of the command.</param>
+            <param name="commandText">The command text.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.SqlNetTiersProvider.ExecuteScalar(EmployeeDB.DAL.TransactionManager,System.Data.CommandType,System.String)">
+            <summary>
+            Executes the scalar.
+            </summary>
+            <param name="transactionManager">The transaction manager.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="commandText">The command text.</param>
+            <returns></returns>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.StoredProcedureProvider">
+            <summary>
+            Summary description for Procedures.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.StoredProcedureProvider.#ctor">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.StoredProcedureProvider"/> instance.
+            </summary>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.StoredProcedureProvider.Current">
+            <summary>
+            Gets the current <see cref="T:EmployeeDB.DAL.SqlClient.StoredProcedureProvider"/> singleton instance.
+            </summary>
+            <value><see cref="T:EmployeeDB.DAL.SqlClient.StoredProcedureProvider"/></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.StoredProcedureProvider.Procedures">
+            <summary>
+            Gets or sets the procedures.
+            </summary>
+            <value>An <see cref="T:System.Collections.ArrayList"/> of <see cref="T:EmployeeDB.DAL.SqlClient.Procedure"/> objects.</value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.StoredProcedureProvider.Item(System.String)">
+            <summary>
+            Gets or sets the <see cref="T:EmployeeDB.DAL.SqlClient.Procedure"/> instance with the specified name.
+            </summary>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.StoredProcedureProvider.Item(System.Int32)">
+            <summary>
+            Gets or sets the <see cref="T:EmployeeDB.DAL.SqlClient.Procedure"/> instance at the specified index.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.StoredProcedureProvider.Serialize(System.String)">
+            <summary>
+            Serializes the specified filename.
+            </summary>
+            <param name="filename">Filename.</param>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.StoredProcedureProvider.Deserialize">
+            <summary>
+            Deserializes this instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.StoredProcedureProvider.GetProcedureBodyFromEmbeddedResource(System.String)">
+            <summary>
+            Get the query text from the embedded xml file.
+            </summary>
+            <param name="name">The name of the query.</param>
+            <returns>the text of the query</returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.StoredProcedureProvider.GetCommandWrapper(Microsoft.Practices.EnterpriseLibrary.Data.Database,System.String,System.Boolean)">
+            <summary>
+            Get the command wrapper, either from the stored procedures or from the embedded queries.
+            </summary>
+            <param name="database">The database instance.</param>
+            <param name="commandName">the name of the sp.</param>
+            <param name="useStoredProcedure">Indicates if we want stored procedure.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.StoredProcedureProvider.GetCommandWrapper(Microsoft.Practices.EnterpriseLibrary.Data.Database,System.String,System.Type,EmployeeDB.DAL.SqlFilterParameterCollection,System.String,System.Int32,System.Int32)">
+            <summary>
+            Gets the command wrapper for a dynamically generated query and
+            optionally includes server-side paging.
+            </summary>
+            <param name="database"></param>
+            <param name="commandName"></param>
+            <param name="columnEnum"></param>
+            <param name="parameters"></param>
+            <param name="orderBy"></param>
+            <param name="start"></param>
+            <param name="pageLength"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.Procedure">
+            <summary>
+            Represents a sql query.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.Procedure.#ctor">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.Procedure"/> instance.
+            </summary>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.Procedure.Parameters">
+            <summary>
+            Gets or sets the parameters.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.Procedure.Name">
+            <summary>
+            Gets or sets the name.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.Procedure.Owner">
+            <summary>
+            Gets or sets the owner.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.Procedure.Comment">
+            <summary>
+            Gets or sets the comment.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.Procedure.Body">
+            <summary>
+            Gets or sets the body.
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.Procedure.Parameter(System.String)">
+            <summary>
+            Get the parameter from the specified name of the param.
+            </summary>
+            <param name="paramName">Name of the param.</param>
+            <returns></returns>
+        </member>
+        <member name="T:EmployeeDB.DAL.SqlClient.Parameter">
+            <summary>
+            Respresents a query parameter.
+            </summary>
+        </member>
+        <member name="M:EmployeeDB.DAL.SqlClient.Parameter.#ctor">
+            <summary>
+            Creates a new <see cref="T:EmployeeDB.DAL.SqlClient.Parameter"/> instance.
+            </summary>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.Parameter.Name">
+            <summary>
+            Gets or sets the Name.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.Parameter.SqlType">
+            <summary>
+            Gets or sets the SqlType.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.Parameter.Direction">
+            <summary>
+            Gets or sets the Direction.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.Parameter.Size">
+            <summary>
+            Gets or sets the size.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.Parameter.Precision">
+            <summary>
+            Gets or sets the precision.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:EmployeeDB.DAL.SqlClient.Parameter.Scale">
+            <summary>
+            Gets or sets the scale.
+            </summary>
+            <value></value>
+        </member>
+    </members>
+</doc>

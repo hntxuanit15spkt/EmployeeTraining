@@ -1,0 +1,390 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Web.UI;
+using System.ComponentModel;
+using System.Web.UI.Design.WebControls;
+using System.Web.UI.Design;
+using System.Web.UI.WebControls;
+
+namespace EmployeeDB.Web.UI
+{
+    /// <summary>
+    /// A designer class for a strongly typed repeater <c>EmployeeSkillsRepeater</c>
+    /// </summary>
+	public class EmployeeSkillsRepeaterDesigner : System.Web.UI.Design.ControlDesigner
+	{
+	    /// <summary>
+        /// Initializes a new instance of the <see cref="T:EmployeeSkillsRepeaterDesigner"/> class.
+        /// </summary>
+		public EmployeeSkillsRepeaterDesigner()
+		{
+		}
+
+        /// <summary>
+        /// Initializes the control designer and loads the specified component.
+        /// </summary>
+        /// <param name="component">The control being designed.</param>
+		public override void Initialize(IComponent component)
+		{
+			if (!(component is EmployeeSkillsRepeater))
+			{ 
+				throw new ArgumentException("Component is not a EmployeeSkillsRepeater."); 
+			} 
+			base.Initialize(component); 
+			base.SetViewFlags(ViewFlags.TemplateEditing, true); 
+		}
+
+
+		/// <summary>
+		/// Generate HTML for the designer
+		/// </summary>
+		/// <returns>a string of design time HTML</returns>
+		public override string GetDesignTimeHtml()
+		{
+
+			// Get the instance this designer applies to
+			//
+			EmployeeSkillsRepeater z = (EmployeeSkillsRepeater)Component;
+			z.DataBind();
+
+			return base.GetDesignTimeHtml();
+
+			//return z.RenderAtDesignTime();
+
+			//	ControlCollection c = z.Controls;
+			//Totem z = (Totem) Component;
+			//Totem z = (Totem) Component;
+			//return ("<div style='border: 1px gray dotted; background-color: lightgray'><b>TagStat :</b> zae |  qsdds</div>");
+
+		}
+	}
+
+    /// <summary>
+    /// A strongly typed repeater control for the <see cref="EmployeeSkillsRepeater"/> Type.
+    /// </summary>
+	[Designer(typeof(EmployeeSkillsRepeaterDesigner))]
+	[ParseChildren(true)]
+	[ToolboxData("<{0}:EmployeeSkillsRepeater runat=\"server\"></{0}:EmployeeSkillsRepeater>")]
+	public class EmployeeSkillsRepeater : CompositeDataBoundControl, System.Web.UI.INamingContainer
+	{
+	    /// <summary>
+        /// Initializes a new instance of the <see cref="T:EmployeeSkillsRepeater"/> class.
+        /// </summary>
+		public EmployeeSkillsRepeater()
+		{
+		}
+
+		/// <summary>
+        /// Gets a <see cref="T:System.Web.UI.ControlCollection"></see> object that represents the child controls for a specified server control in the UI hierarchy.
+        /// </summary>
+        /// <value></value>
+        /// <returns>The collection of child controls for the specified server control.</returns>
+		public override ControlCollection Controls
+		{
+			get
+			{
+				this.EnsureChildControls();
+				return base.Controls;
+			}
+		}
+
+		private ITemplate m_headerTemplate;
+		/// <summary>
+        /// Gets or sets the header template.
+        /// </summary>
+        /// <value>The header template.</value>
+		[Browsable(false)]
+		[TemplateContainer(typeof(EmployeeSkillsItem))]
+		[PersistenceMode(PersistenceMode.InnerDefaultProperty)]
+		public ITemplate HeaderTemplate
+		{
+			get { return m_headerTemplate; }
+			set { m_headerTemplate = value; }
+		}
+
+		private ITemplate m_itemTemplate;
+		/// <summary>
+        /// Gets or sets the item template.
+        /// </summary>
+        /// <value>The item template.</value>
+		[Browsable(false)]
+		[TemplateContainer(typeof(EmployeeSkillsItem))]
+		[PersistenceMode(PersistenceMode.InnerDefaultProperty)]
+		public ITemplate ItemTemplate
+		{
+			get { return m_itemTemplate; }
+			set { m_itemTemplate = value; }
+		}
+
+		private ITemplate m_seperatorTemplate;
+        /// <summary>
+        /// Gets or sets the Seperator Template
+        /// </summary>
+        [Browsable(false)]
+        [TemplateContainer(typeof(EmployeeSkillsItem))]
+        [PersistenceMode(PersistenceMode.InnerDefaultProperty)]
+        public ITemplate SeperatorTemplate
+        {
+            get { return m_seperatorTemplate; }
+            set { m_seperatorTemplate = value; }
+        }
+			
+		private ITemplate m_altenateItemTemplate;
+        /// <summary>
+        /// Gets or sets the alternating item template.
+        /// </summary>
+        /// <value>The alternating item template.</value>
+		[Browsable(false)]
+		[TemplateContainer(typeof(EmployeeSkillsItem))]
+		[PersistenceMode(PersistenceMode.InnerDefaultProperty)]
+		public ITemplate AlternatingItemTemplate
+		{
+			get { return m_altenateItemTemplate; }
+			set { m_altenateItemTemplate = value; }
+		}
+
+		private ITemplate m_footerTemplate;
+        /// <summary>
+        /// Gets or sets the footer template.
+        /// </summary>
+        /// <value>The footer template.</value>
+		[Browsable(false)]
+		[TemplateContainer(typeof(EmployeeSkillsItem))]
+		[PersistenceMode(PersistenceMode.InnerDefaultProperty)]
+		public ITemplate FooterTemplate
+		{
+			get { return m_footerTemplate; }
+			set { m_footerTemplate = value; }
+		}
+
+//      /// <summary>
+//      /// Called by the ASP.NET page framework to notify server controls that use composition-based implementation to create any child controls they contain in preparation for posting back or rendering.
+//      /// </summary>
+//		protected override void CreateChildControls()
+//      {
+//         if (ChildControlsCreated)
+//         {
+//            return;
+//         }
+
+//         Controls.Clear();
+
+//         //Instantiate the Header template (if exists)
+//         if (m_headerTemplate != null)
+//         {
+//            Control headerItem = new Control();
+//            m_headerTemplate.InstantiateIn(headerItem);
+//            Controls.Add(headerItem);
+//         }
+
+//         //Instantiate the Footer template (if exists)
+//         if (m_footerTemplate != null)
+//         {
+//            Control footerItem = new Control();
+//            m_footerTemplate.InstantiateIn(footerItem);
+//            Controls.Add(footerItem);
+//         }
+//
+//         ChildControlsCreated = true;
+//      }
+	
+		/// <summary>
+        /// Overridden and Empty so that span tags are not written
+        /// </summary>
+        /// <param name="writer"></param>
+        public override void RenderBeginTag(HtmlTextWriter writer)
+        {
+            
+        }
+
+        /// <summary>
+        /// Overridden and Empty so that span tags are not written
+        /// </summary>
+        /// <param name="writer"></param>
+        public override void RenderEndTag(HtmlTextWriter writer)
+        {
+                
+        }		
+		
+		/// <summary>
+      	/// Called by the ASP.NET page framework to notify server controls that use composition-based implementation to create any child controls they contain in preparation for posting back or rendering.
+      	/// </summary>
+		protected override int CreateChildControls(System.Collections.IEnumerable dataSource, bool dataBinding)
+      	{
+         int pos = 0;
+
+         if (dataBinding)
+         {
+            //Instantiate the Header template (if exists)
+            if (m_headerTemplate != null)
+            {
+                Control headerItem = new Control();
+                m_headerTemplate.InstantiateIn(headerItem);
+                Controls.Add(headerItem);
+            }
+			if (dataSource != null)
+			{
+				foreach (object o in dataSource)
+				{
+						EmployeeDB.BLL.EmployeeSkills entity = o as EmployeeDB.BLL.EmployeeSkills;
+						EmployeeSkillsItem container = new EmployeeSkillsItem(entity);
+	
+						if (m_itemTemplate != null && (pos % 2) == 0)
+						{
+							m_itemTemplate.InstantiateIn(container);
+							
+							if (m_seperatorTemplate != null)
+							{
+								m_seperatorTemplate.InstantiateIn(container);
+							}
+						}
+						else
+						{
+							if (m_altenateItemTemplate != null)
+							{
+								m_altenateItemTemplate.InstantiateIn(container);
+								
+								if (m_seperatorTemplate != null)
+								{
+									m_seperatorTemplate.InstantiateIn(container);
+								}
+								
+							}
+							else if (m_itemTemplate != null)
+							{
+								m_itemTemplate.InstantiateIn(container);
+								
+								if (m_seperatorTemplate != null)
+								{
+									m_seperatorTemplate.InstantiateIn(container);
+								}
+							}
+							else
+							{
+								// no template !!!
+							}
+						}
+						Controls.Add(container);
+						
+						container.DataBind();
+						
+						pos++;
+				}
+			}
+            //Instantiate the Footer template (if exists)
+            if (m_footerTemplate != null)
+            {
+                Control footerItem = new Control();
+                m_footerTemplate.InstantiateIn(footerItem);
+                Controls.Add(footerItem);
+            }
+
+		}
+			
+			return pos;
+		}
+
+        /// <summary>
+        /// Raises the <see cref="E:System.Web.UI.Control.PreRender"></see> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"></see> object that contains the event data.</param>
+		protected override void OnPreRender(EventArgs e)
+		{
+			base.DataBind();
+		}
+
+		#region Design time
+        /// <summary>
+        /// Renders at design time.
+        /// </summary>
+        /// <returns>a  string of the Designed HTML</returns>
+		internal string RenderAtDesignTime()
+		{			
+			return "Designer currently not implemented"; 
+		}
+
+		#endregion
+	}
+
+    /// <summary>
+    /// A wrapper type for the entity
+    /// </summary>
+	[System.ComponentModel.ToolboxItem(false)]
+	public class EmployeeSkillsItem : System.Web.UI.Control, System.Web.UI.INamingContainer
+	{
+		private EmployeeDB.BLL.EmployeeSkills _entity;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:EmployeeSkillsItem"/> class.
+        /// </summary>
+		public EmployeeSkillsItem()
+			: base()
+		{ }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:EmployeeSkillsItem"/> class.
+        /// </summary>
+		public EmployeeSkillsItem(EmployeeDB.BLL.EmployeeSkills entity)
+			: base()
+		{
+			_entity = entity;
+		}
+		
+        /// <summary>
+        /// Gets the EmployeeSkillId
+        /// </summary>
+        /// <value>The EmployeeSkillId.</value>
+		[System.ComponentModel.Bindable(true)]
+		public System.Int32 EmployeeSkillId
+		{
+			get { return _entity.EmployeeSkillId; }
+		}
+        /// <summary>
+        /// Gets the EmployeeId
+        /// </summary>
+        /// <value>The EmployeeId.</value>
+		[System.ComponentModel.Bindable(true)]
+		public System.Int32? EmployeeId
+		{
+			get { return _entity.EmployeeId; }
+		}
+        /// <summary>
+        /// Gets the SkillCode
+        /// </summary>
+        /// <value>The SkillCode.</value>
+		[System.ComponentModel.Bindable(true)]
+		public System.String SkillCode
+		{
+			get { return _entity.SkillCode; }
+		}
+        /// <summary>
+        /// Gets the SkillLevel
+        /// </summary>
+        /// <value>The SkillLevel.</value>
+		[System.ComponentModel.Bindable(true)]
+		public System.String SkillLevel
+		{
+			get { return _entity.SkillLevel; }
+		}
+        /// <summary>
+        /// Gets the CreatedOn
+        /// </summary>
+        /// <value>The CreatedOn.</value>
+		[System.ComponentModel.Bindable(true)]
+		public System.DateTime? CreatedOn
+		{
+			get { return _entity.CreatedOn; }
+		}
+
+        /// <summary>
+        /// Gets a <see cref="T:EmployeeDB.BLL.EmployeeSkills"></see> object
+        /// </summary>
+        /// <value></value>
+        [System.ComponentModel.Bindable(true)]
+        public EmployeeDB.BLL.EmployeeSkills Entity
+        {
+            get { return _entity; }
+        }
+	}
+}

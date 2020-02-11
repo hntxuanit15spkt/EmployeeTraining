@@ -1,0 +1,3488 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type='text/xsl' href="scriptsql.xsl"?>
+<root xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<database includeDrop="true">Employee</database>
+<procedures>
+		
+		<procedure owner="dbo" name="Departments_Get_List" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets all records from the Departments table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters/>
+			<body><![CDATA[
+				
+				SELECT
+					[DepartmentCode],
+					[Name],
+					[CreatedOn]
+				FROM
+					[dbo].[Departments]
+					
+				SELECT @@ROWCOUNT
+			]]></body>
+		</procedure>
+		
+		
+		<procedure owner="dbo" name="Departments_GetPaged" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets records from the Departments table passing page index and page count parameters
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@WhereClause" type="varchar" direction="Input" size="8000" precision="0" scale="0" param="(8000)" />
+				<parameter name="@OrderBy" type="varchar" direction="Input" size="2000" precision="0" scale="0" param="(2000)"/>
+				<parameter name="@PageIndex" type="int" direction="Input" size="0" precision="10" scale="0" />
+				<parameter name="@PageSize" type="int" direction="Input" size="0" precision="10" scale="0" /> 
+			</parameters>
+			<body><![CDATA[
+				
+				BEGIN
+				DECLARE @PageLowerBound int
+				DECLARE @PageUpperBound int
+				
+				-- Set the page bounds
+				SET @PageLowerBound = @PageSize * @PageIndex
+				SET @PageUpperBound = @PageLowerBound + @PageSize
+
+				IF (@OrderBy IS NULL OR LEN(@OrderBy) < 1)
+				BEGIN
+					-- default order by to first column
+					SET @OrderBy = '[DepartmentCode]'
+				END
+
+				-- SQL Server 2005 Paging
+				DECLARE @SQL AS nvarchar(MAX)
+				SET @SQL = 'WITH PageIndex AS ('
+				SET @SQL = @SQL + ' SELECT'
+				IF @PageSize > 0
+				BEGIN
+					SET @SQL = @SQL + ' TOP ' + CONVERT(nvarchar, @PageUpperBound)
+				END
+				SET @SQL = @SQL + ' ROW_NUMBER() OVER (ORDER BY ' + @OrderBy + ') as RowIndex'
+				SET @SQL = @SQL + ', [DepartmentCode]'
+				SET @SQL = @SQL + ', [Name]'
+				SET @SQL = @SQL + ', [CreatedOn]'
+				SET @SQL = @SQL + ' FROM [dbo].[Departments]'
+				IF LEN(@WhereClause) > 0
+				BEGIN
+					SET @SQL = @SQL + ' WHERE ' + @WhereClause
+				END
+				SET @SQL = @SQL + ' ) SELECT'
+				SET @SQL = @SQL + ' [DepartmentCode],'
+				SET @SQL = @SQL + ' [Name],'
+				SET @SQL = @SQL + ' [CreatedOn]'
+				SET @SQL = @SQL + ' FROM PageIndex'
+				SET @SQL = @SQL + ' WHERE RowIndex > ' + CONVERT(nvarchar, @PageLowerBound)
+				IF @PageSize > 0
+				BEGIN
+					SET @SQL = @SQL + ' AND RowIndex <= ' + CONVERT(nvarchar, @PageUpperBound)
+				END
+				SET @SQL = @SQL + ' ORDER BY ' + @OrderBy
+				EXEC sp_executesql @SQL
+				
+				-- get row count
+				SET @SQL = 'SELECT COUNT(1) AS TotalRowCount'
+				SET @SQL = @SQL + ' FROM [dbo].[Departments]'
+				IF LEN(@WhereClause) > 0
+				BEGIN
+					SET @SQL = @SQL + ' WHERE ' + @WhereClause
+				END
+				EXEC sp_executesql @SQL
+			
+				END
+			]]></body>
+		</procedure>
+		
+		<procedure owner="dbo" name="Departments_Insert" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Inserts a record into the Departments table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@DepartmentCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+				<parameter name="@Name" type="nvarchar" direction="Input" size="100" precision="0" scale="0" param="(100)" nulldefault=""/>
+				<parameter name="@CreatedOn" type="datetime" direction="Input" size="8" precision="23" scale="3" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				
+				INSERT INTO [dbo].[Departments]
+					(
+					[DepartmentCode]
+					,[Name]
+					,[CreatedOn]
+					)
+				VALUES
+					(
+					@DepartmentCode
+					,@Name
+					,@CreatedOn
+					)
+									
+							
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="Departments_Update" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Updates a record in the Departments table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@DepartmentCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+				<parameter name="@OriginalDepartmentCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+				<parameter name="@Name" type="nvarchar" direction="Input" size="100" precision="0" scale="0" param="(100)" nulldefault=""/>
+				<parameter name="@CreatedOn" type="datetime" direction="Input" size="8" precision="23" scale="3" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				
+				
+				-- Modify the updatable columns
+				UPDATE
+					[dbo].[Departments]
+				SET
+					[DepartmentCode] = @DepartmentCode
+					,[Name] = @Name
+					,[CreatedOn] = @CreatedOn
+				WHERE
+[DepartmentCode] = @OriginalDepartmentCode 
+				
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="Departments_Delete" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Deletes a record in the Departments table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@DepartmentCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				DELETE FROM [dbo].[Departments] WITH (ROWLOCK) 
+				WHERE
+					[DepartmentCode] = @DepartmentCode
+					
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="Departments_GetByDepartmentCode" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Select records from the Departments table through an index
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@DepartmentCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				SELECT
+					[DepartmentCode],
+					[Name],
+					[CreatedOn]
+				FROM
+					[dbo].[Departments]
+				WHERE
+					[DepartmentCode] = @DepartmentCode
+				SELECT @@ROWCOUNT
+					
+			]]></body>
+			
+		</procedure>
+		<procedure owner="dbo" name="Departments_Find" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Finds records in the Departments table passing nullable parameters
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@SearchUsingOR" type="bit" direction="Input" size="0" precision="1" scale="0" param="" nulldefault="null"/>
+				<parameter name="@DepartmentCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault="null"/>
+				<parameter name="@Name" type="nvarchar" direction="Input" size="100" precision="0" scale="0" param="(100)" nulldefault="null"/>
+				<parameter name="@CreatedOn" type="datetime" direction="Input" size="8" precision="23" scale="3" param="" nulldefault="null"/>
+			</parameters>
+			<body><![CDATA[
+				
+  IF ISNULL(@SearchUsingOR, 0) <> 1
+  BEGIN
+    SELECT
+	  [DepartmentCode]
+	, [Name]
+	, [CreatedOn]
+    FROM
+	[dbo].[Departments]
+    WHERE 
+	 ([DepartmentCode] = @DepartmentCode OR @DepartmentCode IS NULL)
+	AND ([Name] = @Name OR @Name IS NULL)
+	AND ([CreatedOn] = @CreatedOn OR @CreatedOn IS NULL)
+						
+  END
+  ELSE
+  BEGIN
+    SELECT
+	  [DepartmentCode]
+	, [Name]
+	, [CreatedOn]
+    FROM
+	[dbo].[Departments]
+    WHERE 
+	 ([DepartmentCode] = @DepartmentCode AND @DepartmentCode is not null)
+	OR ([Name] = @Name AND @Name is not null)
+	OR ([CreatedOn] = @CreatedOn AND @CreatedOn is not null)
+	SELECT @@ROWCOUNT			
+  END
+				]]></body>
+		</procedure>
+
+		
+		<procedure owner="dbo" name="Departments_Find_Dynamic"  skip="true">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets records from the Departments table using a dynamically generated query.
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters/>
+			<body><![CDATA[
+				
+				BEGIN
+				
+				WITH PageIndex AS (
+					SELECT TOP {3} row_number() over (order by {1}) AS RowIndex
+					, [DepartmentCode]
+					, [Name]
+					, [CreatedOn]
+					FROM [dbo].[Departments] {0}
+				)
+				SELECT
+				       [DepartmentCode],
+				       [Name],
+				       [CreatedOn]
+				  FROM PageIndex
+				 WHERE RowIndex > {2}
+				   AND RowIndex <= {3}
+				ORDER BY {1};
+				
+
+				-- get total count
+				SELECT COUNT(*) AS TotalRowCount FROM [dbo].[Departments] {0};
+				
+				END
+			]]></body>
+		</procedure>
+		
+		
+		<procedure owner="dbo" name="EmployeeDepartments_Get_List" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets all records from the EmployeeDepartments table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters/>
+			<body><![CDATA[
+				
+				SELECT
+					[EmployeeDepartmentId],
+					[DepartmentCode],
+					[EmployeeId],
+					[CreatedOn]
+				FROM
+					[dbo].[EmployeeDepartments]
+					
+				SELECT @@ROWCOUNT
+			]]></body>
+		</procedure>
+		
+		
+		<procedure owner="dbo" name="EmployeeDepartments_GetPaged" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets records from the EmployeeDepartments table passing page index and page count parameters
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@WhereClause" type="varchar" direction="Input" size="8000" precision="0" scale="0" param="(8000)" />
+				<parameter name="@OrderBy" type="varchar" direction="Input" size="2000" precision="0" scale="0" param="(2000)"/>
+				<parameter name="@PageIndex" type="int" direction="Input" size="0" precision="10" scale="0" />
+				<parameter name="@PageSize" type="int" direction="Input" size="0" precision="10" scale="0" /> 
+			</parameters>
+			<body><![CDATA[
+				
+				BEGIN
+				DECLARE @PageLowerBound int
+				DECLARE @PageUpperBound int
+				
+				-- Set the page bounds
+				SET @PageLowerBound = @PageSize * @PageIndex
+				SET @PageUpperBound = @PageLowerBound + @PageSize
+
+				IF (@OrderBy IS NULL OR LEN(@OrderBy) < 1)
+				BEGIN
+					-- default order by to first column
+					SET @OrderBy = '[EmployeeDepartmentId]'
+				END
+
+				-- SQL Server 2005 Paging
+				DECLARE @SQL AS nvarchar(MAX)
+				SET @SQL = 'WITH PageIndex AS ('
+				SET @SQL = @SQL + ' SELECT'
+				IF @PageSize > 0
+				BEGIN
+					SET @SQL = @SQL + ' TOP ' + CONVERT(nvarchar, @PageUpperBound)
+				END
+				SET @SQL = @SQL + ' ROW_NUMBER() OVER (ORDER BY ' + @OrderBy + ') as RowIndex'
+				SET @SQL = @SQL + ', [EmployeeDepartmentId]'
+				SET @SQL = @SQL + ', [DepartmentCode]'
+				SET @SQL = @SQL + ', [EmployeeId]'
+				SET @SQL = @SQL + ', [CreatedOn]'
+				SET @SQL = @SQL + ' FROM [dbo].[EmployeeDepartments]'
+				IF LEN(@WhereClause) > 0
+				BEGIN
+					SET @SQL = @SQL + ' WHERE ' + @WhereClause
+				END
+				SET @SQL = @SQL + ' ) SELECT'
+				SET @SQL = @SQL + ' [EmployeeDepartmentId],'
+				SET @SQL = @SQL + ' [DepartmentCode],'
+				SET @SQL = @SQL + ' [EmployeeId],'
+				SET @SQL = @SQL + ' [CreatedOn]'
+				SET @SQL = @SQL + ' FROM PageIndex'
+				SET @SQL = @SQL + ' WHERE RowIndex > ' + CONVERT(nvarchar, @PageLowerBound)
+				IF @PageSize > 0
+				BEGIN
+					SET @SQL = @SQL + ' AND RowIndex <= ' + CONVERT(nvarchar, @PageUpperBound)
+				END
+				SET @SQL = @SQL + ' ORDER BY ' + @OrderBy
+				EXEC sp_executesql @SQL
+				
+				-- get row count
+				SET @SQL = 'SELECT COUNT(1) AS TotalRowCount'
+				SET @SQL = @SQL + ' FROM [dbo].[EmployeeDepartments]'
+				IF LEN(@WhereClause) > 0
+				BEGIN
+					SET @SQL = @SQL + ' WHERE ' + @WhereClause
+				END
+				EXEC sp_executesql @SQL
+			
+				END
+			]]></body>
+		</procedure>
+		
+		<procedure owner="dbo" name="EmployeeDepartments_Insert" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Inserts a record into the EmployeeDepartments table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@EmployeeDepartmentId" type="int" direction="Output" size="4" precision="10" scale="0" param="" nulldefault=""/>
+				<parameter name="@DepartmentCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+				<parameter name="@CreatedOn" type="datetime" direction="Input" size="8" precision="23" scale="3" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				
+				INSERT INTO [dbo].[EmployeeDepartments]
+					(
+					[DepartmentCode]
+					,[EmployeeId]
+					,[CreatedOn]
+					)
+				VALUES
+					(
+					@DepartmentCode
+					,@EmployeeId
+					,@CreatedOn
+					)
+				-- Get the identity value
+				SET @EmployeeDepartmentId = SCOPE_IDENTITY()
+									
+							
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="EmployeeDepartments_Update" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Updates a record in the EmployeeDepartments table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@EmployeeDepartmentId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+				<parameter name="@DepartmentCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+				<parameter name="@CreatedOn" type="datetime" direction="Input" size="8" precision="23" scale="3" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				
+				
+				-- Modify the updatable columns
+				UPDATE
+					[dbo].[EmployeeDepartments]
+				SET
+					[DepartmentCode] = @DepartmentCode
+					,[EmployeeId] = @EmployeeId
+					,[CreatedOn] = @CreatedOn
+				WHERE
+[EmployeeDepartmentId] = @EmployeeDepartmentId 
+				
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="EmployeeDepartments_Delete" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Deletes a record in the EmployeeDepartments table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@EmployeeDepartmentId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				DELETE FROM [dbo].[EmployeeDepartments] WITH (ROWLOCK) 
+				WHERE
+					[EmployeeDepartmentId] = @EmployeeDepartmentId
+					
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="EmployeeDepartments_GetByDepartmentCode" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Select records from the EmployeeDepartments table through a foreign key
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@DepartmentCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				SET ANSI_NULLS OFF
+				
+				SELECT
+					[EmployeeDepartmentId],
+					[DepartmentCode],
+					[EmployeeId],
+					[CreatedOn]
+				FROM
+					[dbo].[EmployeeDepartments]
+				WHERE
+					[DepartmentCode] = @DepartmentCode
+				
+				SELECT @@ROWCOUNT
+				SET ANSI_NULLS ON
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="EmployeeDepartments_GetByEmployeeId" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Select records from the EmployeeDepartments table through a foreign key
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				SET ANSI_NULLS OFF
+				
+				SELECT
+					[EmployeeDepartmentId],
+					[DepartmentCode],
+					[EmployeeId],
+					[CreatedOn]
+				FROM
+					[dbo].[EmployeeDepartments]
+				WHERE
+					[EmployeeId] = @EmployeeId
+				
+				SELECT @@ROWCOUNT
+				SET ANSI_NULLS ON
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="EmployeeDepartments_GetByEmployeeDepartmentId" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Select records from the EmployeeDepartments table through an index
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@EmployeeDepartmentId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				SELECT
+					[EmployeeDepartmentId],
+					[DepartmentCode],
+					[EmployeeId],
+					[CreatedOn]
+				FROM
+					[dbo].[EmployeeDepartments]
+				WHERE
+					[EmployeeDepartmentId] = @EmployeeDepartmentId
+				SELECT @@ROWCOUNT
+					
+			]]></body>
+			
+		</procedure>
+		<procedure owner="dbo" name="EmployeeDepartments_Find" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Finds records in the EmployeeDepartments table passing nullable parameters
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@SearchUsingOR" type="bit" direction="Input" size="0" precision="1" scale="0" param="" nulldefault="null"/>
+				<parameter name="@EmployeeDepartmentId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault="null"/>
+				<parameter name="@DepartmentCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault="null"/>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault="null"/>
+				<parameter name="@CreatedOn" type="datetime" direction="Input" size="8" precision="23" scale="3" param="" nulldefault="null"/>
+			</parameters>
+			<body><![CDATA[
+				
+  IF ISNULL(@SearchUsingOR, 0) <> 1
+  BEGIN
+    SELECT
+	  [EmployeeDepartmentId]
+	, [DepartmentCode]
+	, [EmployeeId]
+	, [CreatedOn]
+    FROM
+	[dbo].[EmployeeDepartments]
+    WHERE 
+	 ([EmployeeDepartmentId] = @EmployeeDepartmentId OR @EmployeeDepartmentId IS NULL)
+	AND ([DepartmentCode] = @DepartmentCode OR @DepartmentCode IS NULL)
+	AND ([EmployeeId] = @EmployeeId OR @EmployeeId IS NULL)
+	AND ([CreatedOn] = @CreatedOn OR @CreatedOn IS NULL)
+						
+  END
+  ELSE
+  BEGIN
+    SELECT
+	  [EmployeeDepartmentId]
+	, [DepartmentCode]
+	, [EmployeeId]
+	, [CreatedOn]
+    FROM
+	[dbo].[EmployeeDepartments]
+    WHERE 
+	 ([EmployeeDepartmentId] = @EmployeeDepartmentId AND @EmployeeDepartmentId is not null)
+	OR ([DepartmentCode] = @DepartmentCode AND @DepartmentCode is not null)
+	OR ([EmployeeId] = @EmployeeId AND @EmployeeId is not null)
+	OR ([CreatedOn] = @CreatedOn AND @CreatedOn is not null)
+	SELECT @@ROWCOUNT			
+  END
+				]]></body>
+		</procedure>
+
+		
+		<procedure owner="dbo" name="EmployeeDepartments_Find_Dynamic"  skip="true">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets records from the EmployeeDepartments table using a dynamically generated query.
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters/>
+			<body><![CDATA[
+				
+				BEGIN
+				
+				WITH PageIndex AS (
+					SELECT TOP {3} row_number() over (order by {1}) AS RowIndex
+					, [EmployeeDepartmentId]
+					, [DepartmentCode]
+					, [EmployeeId]
+					, [CreatedOn]
+					FROM [dbo].[EmployeeDepartments] {0}
+				)
+				SELECT
+				       [EmployeeDepartmentId],
+				       [DepartmentCode],
+				       [EmployeeId],
+				       [CreatedOn]
+				  FROM PageIndex
+				 WHERE RowIndex > {2}
+				   AND RowIndex <= {3}
+				ORDER BY {1};
+				
+
+				-- get total count
+				SELECT COUNT(*) AS TotalRowCount FROM [dbo].[EmployeeDepartments] {0};
+				
+				END
+			]]></body>
+		</procedure>
+		
+		
+		<procedure owner="dbo" name="Employee_Get_List" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets all records from the Employee table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters/>
+			<body><![CDATA[
+				
+				SELECT
+					[EmployeeId],
+					[EmployeeCode],
+					[FullName],
+					[FirstName],
+					[MiddlesName],
+					[LastName],
+					[DOB],
+					[Email],
+					[Bio],
+					[CreatedOn]
+				FROM
+					[dbo].[Employee]
+					
+				SELECT @@ROWCOUNT
+			]]></body>
+		</procedure>
+		
+		
+		<procedure owner="dbo" name="Employee_GetPaged" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets records from the Employee table passing page index and page count parameters
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@WhereClause" type="varchar" direction="Input" size="8000" precision="0" scale="0" param="(8000)" />
+				<parameter name="@OrderBy" type="varchar" direction="Input" size="2000" precision="0" scale="0" param="(2000)"/>
+				<parameter name="@PageIndex" type="int" direction="Input" size="0" precision="10" scale="0" />
+				<parameter name="@PageSize" type="int" direction="Input" size="0" precision="10" scale="0" /> 
+			</parameters>
+			<body><![CDATA[
+				
+				BEGIN
+				DECLARE @PageLowerBound int
+				DECLARE @PageUpperBound int
+				
+				-- Set the page bounds
+				SET @PageLowerBound = @PageSize * @PageIndex
+				SET @PageUpperBound = @PageLowerBound + @PageSize
+
+				IF (@OrderBy IS NULL OR LEN(@OrderBy) < 1)
+				BEGIN
+					-- default order by to first column
+					SET @OrderBy = '[EmployeeId]'
+				END
+
+				-- SQL Server 2005 Paging
+				DECLARE @SQL AS nvarchar(MAX)
+				SET @SQL = 'WITH PageIndex AS ('
+				SET @SQL = @SQL + ' SELECT'
+				IF @PageSize > 0
+				BEGIN
+					SET @SQL = @SQL + ' TOP ' + CONVERT(nvarchar, @PageUpperBound)
+				END
+				SET @SQL = @SQL + ' ROW_NUMBER() OVER (ORDER BY ' + @OrderBy + ') as RowIndex'
+				SET @SQL = @SQL + ', [EmployeeId]'
+				SET @SQL = @SQL + ', [EmployeeCode]'
+				SET @SQL = @SQL + ', [FullName]'
+				SET @SQL = @SQL + ', [FirstName]'
+				SET @SQL = @SQL + ', [MiddlesName]'
+				SET @SQL = @SQL + ', [LastName]'
+				SET @SQL = @SQL + ', [DOB]'
+				SET @SQL = @SQL + ', [Email]'
+				SET @SQL = @SQL + ', [Bio]'
+				SET @SQL = @SQL + ', [CreatedOn]'
+				SET @SQL = @SQL + ' FROM [dbo].[Employee]'
+				IF LEN(@WhereClause) > 0
+				BEGIN
+					SET @SQL = @SQL + ' WHERE ' + @WhereClause
+				END
+				SET @SQL = @SQL + ' ) SELECT'
+				SET @SQL = @SQL + ' [EmployeeId],'
+				SET @SQL = @SQL + ' [EmployeeCode],'
+				SET @SQL = @SQL + ' [FullName],'
+				SET @SQL = @SQL + ' [FirstName],'
+				SET @SQL = @SQL + ' [MiddlesName],'
+				SET @SQL = @SQL + ' [LastName],'
+				SET @SQL = @SQL + ' [DOB],'
+				SET @SQL = @SQL + ' [Email],'
+				SET @SQL = @SQL + ' [Bio],'
+				SET @SQL = @SQL + ' [CreatedOn]'
+				SET @SQL = @SQL + ' FROM PageIndex'
+				SET @SQL = @SQL + ' WHERE RowIndex > ' + CONVERT(nvarchar, @PageLowerBound)
+				IF @PageSize > 0
+				BEGIN
+					SET @SQL = @SQL + ' AND RowIndex <= ' + CONVERT(nvarchar, @PageUpperBound)
+				END
+				SET @SQL = @SQL + ' ORDER BY ' + @OrderBy
+				EXEC sp_executesql @SQL
+				
+				-- get row count
+				SET @SQL = 'SELECT COUNT(1) AS TotalRowCount'
+				SET @SQL = @SQL + ' FROM [dbo].[Employee]'
+				IF LEN(@WhereClause) > 0
+				BEGIN
+					SET @SQL = @SQL + ' WHERE ' + @WhereClause
+				END
+				EXEC sp_executesql @SQL
+			
+				END
+			]]></body>
+		</procedure>
+		
+		<procedure owner="dbo" name="Employee_Insert" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Inserts a record into the Employee table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@EmployeeId" type="int" direction="Output" size="4" precision="10" scale="0" param="" nulldefault=""/>
+				<parameter name="@EmployeeCode" type="varchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault=""/>
+				<parameter name="@FullName" type="nvarchar" direction="Input" size="200" precision="0" scale="0" param="(200)" nulldefault=""/>
+				<parameter name="@FirstName" type="nvarchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault=""/>
+				<parameter name="@MiddlesName" type="nvarchar" direction="Input" size="100" precision="0" scale="0" param="(100)" nulldefault=""/>
+				<parameter name="@LastName" type="nvarchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault=""/>
+				<parameter name="@DOB" type="datetime" direction="Input" size="8" precision="23" scale="3" param="" nulldefault=""/>
+				<parameter name="@Email" type="nvarchar" direction="Input" size="200" precision="0" scale="0" param="(200)" nulldefault=""/>
+				<parameter name="@Bio" type="nvarchar" direction="Input" size="-1" precision="0" scale="0" param="(MAX)" nulldefault=""/>
+				<parameter name="@CreatedOn" type="datetime" direction="Input" size="8" precision="23" scale="3" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				
+				INSERT INTO [dbo].[Employee]
+					(
+					[EmployeeCode]
+					,[FullName]
+					,[FirstName]
+					,[MiddlesName]
+					,[LastName]
+					,[DOB]
+					,[Email]
+					,[Bio]
+					,[CreatedOn]
+					)
+				VALUES
+					(
+					@EmployeeCode
+					,@FullName
+					,@FirstName
+					,@MiddlesName
+					,@LastName
+					,@DOB
+					,@Email
+					,@Bio
+					,@CreatedOn
+					)
+				-- Get the identity value
+				SET @EmployeeId = SCOPE_IDENTITY()
+									
+							
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="Employee_Update" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Updates a record in the Employee table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+				<parameter name="@EmployeeCode" type="varchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault=""/>
+				<parameter name="@FullName" type="nvarchar" direction="Input" size="200" precision="0" scale="0" param="(200)" nulldefault=""/>
+				<parameter name="@FirstName" type="nvarchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault=""/>
+				<parameter name="@MiddlesName" type="nvarchar" direction="Input" size="100" precision="0" scale="0" param="(100)" nulldefault=""/>
+				<parameter name="@LastName" type="nvarchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault=""/>
+				<parameter name="@DOB" type="datetime" direction="Input" size="8" precision="23" scale="3" param="" nulldefault=""/>
+				<parameter name="@Email" type="nvarchar" direction="Input" size="200" precision="0" scale="0" param="(200)" nulldefault=""/>
+				<parameter name="@Bio" type="nvarchar" direction="Input" size="-1" precision="0" scale="0" param="(MAX)" nulldefault=""/>
+				<parameter name="@CreatedOn" type="datetime" direction="Input" size="8" precision="23" scale="3" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				
+				
+				-- Modify the updatable columns
+				UPDATE
+					[dbo].[Employee]
+				SET
+					[EmployeeCode] = @EmployeeCode
+					,[FullName] = @FullName
+					,[FirstName] = @FirstName
+					,[MiddlesName] = @MiddlesName
+					,[LastName] = @LastName
+					,[DOB] = @DOB
+					,[Email] = @Email
+					,[Bio] = @Bio
+					,[CreatedOn] = @CreatedOn
+				WHERE
+[EmployeeId] = @EmployeeId 
+				
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="Employee_Delete" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Deletes a record in the Employee table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				DELETE FROM [dbo].[Employee] WITH (ROWLOCK) 
+				WHERE
+					[EmployeeId] = @EmployeeId
+					
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="Employee_GetByEmployeeId" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Select records from the Employee table through an index
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				SELECT
+					[EmployeeId],
+					[EmployeeCode],
+					[FullName],
+					[FirstName],
+					[MiddlesName],
+					[LastName],
+					[DOB],
+					[Email],
+					[Bio],
+					[CreatedOn]
+				FROM
+					[dbo].[Employee]
+				WHERE
+					[EmployeeId] = @EmployeeId
+				SELECT @@ROWCOUNT
+					
+			]]></body>
+			
+		</procedure>
+		<procedure owner="dbo" name="Employee_Find" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Finds records in the Employee table passing nullable parameters
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@SearchUsingOR" type="bit" direction="Input" size="0" precision="1" scale="0" param="" nulldefault="null"/>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault="null"/>
+				<parameter name="@EmployeeCode" type="varchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault="null"/>
+				<parameter name="@FullName" type="nvarchar" direction="Input" size="200" precision="0" scale="0" param="(200)" nulldefault="null"/>
+				<parameter name="@FirstName" type="nvarchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault="null"/>
+				<parameter name="@MiddlesName" type="nvarchar" direction="Input" size="100" precision="0" scale="0" param="(100)" nulldefault="null"/>
+				<parameter name="@LastName" type="nvarchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault="null"/>
+				<parameter name="@DOB" type="datetime" direction="Input" size="8" precision="23" scale="3" param="" nulldefault="null"/>
+				<parameter name="@Email" type="nvarchar" direction="Input" size="200" precision="0" scale="0" param="(200)" nulldefault="null"/>
+				<parameter name="@Bio" type="nvarchar" direction="Input" size="-1" precision="0" scale="0" param="(MAX)" nulldefault="null"/>
+				<parameter name="@CreatedOn" type="datetime" direction="Input" size="8" precision="23" scale="3" param="" nulldefault="null"/>
+			</parameters>
+			<body><![CDATA[
+				
+  IF ISNULL(@SearchUsingOR, 0) <> 1
+  BEGIN
+    SELECT
+	  [EmployeeId]
+	, [EmployeeCode]
+	, [FullName]
+	, [FirstName]
+	, [MiddlesName]
+	, [LastName]
+	, [DOB]
+	, [Email]
+	, [Bio]
+	, [CreatedOn]
+    FROM
+	[dbo].[Employee]
+    WHERE 
+	 ([EmployeeId] = @EmployeeId OR @EmployeeId IS NULL)
+	AND ([EmployeeCode] = @EmployeeCode OR @EmployeeCode IS NULL)
+	AND ([FullName] = @FullName OR @FullName IS NULL)
+	AND ([FirstName] = @FirstName OR @FirstName IS NULL)
+	AND ([MiddlesName] = @MiddlesName OR @MiddlesName IS NULL)
+	AND ([LastName] = @LastName OR @LastName IS NULL)
+	AND ([DOB] = @DOB OR @DOB IS NULL)
+	AND ([Email] = @Email OR @Email IS NULL)
+	AND ([Bio] = @Bio OR @Bio IS NULL)
+	AND ([CreatedOn] = @CreatedOn OR @CreatedOn IS NULL)
+						
+  END
+  ELSE
+  BEGIN
+    SELECT
+	  [EmployeeId]
+	, [EmployeeCode]
+	, [FullName]
+	, [FirstName]
+	, [MiddlesName]
+	, [LastName]
+	, [DOB]
+	, [Email]
+	, [Bio]
+	, [CreatedOn]
+    FROM
+	[dbo].[Employee]
+    WHERE 
+	 ([EmployeeId] = @EmployeeId AND @EmployeeId is not null)
+	OR ([EmployeeCode] = @EmployeeCode AND @EmployeeCode is not null)
+	OR ([FullName] = @FullName AND @FullName is not null)
+	OR ([FirstName] = @FirstName AND @FirstName is not null)
+	OR ([MiddlesName] = @MiddlesName AND @MiddlesName is not null)
+	OR ([LastName] = @LastName AND @LastName is not null)
+	OR ([DOB] = @DOB AND @DOB is not null)
+	OR ([Email] = @Email AND @Email is not null)
+	OR ([Bio] = @Bio AND @Bio is not null)
+	OR ([CreatedOn] = @CreatedOn AND @CreatedOn is not null)
+	SELECT @@ROWCOUNT			
+  END
+				]]></body>
+		</procedure>
+
+		
+		<procedure owner="dbo" name="Employee_Find_Dynamic"  skip="true">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets records from the Employee table using a dynamically generated query.
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters/>
+			<body><![CDATA[
+				
+				BEGIN
+				
+				WITH PageIndex AS (
+					SELECT TOP {3} row_number() over (order by {1}) AS RowIndex
+					, [EmployeeId]
+					, [EmployeeCode]
+					, [FullName]
+					, [FirstName]
+					, [MiddlesName]
+					, [LastName]
+					, [DOB]
+					, [Email]
+					, [Bio]
+					, [CreatedOn]
+					FROM [dbo].[Employee] {0}
+				)
+				SELECT
+				       [EmployeeId],
+				       [EmployeeCode],
+				       [FullName],
+				       [FirstName],
+				       [MiddlesName],
+				       [LastName],
+				       [DOB],
+				       [Email],
+				       [Bio],
+				       [CreatedOn]
+				  FROM PageIndex
+				 WHERE RowIndex > {2}
+				   AND RowIndex <= {3}
+				ORDER BY {1};
+				
+
+				-- get total count
+				SELECT COUNT(*) AS TotalRowCount FROM [dbo].[Employee] {0};
+				
+				END
+			]]></body>
+		</procedure>
+		
+		
+		<procedure owner="dbo" name="Countries_Get_List" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets all records from the Countries table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters/>
+			<body><![CDATA[
+				
+				SELECT
+					[CountryCode],
+					[Name]
+				FROM
+					[dbo].[Countries]
+					
+				SELECT @@ROWCOUNT
+			]]></body>
+		</procedure>
+		
+		
+		<procedure owner="dbo" name="Countries_GetPaged" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets records from the Countries table passing page index and page count parameters
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@WhereClause" type="varchar" direction="Input" size="8000" precision="0" scale="0" param="(8000)" />
+				<parameter name="@OrderBy" type="varchar" direction="Input" size="2000" precision="0" scale="0" param="(2000)"/>
+				<parameter name="@PageIndex" type="int" direction="Input" size="0" precision="10" scale="0" />
+				<parameter name="@PageSize" type="int" direction="Input" size="0" precision="10" scale="0" /> 
+			</parameters>
+			<body><![CDATA[
+				
+				BEGIN
+				DECLARE @PageLowerBound int
+				DECLARE @PageUpperBound int
+				
+				-- Set the page bounds
+				SET @PageLowerBound = @PageSize * @PageIndex
+				SET @PageUpperBound = @PageLowerBound + @PageSize
+
+				IF (@OrderBy IS NULL OR LEN(@OrderBy) < 1)
+				BEGIN
+					-- default order by to first column
+					SET @OrderBy = '[CountryCode]'
+				END
+
+				-- SQL Server 2005 Paging
+				DECLARE @SQL AS nvarchar(MAX)
+				SET @SQL = 'WITH PageIndex AS ('
+				SET @SQL = @SQL + ' SELECT'
+				IF @PageSize > 0
+				BEGIN
+					SET @SQL = @SQL + ' TOP ' + CONVERT(nvarchar, @PageUpperBound)
+				END
+				SET @SQL = @SQL + ' ROW_NUMBER() OVER (ORDER BY ' + @OrderBy + ') as RowIndex'
+				SET @SQL = @SQL + ', [CountryCode]'
+				SET @SQL = @SQL + ', [Name]'
+				SET @SQL = @SQL + ' FROM [dbo].[Countries]'
+				IF LEN(@WhereClause) > 0
+				BEGIN
+					SET @SQL = @SQL + ' WHERE ' + @WhereClause
+				END
+				SET @SQL = @SQL + ' ) SELECT'
+				SET @SQL = @SQL + ' [CountryCode],'
+				SET @SQL = @SQL + ' [Name]'
+				SET @SQL = @SQL + ' FROM PageIndex'
+				SET @SQL = @SQL + ' WHERE RowIndex > ' + CONVERT(nvarchar, @PageLowerBound)
+				IF @PageSize > 0
+				BEGIN
+					SET @SQL = @SQL + ' AND RowIndex <= ' + CONVERT(nvarchar, @PageUpperBound)
+				END
+				SET @SQL = @SQL + ' ORDER BY ' + @OrderBy
+				EXEC sp_executesql @SQL
+				
+				-- get row count
+				SET @SQL = 'SELECT COUNT(1) AS TotalRowCount'
+				SET @SQL = @SQL + ' FROM [dbo].[Countries]'
+				IF LEN(@WhereClause) > 0
+				BEGIN
+					SET @SQL = @SQL + ' WHERE ' + @WhereClause
+				END
+				EXEC sp_executesql @SQL
+			
+				END
+			]]></body>
+		</procedure>
+		
+		<procedure owner="dbo" name="Countries_Insert" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Inserts a record into the Countries table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@CountryCode" type="varchar" direction="Input" size="3" precision="0" scale="0" param="(3)" nulldefault=""/>
+				<parameter name="@Name" type="nvarchar" direction="Input" size="200" precision="0" scale="0" param="(200)" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				
+				INSERT INTO [dbo].[Countries]
+					(
+					[CountryCode]
+					,[Name]
+					)
+				VALUES
+					(
+					@CountryCode
+					,@Name
+					)
+									
+							
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="Countries_Update" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Updates a record in the Countries table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@CountryCode" type="varchar" direction="Input" size="3" precision="0" scale="0" param="(3)" nulldefault=""/>
+				<parameter name="@OriginalCountryCode" type="varchar" direction="Input" size="3" precision="0" scale="0" param="(3)" nulldefault=""/>
+				<parameter name="@Name" type="nvarchar" direction="Input" size="200" precision="0" scale="0" param="(200)" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				
+				
+				-- Modify the updatable columns
+				UPDATE
+					[dbo].[Countries]
+				SET
+					[CountryCode] = @CountryCode
+					,[Name] = @Name
+				WHERE
+[CountryCode] = @OriginalCountryCode 
+				
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="Countries_Delete" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Deletes a record in the Countries table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@CountryCode" type="varchar" direction="Input" size="3" precision="0" scale="0" param="(3)" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				DELETE FROM [dbo].[Countries] WITH (ROWLOCK) 
+				WHERE
+					[CountryCode] = @CountryCode
+					
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="Countries_GetByCountryCode" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Select records from the Countries table through an index
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@CountryCode" type="varchar" direction="Input" size="3" precision="0" scale="0" param="(3)" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				SELECT
+					[CountryCode],
+					[Name]
+				FROM
+					[dbo].[Countries]
+				WHERE
+					[CountryCode] = @CountryCode
+				SELECT @@ROWCOUNT
+					
+			]]></body>
+			
+		</procedure>
+		<procedure owner="dbo" name="Countries_Find" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Finds records in the Countries table passing nullable parameters
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@SearchUsingOR" type="bit" direction="Input" size="0" precision="1" scale="0" param="" nulldefault="null"/>
+				<parameter name="@CountryCode" type="varchar" direction="Input" size="3" precision="0" scale="0" param="(3)" nulldefault="null"/>
+				<parameter name="@Name" type="nvarchar" direction="Input" size="200" precision="0" scale="0" param="(200)" nulldefault="null"/>
+			</parameters>
+			<body><![CDATA[
+				
+  IF ISNULL(@SearchUsingOR, 0) <> 1
+  BEGIN
+    SELECT
+	  [CountryCode]
+	, [Name]
+    FROM
+	[dbo].[Countries]
+    WHERE 
+	 ([CountryCode] = @CountryCode OR @CountryCode IS NULL)
+	AND ([Name] = @Name OR @Name IS NULL)
+						
+  END
+  ELSE
+  BEGIN
+    SELECT
+	  [CountryCode]
+	, [Name]
+    FROM
+	[dbo].[Countries]
+    WHERE 
+	 ([CountryCode] = @CountryCode AND @CountryCode is not null)
+	OR ([Name] = @Name AND @Name is not null)
+	SELECT @@ROWCOUNT			
+  END
+				]]></body>
+		</procedure>
+
+		
+		<procedure owner="dbo" name="Countries_Find_Dynamic"  skip="true">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets records from the Countries table using a dynamically generated query.
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters/>
+			<body><![CDATA[
+				
+				BEGIN
+				
+				WITH PageIndex AS (
+					SELECT TOP {3} row_number() over (order by {1}) AS RowIndex
+					, [CountryCode]
+					, [Name]
+					FROM [dbo].[Countries] {0}
+				)
+				SELECT
+				       [CountryCode],
+				       [Name]
+				  FROM PageIndex
+				 WHERE RowIndex > {2}
+				   AND RowIndex <= {3}
+				ORDER BY {1};
+				
+
+				-- get total count
+				SELECT COUNT(*) AS TotalRowCount FROM [dbo].[Countries] {0};
+				
+				END
+			]]></body>
+		</procedure>
+		
+		
+		<procedure owner="dbo" name="SkillLevels_Get_List" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets all records from the SkillLevels table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters/>
+			<body><![CDATA[
+				
+				SELECT
+					[LevelCode],
+					[Name]
+				FROM
+					[dbo].[SkillLevels]
+					
+				SELECT @@ROWCOUNT
+			]]></body>
+		</procedure>
+		
+		
+		<procedure owner="dbo" name="SkillLevels_GetPaged" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets records from the SkillLevels table passing page index and page count parameters
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@WhereClause" type="varchar" direction="Input" size="8000" precision="0" scale="0" param="(8000)" />
+				<parameter name="@OrderBy" type="varchar" direction="Input" size="2000" precision="0" scale="0" param="(2000)"/>
+				<parameter name="@PageIndex" type="int" direction="Input" size="0" precision="10" scale="0" />
+				<parameter name="@PageSize" type="int" direction="Input" size="0" precision="10" scale="0" /> 
+			</parameters>
+			<body><![CDATA[
+				
+				BEGIN
+				DECLARE @PageLowerBound int
+				DECLARE @PageUpperBound int
+				
+				-- Set the page bounds
+				SET @PageLowerBound = @PageSize * @PageIndex
+				SET @PageUpperBound = @PageLowerBound + @PageSize
+
+				IF (@OrderBy IS NULL OR LEN(@OrderBy) < 1)
+				BEGIN
+					-- default order by to first column
+					SET @OrderBy = '[LevelCode]'
+				END
+
+				-- SQL Server 2005 Paging
+				DECLARE @SQL AS nvarchar(MAX)
+				SET @SQL = 'WITH PageIndex AS ('
+				SET @SQL = @SQL + ' SELECT'
+				IF @PageSize > 0
+				BEGIN
+					SET @SQL = @SQL + ' TOP ' + CONVERT(nvarchar, @PageUpperBound)
+				END
+				SET @SQL = @SQL + ' ROW_NUMBER() OVER (ORDER BY ' + @OrderBy + ') as RowIndex'
+				SET @SQL = @SQL + ', [LevelCode]'
+				SET @SQL = @SQL + ', [Name]'
+				SET @SQL = @SQL + ' FROM [dbo].[SkillLevels]'
+				IF LEN(@WhereClause) > 0
+				BEGIN
+					SET @SQL = @SQL + ' WHERE ' + @WhereClause
+				END
+				SET @SQL = @SQL + ' ) SELECT'
+				SET @SQL = @SQL + ' [LevelCode],'
+				SET @SQL = @SQL + ' [Name]'
+				SET @SQL = @SQL + ' FROM PageIndex'
+				SET @SQL = @SQL + ' WHERE RowIndex > ' + CONVERT(nvarchar, @PageLowerBound)
+				IF @PageSize > 0
+				BEGIN
+					SET @SQL = @SQL + ' AND RowIndex <= ' + CONVERT(nvarchar, @PageUpperBound)
+				END
+				SET @SQL = @SQL + ' ORDER BY ' + @OrderBy
+				EXEC sp_executesql @SQL
+				
+				-- get row count
+				SET @SQL = 'SELECT COUNT(1) AS TotalRowCount'
+				SET @SQL = @SQL + ' FROM [dbo].[SkillLevels]'
+				IF LEN(@WhereClause) > 0
+				BEGIN
+					SET @SQL = @SQL + ' WHERE ' + @WhereClause
+				END
+				EXEC sp_executesql @SQL
+			
+				END
+			]]></body>
+		</procedure>
+		
+		<procedure owner="dbo" name="SkillLevels_Insert" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Inserts a record into the SkillLevels table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@LevelCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+				<parameter name="@Name" type="nvarchar" direction="Input" size="20" precision="0" scale="0" param="(20)" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				
+				INSERT INTO [dbo].[SkillLevels]
+					(
+					[LevelCode]
+					,[Name]
+					)
+				VALUES
+					(
+					@LevelCode
+					,@Name
+					)
+									
+							
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="SkillLevels_Update" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Updates a record in the SkillLevels table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@LevelCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+				<parameter name="@OriginalLevelCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+				<parameter name="@Name" type="nvarchar" direction="Input" size="20" precision="0" scale="0" param="(20)" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				
+				
+				-- Modify the updatable columns
+				UPDATE
+					[dbo].[SkillLevels]
+				SET
+					[LevelCode] = @LevelCode
+					,[Name] = @Name
+				WHERE
+[LevelCode] = @OriginalLevelCode 
+				
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="SkillLevels_Delete" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Deletes a record in the SkillLevels table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@LevelCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				DELETE FROM [dbo].[SkillLevels] WITH (ROWLOCK) 
+				WHERE
+					[LevelCode] = @LevelCode
+					
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="SkillLevels_GetByLevelCode" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Select records from the SkillLevels table through an index
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@LevelCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				SELECT
+					[LevelCode],
+					[Name]
+				FROM
+					[dbo].[SkillLevels]
+				WHERE
+					[LevelCode] = @LevelCode
+				SELECT @@ROWCOUNT
+					
+			]]></body>
+			
+		</procedure>
+		<procedure owner="dbo" name="SkillLevels_Find" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Finds records in the SkillLevels table passing nullable parameters
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@SearchUsingOR" type="bit" direction="Input" size="0" precision="1" scale="0" param="" nulldefault="null"/>
+				<parameter name="@LevelCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault="null"/>
+				<parameter name="@Name" type="nvarchar" direction="Input" size="20" precision="0" scale="0" param="(20)" nulldefault="null"/>
+			</parameters>
+			<body><![CDATA[
+				
+  IF ISNULL(@SearchUsingOR, 0) <> 1
+  BEGIN
+    SELECT
+	  [LevelCode]
+	, [Name]
+    FROM
+	[dbo].[SkillLevels]
+    WHERE 
+	 ([LevelCode] = @LevelCode OR @LevelCode IS NULL)
+	AND ([Name] = @Name OR @Name IS NULL)
+						
+  END
+  ELSE
+  BEGIN
+    SELECT
+	  [LevelCode]
+	, [Name]
+    FROM
+	[dbo].[SkillLevels]
+    WHERE 
+	 ([LevelCode] = @LevelCode AND @LevelCode is not null)
+	OR ([Name] = @Name AND @Name is not null)
+	SELECT @@ROWCOUNT			
+  END
+				]]></body>
+		</procedure>
+
+		
+		<procedure owner="dbo" name="SkillLevels_Find_Dynamic"  skip="true">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets records from the SkillLevels table using a dynamically generated query.
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters/>
+			<body><![CDATA[
+				
+				BEGIN
+				
+				WITH PageIndex AS (
+					SELECT TOP {3} row_number() over (order by {1}) AS RowIndex
+					, [LevelCode]
+					, [Name]
+					FROM [dbo].[SkillLevels] {0}
+				)
+				SELECT
+				       [LevelCode],
+				       [Name]
+				  FROM PageIndex
+				 WHERE RowIndex > {2}
+				   AND RowIndex <= {3}
+				ORDER BY {1};
+				
+
+				-- get total count
+				SELECT COUNT(*) AS TotalRowCount FROM [dbo].[SkillLevels] {0};
+				
+				END
+			]]></body>
+		</procedure>
+		
+		
+		<procedure owner="dbo" name="Skill_Get_List" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets all records from the Skill table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters/>
+			<body><![CDATA[
+				
+				SELECT
+					[SkillCode],
+					[Name],
+					[Category]
+				FROM
+					[dbo].[Skill]
+					
+				SELECT @@ROWCOUNT
+			]]></body>
+		</procedure>
+		
+		
+		<procedure owner="dbo" name="Skill_GetPaged" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets records from the Skill table passing page index and page count parameters
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@WhereClause" type="varchar" direction="Input" size="8000" precision="0" scale="0" param="(8000)" />
+				<parameter name="@OrderBy" type="varchar" direction="Input" size="2000" precision="0" scale="0" param="(2000)"/>
+				<parameter name="@PageIndex" type="int" direction="Input" size="0" precision="10" scale="0" />
+				<parameter name="@PageSize" type="int" direction="Input" size="0" precision="10" scale="0" /> 
+			</parameters>
+			<body><![CDATA[
+				
+				BEGIN
+				DECLARE @PageLowerBound int
+				DECLARE @PageUpperBound int
+				
+				-- Set the page bounds
+				SET @PageLowerBound = @PageSize * @PageIndex
+				SET @PageUpperBound = @PageLowerBound + @PageSize
+
+				IF (@OrderBy IS NULL OR LEN(@OrderBy) < 1)
+				BEGIN
+					-- default order by to first column
+					SET @OrderBy = '[SkillCode]'
+				END
+
+				-- SQL Server 2005 Paging
+				DECLARE @SQL AS nvarchar(MAX)
+				SET @SQL = 'WITH PageIndex AS ('
+				SET @SQL = @SQL + ' SELECT'
+				IF @PageSize > 0
+				BEGIN
+					SET @SQL = @SQL + ' TOP ' + CONVERT(nvarchar, @PageUpperBound)
+				END
+				SET @SQL = @SQL + ' ROW_NUMBER() OVER (ORDER BY ' + @OrderBy + ') as RowIndex'
+				SET @SQL = @SQL + ', [SkillCode]'
+				SET @SQL = @SQL + ', [Name]'
+				SET @SQL = @SQL + ', [Category]'
+				SET @SQL = @SQL + ' FROM [dbo].[Skill]'
+				IF LEN(@WhereClause) > 0
+				BEGIN
+					SET @SQL = @SQL + ' WHERE ' + @WhereClause
+				END
+				SET @SQL = @SQL + ' ) SELECT'
+				SET @SQL = @SQL + ' [SkillCode],'
+				SET @SQL = @SQL + ' [Name],'
+				SET @SQL = @SQL + ' [Category]'
+				SET @SQL = @SQL + ' FROM PageIndex'
+				SET @SQL = @SQL + ' WHERE RowIndex > ' + CONVERT(nvarchar, @PageLowerBound)
+				IF @PageSize > 0
+				BEGIN
+					SET @SQL = @SQL + ' AND RowIndex <= ' + CONVERT(nvarchar, @PageUpperBound)
+				END
+				SET @SQL = @SQL + ' ORDER BY ' + @OrderBy
+				EXEC sp_executesql @SQL
+				
+				-- get row count
+				SET @SQL = 'SELECT COUNT(1) AS TotalRowCount'
+				SET @SQL = @SQL + ' FROM [dbo].[Skill]'
+				IF LEN(@WhereClause) > 0
+				BEGIN
+					SET @SQL = @SQL + ' WHERE ' + @WhereClause
+				END
+				EXEC sp_executesql @SQL
+			
+				END
+			]]></body>
+		</procedure>
+		
+		<procedure owner="dbo" name="Skill_Insert" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Inserts a record into the Skill table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@SkillCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+				<parameter name="@Name" type="nvarchar" direction="Input" size="100" precision="0" scale="0" param="(100)" nulldefault=""/>
+				<parameter name="@Category" type="nvarchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				
+				INSERT INTO [dbo].[Skill]
+					(
+					[SkillCode]
+					,[Name]
+					,[Category]
+					)
+				VALUES
+					(
+					@SkillCode
+					,@Name
+					,@Category
+					)
+									
+							
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="Skill_Update" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Updates a record in the Skill table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@SkillCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+				<parameter name="@OriginalSkillCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+				<parameter name="@Name" type="nvarchar" direction="Input" size="100" precision="0" scale="0" param="(100)" nulldefault=""/>
+				<parameter name="@Category" type="nvarchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				
+				
+				-- Modify the updatable columns
+				UPDATE
+					[dbo].[Skill]
+				SET
+					[SkillCode] = @SkillCode
+					,[Name] = @Name
+					,[Category] = @Category
+				WHERE
+[SkillCode] = @OriginalSkillCode 
+				
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="Skill_Delete" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Deletes a record in the Skill table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@SkillCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				DELETE FROM [dbo].[Skill] WITH (ROWLOCK) 
+				WHERE
+					[SkillCode] = @SkillCode
+					
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="Skill_GetBySkillCode" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Select records from the Skill table through an index
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@SkillCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				SELECT
+					[SkillCode],
+					[Name],
+					[Category]
+				FROM
+					[dbo].[Skill]
+				WHERE
+					[SkillCode] = @SkillCode
+				SELECT @@ROWCOUNT
+					
+			]]></body>
+			
+		</procedure>
+		<procedure owner="dbo" name="Skill_Find" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Finds records in the Skill table passing nullable parameters
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@SearchUsingOR" type="bit" direction="Input" size="0" precision="1" scale="0" param="" nulldefault="null"/>
+				<parameter name="@SkillCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault="null"/>
+				<parameter name="@Name" type="nvarchar" direction="Input" size="100" precision="0" scale="0" param="(100)" nulldefault="null"/>
+				<parameter name="@Category" type="nvarchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault="null"/>
+			</parameters>
+			<body><![CDATA[
+				
+  IF ISNULL(@SearchUsingOR, 0) <> 1
+  BEGIN
+    SELECT
+	  [SkillCode]
+	, [Name]
+	, [Category]
+    FROM
+	[dbo].[Skill]
+    WHERE 
+	 ([SkillCode] = @SkillCode OR @SkillCode IS NULL)
+	AND ([Name] = @Name OR @Name IS NULL)
+	AND ([Category] = @Category OR @Category IS NULL)
+						
+  END
+  ELSE
+  BEGIN
+    SELECT
+	  [SkillCode]
+	, [Name]
+	, [Category]
+    FROM
+	[dbo].[Skill]
+    WHERE 
+	 ([SkillCode] = @SkillCode AND @SkillCode is not null)
+	OR ([Name] = @Name AND @Name is not null)
+	OR ([Category] = @Category AND @Category is not null)
+	SELECT @@ROWCOUNT			
+  END
+				]]></body>
+		</procedure>
+
+		
+		<procedure owner="dbo" name="Skill_Find_Dynamic"  skip="true">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets records from the Skill table using a dynamically generated query.
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters/>
+			<body><![CDATA[
+				
+				BEGIN
+				
+				WITH PageIndex AS (
+					SELECT TOP {3} row_number() over (order by {1}) AS RowIndex
+					, [SkillCode]
+					, [Name]
+					, [Category]
+					FROM [dbo].[Skill] {0}
+				)
+				SELECT
+				       [SkillCode],
+				       [Name],
+				       [Category]
+				  FROM PageIndex
+				 WHERE RowIndex > {2}
+				   AND RowIndex <= {3}
+				ORDER BY {1};
+				
+
+				-- get total count
+				SELECT COUNT(*) AS TotalRowCount FROM [dbo].[Skill] {0};
+				
+				END
+			]]></body>
+		</procedure>
+		
+		
+		<procedure owner="dbo" name="BankAccounts_Get_List" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets all records from the BankAccounts table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters/>
+			<body><![CDATA[
+				
+				SELECT
+					[BankAccountId],
+					[EmployeeId],
+					[BankName],
+					[AccountNumber],
+					[CreatedOn]
+				FROM
+					[dbo].[BankAccounts]
+					
+				SELECT @@ROWCOUNT
+			]]></body>
+		</procedure>
+		
+		
+		<procedure owner="dbo" name="BankAccounts_GetPaged" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets records from the BankAccounts table passing page index and page count parameters
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@WhereClause" type="varchar" direction="Input" size="8000" precision="0" scale="0" param="(8000)" />
+				<parameter name="@OrderBy" type="varchar" direction="Input" size="2000" precision="0" scale="0" param="(2000)"/>
+				<parameter name="@PageIndex" type="int" direction="Input" size="0" precision="10" scale="0" />
+				<parameter name="@PageSize" type="int" direction="Input" size="0" precision="10" scale="0" /> 
+			</parameters>
+			<body><![CDATA[
+				
+				BEGIN
+				DECLARE @PageLowerBound int
+				DECLARE @PageUpperBound int
+				
+				-- Set the page bounds
+				SET @PageLowerBound = @PageSize * @PageIndex
+				SET @PageUpperBound = @PageLowerBound + @PageSize
+
+				IF (@OrderBy IS NULL OR LEN(@OrderBy) < 1)
+				BEGIN
+					-- default order by to first column
+					SET @OrderBy = '[BankAccountId]'
+				END
+
+				-- SQL Server 2005 Paging
+				DECLARE @SQL AS nvarchar(MAX)
+				SET @SQL = 'WITH PageIndex AS ('
+				SET @SQL = @SQL + ' SELECT'
+				IF @PageSize > 0
+				BEGIN
+					SET @SQL = @SQL + ' TOP ' + CONVERT(nvarchar, @PageUpperBound)
+				END
+				SET @SQL = @SQL + ' ROW_NUMBER() OVER (ORDER BY ' + @OrderBy + ') as RowIndex'
+				SET @SQL = @SQL + ', [BankAccountId]'
+				SET @SQL = @SQL + ', [EmployeeId]'
+				SET @SQL = @SQL + ', [BankName]'
+				SET @SQL = @SQL + ', [AccountNumber]'
+				SET @SQL = @SQL + ', [CreatedOn]'
+				SET @SQL = @SQL + ' FROM [dbo].[BankAccounts]'
+				IF LEN(@WhereClause) > 0
+				BEGIN
+					SET @SQL = @SQL + ' WHERE ' + @WhereClause
+				END
+				SET @SQL = @SQL + ' ) SELECT'
+				SET @SQL = @SQL + ' [BankAccountId],'
+				SET @SQL = @SQL + ' [EmployeeId],'
+				SET @SQL = @SQL + ' [BankName],'
+				SET @SQL = @SQL + ' [AccountNumber],'
+				SET @SQL = @SQL + ' [CreatedOn]'
+				SET @SQL = @SQL + ' FROM PageIndex'
+				SET @SQL = @SQL + ' WHERE RowIndex > ' + CONVERT(nvarchar, @PageLowerBound)
+				IF @PageSize > 0
+				BEGIN
+					SET @SQL = @SQL + ' AND RowIndex <= ' + CONVERT(nvarchar, @PageUpperBound)
+				END
+				SET @SQL = @SQL + ' ORDER BY ' + @OrderBy
+				EXEC sp_executesql @SQL
+				
+				-- get row count
+				SET @SQL = 'SELECT COUNT(1) AS TotalRowCount'
+				SET @SQL = @SQL + ' FROM [dbo].[BankAccounts]'
+				IF LEN(@WhereClause) > 0
+				BEGIN
+					SET @SQL = @SQL + ' WHERE ' + @WhereClause
+				END
+				EXEC sp_executesql @SQL
+			
+				END
+			]]></body>
+		</procedure>
+		
+		<procedure owner="dbo" name="BankAccounts_Insert" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Inserts a record into the BankAccounts table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@BankAccountId" type="int" direction="Output" size="4" precision="10" scale="0" param="" nulldefault=""/>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+				<parameter name="@BankName" type="nvarchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault=""/>
+				<parameter name="@AccountNumber" type="varchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault=""/>
+				<parameter name="@CreatedOn" type="datetime" direction="Input" size="8" precision="23" scale="3" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				
+				INSERT INTO [dbo].[BankAccounts]
+					(
+					[EmployeeId]
+					,[BankName]
+					,[AccountNumber]
+					,[CreatedOn]
+					)
+				VALUES
+					(
+					@EmployeeId
+					,@BankName
+					,@AccountNumber
+					,@CreatedOn
+					)
+				-- Get the identity value
+				SET @BankAccountId = SCOPE_IDENTITY()
+									
+							
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="BankAccounts_Update" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Updates a record in the BankAccounts table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@BankAccountId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+				<parameter name="@BankName" type="nvarchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault=""/>
+				<parameter name="@AccountNumber" type="varchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault=""/>
+				<parameter name="@CreatedOn" type="datetime" direction="Input" size="8" precision="23" scale="3" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				
+				
+				-- Modify the updatable columns
+				UPDATE
+					[dbo].[BankAccounts]
+				SET
+					[EmployeeId] = @EmployeeId
+					,[BankName] = @BankName
+					,[AccountNumber] = @AccountNumber
+					,[CreatedOn] = @CreatedOn
+				WHERE
+[BankAccountId] = @BankAccountId 
+				
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="BankAccounts_Delete" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Deletes a record in the BankAccounts table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@BankAccountId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				DELETE FROM [dbo].[BankAccounts] WITH (ROWLOCK) 
+				WHERE
+					[BankAccountId] = @BankAccountId
+					
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="BankAccounts_GetByEmployeeId" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Select records from the BankAccounts table through a foreign key
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				SET ANSI_NULLS OFF
+				
+				SELECT
+					[BankAccountId],
+					[EmployeeId],
+					[BankName],
+					[AccountNumber],
+					[CreatedOn]
+				FROM
+					[dbo].[BankAccounts]
+				WHERE
+					[EmployeeId] = @EmployeeId
+				
+				SELECT @@ROWCOUNT
+				SET ANSI_NULLS ON
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="BankAccounts_GetByBankAccountId" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Select records from the BankAccounts table through an index
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@BankAccountId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				SELECT
+					[BankAccountId],
+					[EmployeeId],
+					[BankName],
+					[AccountNumber],
+					[CreatedOn]
+				FROM
+					[dbo].[BankAccounts]
+				WHERE
+					[BankAccountId] = @BankAccountId
+				SELECT @@ROWCOUNT
+					
+			]]></body>
+			
+		</procedure>
+		<procedure owner="dbo" name="BankAccounts_Find" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Finds records in the BankAccounts table passing nullable parameters
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@SearchUsingOR" type="bit" direction="Input" size="0" precision="1" scale="0" param="" nulldefault="null"/>
+				<parameter name="@BankAccountId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault="null"/>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault="null"/>
+				<parameter name="@BankName" type="nvarchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault="null"/>
+				<parameter name="@AccountNumber" type="varchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault="null"/>
+				<parameter name="@CreatedOn" type="datetime" direction="Input" size="8" precision="23" scale="3" param="" nulldefault="null"/>
+			</parameters>
+			<body><![CDATA[
+				
+  IF ISNULL(@SearchUsingOR, 0) <> 1
+  BEGIN
+    SELECT
+	  [BankAccountId]
+	, [EmployeeId]
+	, [BankName]
+	, [AccountNumber]
+	, [CreatedOn]
+    FROM
+	[dbo].[BankAccounts]
+    WHERE 
+	 ([BankAccountId] = @BankAccountId OR @BankAccountId IS NULL)
+	AND ([EmployeeId] = @EmployeeId OR @EmployeeId IS NULL)
+	AND ([BankName] = @BankName OR @BankName IS NULL)
+	AND ([AccountNumber] = @AccountNumber OR @AccountNumber IS NULL)
+	AND ([CreatedOn] = @CreatedOn OR @CreatedOn IS NULL)
+						
+  END
+  ELSE
+  BEGIN
+    SELECT
+	  [BankAccountId]
+	, [EmployeeId]
+	, [BankName]
+	, [AccountNumber]
+	, [CreatedOn]
+    FROM
+	[dbo].[BankAccounts]
+    WHERE 
+	 ([BankAccountId] = @BankAccountId AND @BankAccountId is not null)
+	OR ([EmployeeId] = @EmployeeId AND @EmployeeId is not null)
+	OR ([BankName] = @BankName AND @BankName is not null)
+	OR ([AccountNumber] = @AccountNumber AND @AccountNumber is not null)
+	OR ([CreatedOn] = @CreatedOn AND @CreatedOn is not null)
+	SELECT @@ROWCOUNT			
+  END
+				]]></body>
+		</procedure>
+
+		
+		<procedure owner="dbo" name="BankAccounts_Find_Dynamic"  skip="true">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets records from the BankAccounts table using a dynamically generated query.
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters/>
+			<body><![CDATA[
+				
+				BEGIN
+				
+				WITH PageIndex AS (
+					SELECT TOP {3} row_number() over (order by {1}) AS RowIndex
+					, [BankAccountId]
+					, [EmployeeId]
+					, [BankName]
+					, [AccountNumber]
+					, [CreatedOn]
+					FROM [dbo].[BankAccounts] {0}
+				)
+				SELECT
+				       [BankAccountId],
+				       [EmployeeId],
+				       [BankName],
+				       [AccountNumber],
+				       [CreatedOn]
+				  FROM PageIndex
+				 WHERE RowIndex > {2}
+				   AND RowIndex <= {3}
+				ORDER BY {1};
+				
+
+				-- get total count
+				SELECT COUNT(*) AS TotalRowCount FROM [dbo].[BankAccounts] {0};
+				
+				END
+			]]></body>
+		</procedure>
+		
+		
+		<procedure owner="dbo" name="EmployeeSalary_Get_List" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets all records from the EmployeeSalary table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters/>
+			<body><![CDATA[
+				
+				SELECT
+					[EmployeeSalaryId],
+					[EmployeeId],
+					[SalaryAmount],
+					[ApprovedOn],
+					[ApprovedBy],
+					[IsActive]
+				FROM
+					[dbo].[EmployeeSalary]
+					
+				SELECT @@ROWCOUNT
+			]]></body>
+		</procedure>
+		
+		
+		<procedure owner="dbo" name="EmployeeSalary_GetPaged" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets records from the EmployeeSalary table passing page index and page count parameters
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@WhereClause" type="varchar" direction="Input" size="8000" precision="0" scale="0" param="(8000)" />
+				<parameter name="@OrderBy" type="varchar" direction="Input" size="2000" precision="0" scale="0" param="(2000)"/>
+				<parameter name="@PageIndex" type="int" direction="Input" size="0" precision="10" scale="0" />
+				<parameter name="@PageSize" type="int" direction="Input" size="0" precision="10" scale="0" /> 
+			</parameters>
+			<body><![CDATA[
+				
+				BEGIN
+				DECLARE @PageLowerBound int
+				DECLARE @PageUpperBound int
+				
+				-- Set the page bounds
+				SET @PageLowerBound = @PageSize * @PageIndex
+				SET @PageUpperBound = @PageLowerBound + @PageSize
+
+				IF (@OrderBy IS NULL OR LEN(@OrderBy) < 1)
+				BEGIN
+					-- default order by to first column
+					SET @OrderBy = '[EmployeeSalaryId]'
+				END
+
+				-- SQL Server 2005 Paging
+				DECLARE @SQL AS nvarchar(MAX)
+				SET @SQL = 'WITH PageIndex AS ('
+				SET @SQL = @SQL + ' SELECT'
+				IF @PageSize > 0
+				BEGIN
+					SET @SQL = @SQL + ' TOP ' + CONVERT(nvarchar, @PageUpperBound)
+				END
+				SET @SQL = @SQL + ' ROW_NUMBER() OVER (ORDER BY ' + @OrderBy + ') as RowIndex'
+				SET @SQL = @SQL + ', [EmployeeSalaryId]'
+				SET @SQL = @SQL + ', [EmployeeId]'
+				SET @SQL = @SQL + ', [SalaryAmount]'
+				SET @SQL = @SQL + ', [ApprovedOn]'
+				SET @SQL = @SQL + ', [ApprovedBy]'
+				SET @SQL = @SQL + ', [IsActive]'
+				SET @SQL = @SQL + ' FROM [dbo].[EmployeeSalary]'
+				IF LEN(@WhereClause) > 0
+				BEGIN
+					SET @SQL = @SQL + ' WHERE ' + @WhereClause
+				END
+				SET @SQL = @SQL + ' ) SELECT'
+				SET @SQL = @SQL + ' [EmployeeSalaryId],'
+				SET @SQL = @SQL + ' [EmployeeId],'
+				SET @SQL = @SQL + ' [SalaryAmount],'
+				SET @SQL = @SQL + ' [ApprovedOn],'
+				SET @SQL = @SQL + ' [ApprovedBy],'
+				SET @SQL = @SQL + ' [IsActive]'
+				SET @SQL = @SQL + ' FROM PageIndex'
+				SET @SQL = @SQL + ' WHERE RowIndex > ' + CONVERT(nvarchar, @PageLowerBound)
+				IF @PageSize > 0
+				BEGIN
+					SET @SQL = @SQL + ' AND RowIndex <= ' + CONVERT(nvarchar, @PageUpperBound)
+				END
+				SET @SQL = @SQL + ' ORDER BY ' + @OrderBy
+				EXEC sp_executesql @SQL
+				
+				-- get row count
+				SET @SQL = 'SELECT COUNT(1) AS TotalRowCount'
+				SET @SQL = @SQL + ' FROM [dbo].[EmployeeSalary]'
+				IF LEN(@WhereClause) > 0
+				BEGIN
+					SET @SQL = @SQL + ' WHERE ' + @WhereClause
+				END
+				EXEC sp_executesql @SQL
+			
+				END
+			]]></body>
+		</procedure>
+		
+		<procedure owner="dbo" name="EmployeeSalary_Insert" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Inserts a record into the EmployeeSalary table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@EmployeeSalaryId" type="int" direction="Output" size="4" precision="10" scale="0" param="" nulldefault=""/>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+				<parameter name="@SalaryAmount" type="decimal" direction="Input" size="9" precision="18" scale="2" param="(18, 2)" nulldefault=""/>
+				<parameter name="@ApprovedOn" type="datetime" direction="Input" size="8" precision="23" scale="3" param="" nulldefault=""/>
+				<parameter name="@ApprovedBy" type="varchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault=""/>
+				<parameter name="@IsActive" type="bit" direction="Input" size="1" precision="1" scale="0" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				
+				INSERT INTO [dbo].[EmployeeSalary]
+					(
+					[EmployeeId]
+					,[SalaryAmount]
+					,[ApprovedOn]
+					,[ApprovedBy]
+					,[IsActive]
+					)
+				VALUES
+					(
+					@EmployeeId
+					,@SalaryAmount
+					,@ApprovedOn
+					,@ApprovedBy
+					,@IsActive
+					)
+				-- Get the identity value
+				SET @EmployeeSalaryId = SCOPE_IDENTITY()
+									
+							
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="EmployeeSalary_Update" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Updates a record in the EmployeeSalary table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@EmployeeSalaryId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+				<parameter name="@SalaryAmount" type="decimal" direction="Input" size="9" precision="18" scale="2" param="(18, 2)" nulldefault=""/>
+				<parameter name="@ApprovedOn" type="datetime" direction="Input" size="8" precision="23" scale="3" param="" nulldefault=""/>
+				<parameter name="@ApprovedBy" type="varchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault=""/>
+				<parameter name="@IsActive" type="bit" direction="Input" size="1" precision="1" scale="0" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				
+				
+				-- Modify the updatable columns
+				UPDATE
+					[dbo].[EmployeeSalary]
+				SET
+					[EmployeeId] = @EmployeeId
+					,[SalaryAmount] = @SalaryAmount
+					,[ApprovedOn] = @ApprovedOn
+					,[ApprovedBy] = @ApprovedBy
+					,[IsActive] = @IsActive
+				WHERE
+[EmployeeSalaryId] = @EmployeeSalaryId 
+				
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="EmployeeSalary_Delete" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Deletes a record in the EmployeeSalary table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@EmployeeSalaryId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				DELETE FROM [dbo].[EmployeeSalary] WITH (ROWLOCK) 
+				WHERE
+					[EmployeeSalaryId] = @EmployeeSalaryId
+					
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="EmployeeSalary_GetByEmployeeId" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Select records from the EmployeeSalary table through a foreign key
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				SET ANSI_NULLS OFF
+				
+				SELECT
+					[EmployeeSalaryId],
+					[EmployeeId],
+					[SalaryAmount],
+					[ApprovedOn],
+					[ApprovedBy],
+					[IsActive]
+				FROM
+					[dbo].[EmployeeSalary]
+				WHERE
+					[EmployeeId] = @EmployeeId
+				
+				SELECT @@ROWCOUNT
+				SET ANSI_NULLS ON
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="EmployeeSalary_GetByEmployeeSalaryId" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Select records from the EmployeeSalary table through an index
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@EmployeeSalaryId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				SELECT
+					[EmployeeSalaryId],
+					[EmployeeId],
+					[SalaryAmount],
+					[ApprovedOn],
+					[ApprovedBy],
+					[IsActive]
+				FROM
+					[dbo].[EmployeeSalary]
+				WHERE
+					[EmployeeSalaryId] = @EmployeeSalaryId
+				SELECT @@ROWCOUNT
+					
+			]]></body>
+			
+		</procedure>
+		<procedure owner="dbo" name="EmployeeSalary_Find" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Finds records in the EmployeeSalary table passing nullable parameters
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@SearchUsingOR" type="bit" direction="Input" size="0" precision="1" scale="0" param="" nulldefault="null"/>
+				<parameter name="@EmployeeSalaryId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault="null"/>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault="null"/>
+				<parameter name="@SalaryAmount" type="decimal" direction="Input" size="9" precision="18" scale="2" param="(18, 2)" nulldefault="null"/>
+				<parameter name="@ApprovedOn" type="datetime" direction="Input" size="8" precision="23" scale="3" param="" nulldefault="null"/>
+				<parameter name="@ApprovedBy" type="varchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault="null"/>
+				<parameter name="@IsActive" type="bit" direction="Input" size="1" precision="1" scale="0" param="" nulldefault="null"/>
+			</parameters>
+			<body><![CDATA[
+				
+  IF ISNULL(@SearchUsingOR, 0) <> 1
+  BEGIN
+    SELECT
+	  [EmployeeSalaryId]
+	, [EmployeeId]
+	, [SalaryAmount]
+	, [ApprovedOn]
+	, [ApprovedBy]
+	, [IsActive]
+    FROM
+	[dbo].[EmployeeSalary]
+    WHERE 
+	 ([EmployeeSalaryId] = @EmployeeSalaryId OR @EmployeeSalaryId IS NULL)
+	AND ([EmployeeId] = @EmployeeId OR @EmployeeId IS NULL)
+	AND ([SalaryAmount] = @SalaryAmount OR @SalaryAmount IS NULL)
+	AND ([ApprovedOn] = @ApprovedOn OR @ApprovedOn IS NULL)
+	AND ([ApprovedBy] = @ApprovedBy OR @ApprovedBy IS NULL)
+	AND ([IsActive] = @IsActive OR @IsActive IS NULL)
+						
+  END
+  ELSE
+  BEGIN
+    SELECT
+	  [EmployeeSalaryId]
+	, [EmployeeId]
+	, [SalaryAmount]
+	, [ApprovedOn]
+	, [ApprovedBy]
+	, [IsActive]
+    FROM
+	[dbo].[EmployeeSalary]
+    WHERE 
+	 ([EmployeeSalaryId] = @EmployeeSalaryId AND @EmployeeSalaryId is not null)
+	OR ([EmployeeId] = @EmployeeId AND @EmployeeId is not null)
+	OR ([SalaryAmount] = @SalaryAmount AND @SalaryAmount is not null)
+	OR ([ApprovedOn] = @ApprovedOn AND @ApprovedOn is not null)
+	OR ([ApprovedBy] = @ApprovedBy AND @ApprovedBy is not null)
+	OR ([IsActive] = @IsActive AND @IsActive is not null)
+	SELECT @@ROWCOUNT			
+  END
+				]]></body>
+		</procedure>
+
+		
+		<procedure owner="dbo" name="EmployeeSalary_Find_Dynamic"  skip="true">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets records from the EmployeeSalary table using a dynamically generated query.
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters/>
+			<body><![CDATA[
+				
+				BEGIN
+				
+				WITH PageIndex AS (
+					SELECT TOP {3} row_number() over (order by {1}) AS RowIndex
+					, [EmployeeSalaryId]
+					, [EmployeeId]
+					, [SalaryAmount]
+					, [ApprovedOn]
+					, [ApprovedBy]
+					, [IsActive]
+					FROM [dbo].[EmployeeSalary] {0}
+				)
+				SELECT
+				       [EmployeeSalaryId],
+				       [EmployeeId],
+				       [SalaryAmount],
+				       [ApprovedOn],
+				       [ApprovedBy],
+				       [IsActive]
+				  FROM PageIndex
+				 WHERE RowIndex > {2}
+				   AND RowIndex <= {3}
+				ORDER BY {1};
+				
+
+				-- get total count
+				SELECT COUNT(*) AS TotalRowCount FROM [dbo].[EmployeeSalary] {0};
+				
+				END
+			]]></body>
+		</procedure>
+		
+		
+		<procedure owner="dbo" name="Address_Get_List" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets all records from the Address table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters/>
+			<body><![CDATA[
+				
+				SELECT
+					[AddressId],
+					[EmployeeId],
+					[Line1],
+					[Line2],
+					[TownCity],
+					[StateOrProvince],
+					[PostCod],
+					[CountryCode]
+				FROM
+					[dbo].[Address]
+					
+				SELECT @@ROWCOUNT
+			]]></body>
+		</procedure>
+		
+		
+		<procedure owner="dbo" name="Address_GetPaged" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets records from the Address table passing page index and page count parameters
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@WhereClause" type="varchar" direction="Input" size="8000" precision="0" scale="0" param="(8000)" />
+				<parameter name="@OrderBy" type="varchar" direction="Input" size="2000" precision="0" scale="0" param="(2000)"/>
+				<parameter name="@PageIndex" type="int" direction="Input" size="0" precision="10" scale="0" />
+				<parameter name="@PageSize" type="int" direction="Input" size="0" precision="10" scale="0" /> 
+			</parameters>
+			<body><![CDATA[
+				
+				BEGIN
+				DECLARE @PageLowerBound int
+				DECLARE @PageUpperBound int
+				
+				-- Set the page bounds
+				SET @PageLowerBound = @PageSize * @PageIndex
+				SET @PageUpperBound = @PageLowerBound + @PageSize
+
+				IF (@OrderBy IS NULL OR LEN(@OrderBy) < 1)
+				BEGIN
+					-- default order by to first column
+					SET @OrderBy = '[AddressId]'
+				END
+
+				-- SQL Server 2005 Paging
+				DECLARE @SQL AS nvarchar(MAX)
+				SET @SQL = 'WITH PageIndex AS ('
+				SET @SQL = @SQL + ' SELECT'
+				IF @PageSize > 0
+				BEGIN
+					SET @SQL = @SQL + ' TOP ' + CONVERT(nvarchar, @PageUpperBound)
+				END
+				SET @SQL = @SQL + ' ROW_NUMBER() OVER (ORDER BY ' + @OrderBy + ') as RowIndex'
+				SET @SQL = @SQL + ', [AddressId]'
+				SET @SQL = @SQL + ', [EmployeeId]'
+				SET @SQL = @SQL + ', [Line1]'
+				SET @SQL = @SQL + ', [Line2]'
+				SET @SQL = @SQL + ', [TownCity]'
+				SET @SQL = @SQL + ', [StateOrProvince]'
+				SET @SQL = @SQL + ', [PostCod]'
+				SET @SQL = @SQL + ', [CountryCode]'
+				SET @SQL = @SQL + ' FROM [dbo].[Address]'
+				IF LEN(@WhereClause) > 0
+				BEGIN
+					SET @SQL = @SQL + ' WHERE ' + @WhereClause
+				END
+				SET @SQL = @SQL + ' ) SELECT'
+				SET @SQL = @SQL + ' [AddressId],'
+				SET @SQL = @SQL + ' [EmployeeId],'
+				SET @SQL = @SQL + ' [Line1],'
+				SET @SQL = @SQL + ' [Line2],'
+				SET @SQL = @SQL + ' [TownCity],'
+				SET @SQL = @SQL + ' [StateOrProvince],'
+				SET @SQL = @SQL + ' [PostCod],'
+				SET @SQL = @SQL + ' [CountryCode]'
+				SET @SQL = @SQL + ' FROM PageIndex'
+				SET @SQL = @SQL + ' WHERE RowIndex > ' + CONVERT(nvarchar, @PageLowerBound)
+				IF @PageSize > 0
+				BEGIN
+					SET @SQL = @SQL + ' AND RowIndex <= ' + CONVERT(nvarchar, @PageUpperBound)
+				END
+				SET @SQL = @SQL + ' ORDER BY ' + @OrderBy
+				EXEC sp_executesql @SQL
+				
+				-- get row count
+				SET @SQL = 'SELECT COUNT(1) AS TotalRowCount'
+				SET @SQL = @SQL + ' FROM [dbo].[Address]'
+				IF LEN(@WhereClause) > 0
+				BEGIN
+					SET @SQL = @SQL + ' WHERE ' + @WhereClause
+				END
+				EXEC sp_executesql @SQL
+			
+				END
+			]]></body>
+		</procedure>
+		
+		<procedure owner="dbo" name="Address_Insert" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Inserts a record into the Address table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@AddressId" type="int" direction="Output" size="4" precision="10" scale="0" param="" nulldefault=""/>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+				<parameter name="@Line1" type="nvarchar" direction="Input" size="100" precision="0" scale="0" param="(100)" nulldefault=""/>
+				<parameter name="@Line2" type="nvarchar" direction="Input" size="100" precision="0" scale="0" param="(100)" nulldefault=""/>
+				<parameter name="@TownCity" type="nvarchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault=""/>
+				<parameter name="@StateOrProvince" type="nvarchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault=""/>
+				<parameter name="@PostCod" type="nvarchar" direction="Input" size="20" precision="0" scale="0" param="(20)" nulldefault=""/>
+				<parameter name="@CountryCode" type="varchar" direction="Input" size="3" precision="0" scale="0" param="(3)" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				
+				INSERT INTO [dbo].[Address]
+					(
+					[EmployeeId]
+					,[Line1]
+					,[Line2]
+					,[TownCity]
+					,[StateOrProvince]
+					,[PostCod]
+					,[CountryCode]
+					)
+				VALUES
+					(
+					@EmployeeId
+					,@Line1
+					,@Line2
+					,@TownCity
+					,@StateOrProvince
+					,@PostCod
+					,@CountryCode
+					)
+				-- Get the identity value
+				SET @AddressId = SCOPE_IDENTITY()
+									
+							
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="Address_Update" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Updates a record in the Address table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@AddressId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+				<parameter name="@Line1" type="nvarchar" direction="Input" size="100" precision="0" scale="0" param="(100)" nulldefault=""/>
+				<parameter name="@Line2" type="nvarchar" direction="Input" size="100" precision="0" scale="0" param="(100)" nulldefault=""/>
+				<parameter name="@TownCity" type="nvarchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault=""/>
+				<parameter name="@StateOrProvince" type="nvarchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault=""/>
+				<parameter name="@PostCod" type="nvarchar" direction="Input" size="20" precision="0" scale="0" param="(20)" nulldefault=""/>
+				<parameter name="@CountryCode" type="varchar" direction="Input" size="3" precision="0" scale="0" param="(3)" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				
+				
+				-- Modify the updatable columns
+				UPDATE
+					[dbo].[Address]
+				SET
+					[EmployeeId] = @EmployeeId
+					,[Line1] = @Line1
+					,[Line2] = @Line2
+					,[TownCity] = @TownCity
+					,[StateOrProvince] = @StateOrProvince
+					,[PostCod] = @PostCod
+					,[CountryCode] = @CountryCode
+				WHERE
+[AddressId] = @AddressId 
+				
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="Address_Delete" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Deletes a record in the Address table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@AddressId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				DELETE FROM [dbo].[Address] WITH (ROWLOCK) 
+				WHERE
+					[AddressId] = @AddressId
+					
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="Address_GetByCountryCode" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Select records from the Address table through a foreign key
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@CountryCode" type="varchar" direction="Input" size="3" precision="0" scale="0" param="(3)" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				SET ANSI_NULLS OFF
+				
+				SELECT
+					[AddressId],
+					[EmployeeId],
+					[Line1],
+					[Line2],
+					[TownCity],
+					[StateOrProvince],
+					[PostCod],
+					[CountryCode]
+				FROM
+					[dbo].[Address]
+				WHERE
+					[CountryCode] = @CountryCode
+				
+				SELECT @@ROWCOUNT
+				SET ANSI_NULLS ON
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="Address_GetByEmployeeId" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Select records from the Address table through a foreign key
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				SET ANSI_NULLS OFF
+				
+				SELECT
+					[AddressId],
+					[EmployeeId],
+					[Line1],
+					[Line2],
+					[TownCity],
+					[StateOrProvince],
+					[PostCod],
+					[CountryCode]
+				FROM
+					[dbo].[Address]
+				WHERE
+					[EmployeeId] = @EmployeeId
+				
+				SELECT @@ROWCOUNT
+				SET ANSI_NULLS ON
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="Address_GetByAddressId" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Select records from the Address table through an index
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@AddressId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				SELECT
+					[AddressId],
+					[EmployeeId],
+					[Line1],
+					[Line2],
+					[TownCity],
+					[StateOrProvince],
+					[PostCod],
+					[CountryCode]
+				FROM
+					[dbo].[Address]
+				WHERE
+					[AddressId] = @AddressId
+				SELECT @@ROWCOUNT
+					
+			]]></body>
+			
+		</procedure>
+		<procedure owner="dbo" name="Address_Find" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Finds records in the Address table passing nullable parameters
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@SearchUsingOR" type="bit" direction="Input" size="0" precision="1" scale="0" param="" nulldefault="null"/>
+				<parameter name="@AddressId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault="null"/>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault="null"/>
+				<parameter name="@Line1" type="nvarchar" direction="Input" size="100" precision="0" scale="0" param="(100)" nulldefault="null"/>
+				<parameter name="@Line2" type="nvarchar" direction="Input" size="100" precision="0" scale="0" param="(100)" nulldefault="null"/>
+				<parameter name="@TownCity" type="nvarchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault="null"/>
+				<parameter name="@StateOrProvince" type="nvarchar" direction="Input" size="50" precision="0" scale="0" param="(50)" nulldefault="null"/>
+				<parameter name="@PostCod" type="nvarchar" direction="Input" size="20" precision="0" scale="0" param="(20)" nulldefault="null"/>
+				<parameter name="@CountryCode" type="varchar" direction="Input" size="3" precision="0" scale="0" param="(3)" nulldefault="null"/>
+			</parameters>
+			<body><![CDATA[
+				
+  IF ISNULL(@SearchUsingOR, 0) <> 1
+  BEGIN
+    SELECT
+	  [AddressId]
+	, [EmployeeId]
+	, [Line1]
+	, [Line2]
+	, [TownCity]
+	, [StateOrProvince]
+	, [PostCod]
+	, [CountryCode]
+    FROM
+	[dbo].[Address]
+    WHERE 
+	 ([AddressId] = @AddressId OR @AddressId IS NULL)
+	AND ([EmployeeId] = @EmployeeId OR @EmployeeId IS NULL)
+	AND ([Line1] = @Line1 OR @Line1 IS NULL)
+	AND ([Line2] = @Line2 OR @Line2 IS NULL)
+	AND ([TownCity] = @TownCity OR @TownCity IS NULL)
+	AND ([StateOrProvince] = @StateOrProvince OR @StateOrProvince IS NULL)
+	AND ([PostCod] = @PostCod OR @PostCod IS NULL)
+	AND ([CountryCode] = @CountryCode OR @CountryCode IS NULL)
+						
+  END
+  ELSE
+  BEGIN
+    SELECT
+	  [AddressId]
+	, [EmployeeId]
+	, [Line1]
+	, [Line2]
+	, [TownCity]
+	, [StateOrProvince]
+	, [PostCod]
+	, [CountryCode]
+    FROM
+	[dbo].[Address]
+    WHERE 
+	 ([AddressId] = @AddressId AND @AddressId is not null)
+	OR ([EmployeeId] = @EmployeeId AND @EmployeeId is not null)
+	OR ([Line1] = @Line1 AND @Line1 is not null)
+	OR ([Line2] = @Line2 AND @Line2 is not null)
+	OR ([TownCity] = @TownCity AND @TownCity is not null)
+	OR ([StateOrProvince] = @StateOrProvince AND @StateOrProvince is not null)
+	OR ([PostCod] = @PostCod AND @PostCod is not null)
+	OR ([CountryCode] = @CountryCode AND @CountryCode is not null)
+	SELECT @@ROWCOUNT			
+  END
+				]]></body>
+		</procedure>
+
+		
+		<procedure owner="dbo" name="Address_Find_Dynamic"  skip="true">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets records from the Address table using a dynamically generated query.
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters/>
+			<body><![CDATA[
+				
+				BEGIN
+				
+				WITH PageIndex AS (
+					SELECT TOP {3} row_number() over (order by {1}) AS RowIndex
+					, [AddressId]
+					, [EmployeeId]
+					, [Line1]
+					, [Line2]
+					, [TownCity]
+					, [StateOrProvince]
+					, [PostCod]
+					, [CountryCode]
+					FROM [dbo].[Address] {0}
+				)
+				SELECT
+				       [AddressId],
+				       [EmployeeId],
+				       [Line1],
+				       [Line2],
+				       [TownCity],
+				       [StateOrProvince],
+				       [PostCod],
+				       [CountryCode]
+				  FROM PageIndex
+				 WHERE RowIndex > {2}
+				   AND RowIndex <= {3}
+				ORDER BY {1};
+				
+
+				-- get total count
+				SELECT COUNT(*) AS TotalRowCount FROM [dbo].[Address] {0};
+				
+				END
+			]]></body>
+		</procedure>
+		
+		
+		<procedure owner="dbo" name="EmployeeSkills_Get_List" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets all records from the EmployeeSkills table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters/>
+			<body><![CDATA[
+				
+				SELECT
+					[EmployeeSkillId],
+					[EmployeeId],
+					[SkillCode],
+					[SkillLevel],
+					[CreatedOn]
+				FROM
+					[dbo].[EmployeeSkills]
+					
+				SELECT @@ROWCOUNT
+			]]></body>
+		</procedure>
+		
+		
+		<procedure owner="dbo" name="EmployeeSkills_GetPaged" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets records from the EmployeeSkills table passing page index and page count parameters
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@WhereClause" type="varchar" direction="Input" size="8000" precision="0" scale="0" param="(8000)" />
+				<parameter name="@OrderBy" type="varchar" direction="Input" size="2000" precision="0" scale="0" param="(2000)"/>
+				<parameter name="@PageIndex" type="int" direction="Input" size="0" precision="10" scale="0" />
+				<parameter name="@PageSize" type="int" direction="Input" size="0" precision="10" scale="0" /> 
+			</parameters>
+			<body><![CDATA[
+				
+				BEGIN
+				DECLARE @PageLowerBound int
+				DECLARE @PageUpperBound int
+				
+				-- Set the page bounds
+				SET @PageLowerBound = @PageSize * @PageIndex
+				SET @PageUpperBound = @PageLowerBound + @PageSize
+
+				IF (@OrderBy IS NULL OR LEN(@OrderBy) < 1)
+				BEGIN
+					-- default order by to first column
+					SET @OrderBy = '[EmployeeSkillId]'
+				END
+
+				-- SQL Server 2005 Paging
+				DECLARE @SQL AS nvarchar(MAX)
+				SET @SQL = 'WITH PageIndex AS ('
+				SET @SQL = @SQL + ' SELECT'
+				IF @PageSize > 0
+				BEGIN
+					SET @SQL = @SQL + ' TOP ' + CONVERT(nvarchar, @PageUpperBound)
+				END
+				SET @SQL = @SQL + ' ROW_NUMBER() OVER (ORDER BY ' + @OrderBy + ') as RowIndex'
+				SET @SQL = @SQL + ', [EmployeeSkillId]'
+				SET @SQL = @SQL + ', [EmployeeId]'
+				SET @SQL = @SQL + ', [SkillCode]'
+				SET @SQL = @SQL + ', [SkillLevel]'
+				SET @SQL = @SQL + ', [CreatedOn]'
+				SET @SQL = @SQL + ' FROM [dbo].[EmployeeSkills]'
+				IF LEN(@WhereClause) > 0
+				BEGIN
+					SET @SQL = @SQL + ' WHERE ' + @WhereClause
+				END
+				SET @SQL = @SQL + ' ) SELECT'
+				SET @SQL = @SQL + ' [EmployeeSkillId],'
+				SET @SQL = @SQL + ' [EmployeeId],'
+				SET @SQL = @SQL + ' [SkillCode],'
+				SET @SQL = @SQL + ' [SkillLevel],'
+				SET @SQL = @SQL + ' [CreatedOn]'
+				SET @SQL = @SQL + ' FROM PageIndex'
+				SET @SQL = @SQL + ' WHERE RowIndex > ' + CONVERT(nvarchar, @PageLowerBound)
+				IF @PageSize > 0
+				BEGIN
+					SET @SQL = @SQL + ' AND RowIndex <= ' + CONVERT(nvarchar, @PageUpperBound)
+				END
+				SET @SQL = @SQL + ' ORDER BY ' + @OrderBy
+				EXEC sp_executesql @SQL
+				
+				-- get row count
+				SET @SQL = 'SELECT COUNT(1) AS TotalRowCount'
+				SET @SQL = @SQL + ' FROM [dbo].[EmployeeSkills]'
+				IF LEN(@WhereClause) > 0
+				BEGIN
+					SET @SQL = @SQL + ' WHERE ' + @WhereClause
+				END
+				EXEC sp_executesql @SQL
+			
+				END
+			]]></body>
+		</procedure>
+		
+		<procedure owner="dbo" name="EmployeeSkills_Insert" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Inserts a record into the EmployeeSkills table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@EmployeeSkillId" type="int" direction="Output" size="4" precision="10" scale="0" param="" nulldefault=""/>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+				<parameter name="@SkillCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+				<parameter name="@SkillLevel" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+				<parameter name="@CreatedOn" type="datetime" direction="Input" size="8" precision="23" scale="3" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				
+				INSERT INTO [dbo].[EmployeeSkills]
+					(
+					[EmployeeId]
+					,[SkillCode]
+					,[SkillLevel]
+					,[CreatedOn]
+					)
+				VALUES
+					(
+					@EmployeeId
+					,@SkillCode
+					,@SkillLevel
+					,@CreatedOn
+					)
+				-- Get the identity value
+				SET @EmployeeSkillId = SCOPE_IDENTITY()
+									
+							
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="EmployeeSkills_Update" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Updates a record in the EmployeeSkills table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@EmployeeSkillId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+				<parameter name="@SkillCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+				<parameter name="@SkillLevel" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+				<parameter name="@CreatedOn" type="datetime" direction="Input" size="8" precision="23" scale="3" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				
+				
+				-- Modify the updatable columns
+				UPDATE
+					[dbo].[EmployeeSkills]
+				SET
+					[EmployeeId] = @EmployeeId
+					,[SkillCode] = @SkillCode
+					,[SkillLevel] = @SkillLevel
+					,[CreatedOn] = @CreatedOn
+				WHERE
+[EmployeeSkillId] = @EmployeeSkillId 
+				
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="EmployeeSkills_Delete" grant="">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Deletes a record in the EmployeeSkills table
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@EmployeeSkillId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				DELETE FROM [dbo].[EmployeeSkills] WITH (ROWLOCK) 
+				WHERE
+					[EmployeeSkillId] = @EmployeeSkillId
+					
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="EmployeeSkills_GetBySkillCode" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Select records from the EmployeeSkills table through a foreign key
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@SkillCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				SET ANSI_NULLS OFF
+				
+				SELECT
+					[EmployeeSkillId],
+					[EmployeeId],
+					[SkillCode],
+					[SkillLevel],
+					[CreatedOn]
+				FROM
+					[dbo].[EmployeeSkills]
+				WHERE
+					[SkillCode] = @SkillCode
+				
+				SELECT @@ROWCOUNT
+				SET ANSI_NULLS ON
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="EmployeeSkills_GetBySkillLevel" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Select records from the EmployeeSkills table through a foreign key
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@SkillLevel" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				SET ANSI_NULLS OFF
+				
+				SELECT
+					[EmployeeSkillId],
+					[EmployeeId],
+					[SkillCode],
+					[SkillLevel],
+					[CreatedOn]
+				FROM
+					[dbo].[EmployeeSkills]
+				WHERE
+					[SkillLevel] = @SkillLevel
+				
+				SELECT @@ROWCOUNT
+				SET ANSI_NULLS ON
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="EmployeeSkills_GetByEmployeeId" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Select records from the EmployeeSkills table through a foreign key
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				SET ANSI_NULLS OFF
+				
+				SELECT
+					[EmployeeSkillId],
+					[EmployeeId],
+					[SkillCode],
+					[SkillLevel],
+					[CreatedOn]
+				FROM
+					[dbo].[EmployeeSkills]
+				WHERE
+					[EmployeeId] = @EmployeeId
+				
+				SELECT @@ROWCOUNT
+				SET ANSI_NULLS ON
+			]]></body>
+		</procedure>
+		<procedure owner="dbo" name="EmployeeSkills_GetByEmployeeSkillId" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Select records from the EmployeeSkills table through an index
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@EmployeeSkillId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault=""/>
+			</parameters>
+			<body><![CDATA[
+				SELECT
+					[EmployeeSkillId],
+					[EmployeeId],
+					[SkillCode],
+					[SkillLevel],
+					[CreatedOn]
+				FROM
+					[dbo].[EmployeeSkills]
+				WHERE
+					[EmployeeSkillId] = @EmployeeSkillId
+				SELECT @@ROWCOUNT
+					
+			]]></body>
+			
+		</procedure>
+		<procedure owner="dbo" name="EmployeeSkills_Find" >
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Finds records in the EmployeeSkills table passing nullable parameters
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters>
+				<parameter name="@SearchUsingOR" type="bit" direction="Input" size="0" precision="1" scale="0" param="" nulldefault="null"/>
+				<parameter name="@EmployeeSkillId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault="null"/>
+				<parameter name="@EmployeeId" type="int" direction="Input" size="4" precision="10" scale="0" param="" nulldefault="null"/>
+				<parameter name="@SkillCode" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault="null"/>
+				<parameter name="@SkillLevel" type="varchar" direction="Input" size="10" precision="0" scale="0" param="(10)" nulldefault="null"/>
+				<parameter name="@CreatedOn" type="datetime" direction="Input" size="8" precision="23" scale="3" param="" nulldefault="null"/>
+			</parameters>
+			<body><![CDATA[
+				
+  IF ISNULL(@SearchUsingOR, 0) <> 1
+  BEGIN
+    SELECT
+	  [EmployeeSkillId]
+	, [EmployeeId]
+	, [SkillCode]
+	, [SkillLevel]
+	, [CreatedOn]
+    FROM
+	[dbo].[EmployeeSkills]
+    WHERE 
+	 ([EmployeeSkillId] = @EmployeeSkillId OR @EmployeeSkillId IS NULL)
+	AND ([EmployeeId] = @EmployeeId OR @EmployeeId IS NULL)
+	AND ([SkillCode] = @SkillCode OR @SkillCode IS NULL)
+	AND ([SkillLevel] = @SkillLevel OR @SkillLevel IS NULL)
+	AND ([CreatedOn] = @CreatedOn OR @CreatedOn IS NULL)
+						
+  END
+  ELSE
+  BEGIN
+    SELECT
+	  [EmployeeSkillId]
+	, [EmployeeId]
+	, [SkillCode]
+	, [SkillLevel]
+	, [CreatedOn]
+    FROM
+	[dbo].[EmployeeSkills]
+    WHERE 
+	 ([EmployeeSkillId] = @EmployeeSkillId AND @EmployeeSkillId is not null)
+	OR ([EmployeeId] = @EmployeeId AND @EmployeeId is not null)
+	OR ([SkillCode] = @SkillCode AND @SkillCode is not null)
+	OR ([SkillLevel] = @SkillLevel AND @SkillLevel is not null)
+	OR ([CreatedOn] = @CreatedOn AND @CreatedOn is not null)
+	SELECT @@ROWCOUNT			
+  END
+				]]></body>
+		</procedure>
+
+		
+		<procedure owner="dbo" name="EmployeeSkills_Find_Dynamic"  skip="true">
+			<comment><![CDATA[/*
+----------------------------------------------------------------------------------------------------
+
+-- Created By: I-Financial (www.i-financial.org)
+-- Purpose: Gets records from the EmployeeSkills table using a dynamically generated query.
+----------------------------------------------------------------------------------------------------
+*/
+]]></comment>
+			<parameters/>
+			<body><![CDATA[
+				
+				BEGIN
+				
+				WITH PageIndex AS (
+					SELECT TOP {3} row_number() over (order by {1}) AS RowIndex
+					, [EmployeeSkillId]
+					, [EmployeeId]
+					, [SkillCode]
+					, [SkillLevel]
+					, [CreatedOn]
+					FROM [dbo].[EmployeeSkills] {0}
+				)
+				SELECT
+				       [EmployeeSkillId],
+				       [EmployeeId],
+				       [SkillCode],
+				       [SkillLevel],
+				       [CreatedOn]
+				  FROM PageIndex
+				 WHERE RowIndex > {2}
+				   AND RowIndex <= {3}
+				ORDER BY {1};
+				
+
+				-- get total count
+				SELECT COUNT(*) AS TotalRowCount FROM [dbo].[EmployeeSkills] {0};
+				
+				END
+			]]></body>
+		</procedure>
+		
+</procedures>
+</root>
