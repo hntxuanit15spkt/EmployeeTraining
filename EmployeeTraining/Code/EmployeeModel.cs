@@ -65,7 +65,8 @@ namespace EmployeeTraining.Code
         #endregion
         public List<AddressModel> Addresses;
 
-        public EmployeeModel(int employeeId, string employeeCode, string fullName, string firstName, string middlesName, string lastName, DateTime? dOB, string email, string bio, DateTime? createdOn)
+        public EmployeeModel(int employeeId, string employeeCode, string fullName, string firstName,
+                             string middlesName, string lastName, DateTime? dOB, string email, string bio, DateTime? createdOn)
         {
             EmployeeId = employeeId;
             EmployeeCode = employeeCode;
@@ -77,6 +78,18 @@ namespace EmployeeTraining.Code
             Email = email;
             Bio = bio;
             CreatedOn = createdOn;
+        }
+
+        public EmployeeModel(string employeeCode, string fullName, string firstName, string middlesName, string lastName, DateTime? dOB, string email, string bio)
+        {
+            EmployeeCode = employeeCode;
+            FullName = fullName;
+            FirstName = firstName;
+            MiddlesName = middlesName;
+            LastName = lastName;
+            DOB = dOB;
+            Email = email;
+            Bio = bio;
         }
     }
 }

@@ -1,6 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Update.aspx.cs" Inherits="EmployeeTraining.EmployeeManagement.Update" %>
-
-<asp:Content ID="ContentUpdate" ContentPlaceHolderID="MainContent" runat="server">
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Update.aspx.cs" Inherits="EmployeeTraining.EmployeeManagement.Edit" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <br />
     <h2>Update employee</h2>
     <br />
@@ -99,11 +98,12 @@
     <br />
     <h2>Insert address for this employee</h2>
     <br />
-    <asp:GridView ID="gvContacts" runat="server" AutoGenerateColumns="false" CellPadding="5">
+    <asp:GridView ID="gvAddresses" runat="server" AutoGenerateColumns="false" CellPadding="5" OnRowDataBound="OnRowDataBound">
         <Columns>
             <asp:TemplateField HeaderText="SL No.">
                 <ItemTemplate>
                     <%#Container.DataItemIndex +1 %>
+                    <asp:HiddenField ID="txtAddressId" runat="server" Value='<%#Eval("AddressId")%>' />
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Line1">
@@ -131,9 +131,11 @@
                     <asp:TextBox ID="txtPostCod" runat="server" Text='<%#Eval("PostCod")%>'></asp:TextBox>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="CountryCode">
+            <asp:TemplateField HeaderText="Country">
                 <ItemTemplate>
-                    <asp:TextBox ID="txtCountryCode" runat="server" Text='<%#Eval("CountryCode")%>'></asp:TextBox>
+                    <%--<asp:TextBox ID="txtCountryCode" runat="server" Text='<%#Eval("CountryCode")%>'></asp:TextBox>--%>
+                    <asp:Label ID="lblCountryCode" runat="server" Text='<%# Eval("CountryCode") %>' Visible = "false" />
+                    <asp:DropDownList ID="ddlCountries" runat="server" DataTextField="Name" DataValueField="CountryCode"></asp:DropDownList>
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>

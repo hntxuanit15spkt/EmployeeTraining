@@ -11,7 +11,7 @@ namespace EmployeeTraining.EmployeeManagement
 {
 
 
-    public partial class Update
+    public partial class Edit
     {
 
         /// <summary>
@@ -159,13 +159,13 @@ namespace EmployeeTraining.EmployeeManagement
         protected global::System.Web.UI.WebControls.TextBox txtBio;
 
         /// <summary>
-        /// gvContacts control.
+        /// gvAddresses control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvContacts;
+        protected global::System.Web.UI.WebControls.GridView gvAddresses;
 
         /// <summary>
         /// PanelSave control.
