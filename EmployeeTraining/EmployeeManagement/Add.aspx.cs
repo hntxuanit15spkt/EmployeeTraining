@@ -33,7 +33,7 @@ namespace EmployeeTraining.EmployeeManagement
                 employee.CreatedOn = DateTime.UtcNow;
                 if (!dataProvider.EmployeeProvider.Insert(transactionManager, employee))
                 {
-                    transactionManager.Rollback();
+                    throw new Exception("Employee creation failed");
                 }
                 TextBox txtLine1;
                 foreach (GridViewRow row in gvContacts.Rows)
@@ -101,11 +101,11 @@ namespace EmployeeTraining.EmployeeManagement
             gvContacts.DataBind();
             if (gvContacts.Rows.Count > 0)
             {
-                Panel1.Visible = true;
+                PanelSave.Visible = true;
             }
             else
             {
-                Panel1.Visible = false;
+                PanelSave.Visible = false;
             }
         }
     }

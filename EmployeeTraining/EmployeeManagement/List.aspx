@@ -34,7 +34,7 @@
             <asp:TemplateField>
                 <ItemTemplate>
                     <asp:LinkButton ID="lnkUpdate" runat="server" CommandArgument='<%# Eval("EmployeeId") %>' OnClick="lnk_OnUpdate">Update</asp:LinkButton>
-                    <asp:ImageButton ID="DeleteButton" runat="server" CommandArgument='<%# Eval("EmployeeId") %>' CommandName="Delete" OnCommand="CommandBtn_Click"  OnClientClick="return confirm('Are you sure you want to delete this employee?');" AlternateText="Delete" />     
+                    <asp:LinkButton ID="DeleteButton" runat="server" CommandArgument='<%# Eval("EmployeeId") %>' CommandName="Delete" OnCommand="CommandBtn_Click"  OnClientClick="return confirm('Are you sure you want to delete this employee?');" AlternateText="Delete">Delete</asp:LinkButton>
                 </ItemTemplate>
             </asp:TemplateField>
             <%--<asp:CommandField ShowEditButton="True" />--%>

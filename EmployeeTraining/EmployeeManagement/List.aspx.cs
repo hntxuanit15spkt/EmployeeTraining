@@ -22,36 +22,6 @@ namespace EmployeeTraining.EmployeeManagement
             if (!IsPostBack)
             {
                 FillGridView();
-                //EmployeeService employeeService = new EmployeeService();
-                //var employees = employeeService.GetAll();
-                //employeeService.DeepLoad(employees);
-                //DataTable table = new DataTable();
-                //table.Columns.Add("EmployeeId");
-                //table.Columns.Add("FullName");
-                //table.Columns.Add("DOB");
-                //table.Columns.Add("Addresses", typeof(List<EmployeeAddressObject>));
-                //foreach (var emp in employees)
-                //{
-                //    DataRow row = table.NewRow();
-                //    row["EmployeeId"] = emp.EmployeeId;
-                //    row["FullName"] = emp.FullName;
-                //    row["DOB"] = emp.DOB;
-                //    List<EmployeeAddressObject> listAddress = new List<EmployeeAddressObject>();
-                //    if (emp.AddressCollection?.Any() == true)
-                //    {
-                //        var addressCollection = emp.AddressCollection.ToList();
-                //        foreach (var address in addressCollection)
-                //        {
-                //            EmployeeAddressObject addressObj = new EmployeeAddressObject();
-                //            addressObj.Text = $"{address.Line1}, {address.Line2}, {address.TownCity}, {address.StateOrProvince}";
-                //            listAddress.Add(addressObj);
-                //        }
-                //    }
-                //    row["Addresses"] = listAddress;
-                //    table.Rows.Add(row);
-                //}
-                //EmployeeGrid.DataSource = table;
-                //EmployeeGrid.DataBind();
             }
         }
 
@@ -106,11 +76,7 @@ namespace EmployeeTraining.EmployeeManagement
             }
             return true;
         }
-        //private void DeleteEmployee(string employeeId)
-        //{
-        //    EmployeeService employeeService = new EmployeeService();
-        //    employeeService.Delete(int.Parse(employeeId));
-        //}
+
         private void FillGridView()
         {
             EmployeeService employeeService = new EmployeeService();

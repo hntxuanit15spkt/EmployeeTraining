@@ -69,14 +69,14 @@
                 <asp:TextBox ID="txtBio" runat="server"></asp:TextBox>
             </td>
         </tr>
-        <tr>
+        <%--<tr>
             <td>
                 <asp:Label ID="Label3" runat="server" Text="Address"></asp:Label>
             </td>
             <td colspan="2">
                 <asp:TextBox ID="txtAddress" runat="server" TextMode="MultiLine"></asp:TextBox>
             </td>
-        </tr>
+        </tr>--%>
         <%--<tr>
             <td></td>
             <td colspan="2">
@@ -133,6 +133,11 @@
                     <asp:TextBox ID="txtStateOrProvince" runat="server"></asp:TextBox>
                 </ItemTemplate>
             </asp:TemplateField>
+            <asp:TemplateField HeaderText="PostCod">
+                <ItemTemplate>
+                    <asp:TextBox ID="txtPostCod" runat="server"></asp:TextBox>
+                </ItemTemplate>
+            </asp:TemplateField>
             <asp:TemplateField HeaderText="CountryCode">
                 <ItemTemplate>
                     <asp:TextBox ID="txtCountryCode" runat="server"></asp:TextBox>
@@ -141,7 +146,7 @@
         </Columns>
     </asp:GridView>
     <div style="padding: 10px 0px;">
-        <asp:Panel ID="Panel1" runat="server" Visible="false">
+        <asp:Panel ID="PanelSave" runat="server" Visible="false">
             <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
             &nbsp;<asp:Label ID="lblMsg" runat="server" ForeColor="Red"></asp:Label>
         </asp:Panel>

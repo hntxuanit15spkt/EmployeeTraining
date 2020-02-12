@@ -159,24 +159,6 @@ namespace EmployeeTraining.EmployeeManagement
         protected global::System.Web.UI.WebControls.TextBox txtBio;
 
         /// <summary>
-        /// Label3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
-
-        /// <summary>
-        /// txtAddress control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAddress;
-
-        /// <summary>
         /// txtNoOfRecord control.
         /// </summary>
         /// <remarks>
@@ -204,13 +186,13 @@ namespace EmployeeTraining.EmployeeManagement
         protected global::System.Web.UI.WebControls.GridView gvContacts;
 
         /// <summary>
-        /// Panel1 control.
+        /// PanelSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel1;
+        protected global::System.Web.UI.WebControls.Panel PanelSave;
 
         /// <summary>
         /// btnSave control.
