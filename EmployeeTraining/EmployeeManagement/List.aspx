@@ -18,7 +18,7 @@
     <asp:GridView ID="EmployeeGrid" runat="server" AutoGenerateColumns="False" AllowPaging="true" PageSize="20" OnPageIndexChanging="EmployeeGrid_PageIndexChanging">
         <Columns>
             <asp:BoundField DataField="FullName" HeaderText="FullName"></asp:BoundField>
-            <asp:BoundField DataField="DOB" HeaderText="DOB"></asp:BoundField>
+            <asp:BoundField DataField="DOB" HeaderText="DOB" DataFormatString="{0:MM/dd/yyyy}"></asp:BoundField>
             <asp:TemplateField HeaderText="Addresses (Line 1)">
                 <ItemTemplate>
                     <asp:Repeater ID="Repeater1" runat="server" DataSource='<%# Eval("Addresses") %>'>

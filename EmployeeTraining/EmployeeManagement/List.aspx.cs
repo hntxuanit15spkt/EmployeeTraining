@@ -89,13 +89,8 @@ namespace EmployeeTraining.EmployeeManagement
                                                         employee.LastName, employee.DOB, employee.Email, employee.Bio, employee.CreatedOn, employee.AddressCollection);
                 addressModels.Add(employeeModel);
             }
-            EmployeeGrid.DataSource = addressModels;
+            EmployeeGrid.DataSource = addressModels.OrderByDescending(e => e.CreatedOn).ToList();
             EmployeeGrid.DataBind();
         }
-
-        //private void Clear()
-        //{
-        //    lblMsg.Text = string.Empty;
-        //}
     }
 }
