@@ -145,5 +145,6 @@
             <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
             &nbsp;<asp:Label ID="lblMsg" runat="server" ForeColor="Red"></asp:Label>
         </asp:Panel>
+        <asp:Button ID="btnBack" runat="server" Text="Back to list" OnClick="btnBack_Click" />
     </div>
 </asp:Content>

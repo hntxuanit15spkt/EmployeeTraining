@@ -54,6 +54,27 @@ namespace EmployeeTraining.Code
         public string CountryCode { get; set; } = string.Empty;
         #endregion
 
+        public AddressModel(int employeeId, string line1, string line2, string townCity, string stateOrProvince, string postCod, string countryCode)
+        {
+            EmployeeId = employeeId;
+            Line1 = line1;
+            Line2 = line2;
+            TownCity = townCity;
+            StateOrProvince = stateOrProvince;
+            PostCod = postCod;
+            CountryCode = countryCode;
+        }
+
+        public AddressModel(string line1, string line2, string townCity, string stateOrProvince, string postCod, string countryCode)
+        {
+            Line1 = line1;
+            Line2 = line2;
+            TownCity = townCity;
+            StateOrProvince = stateOrProvince;
+            PostCod = postCod;
+            CountryCode = countryCode;
+        }
+
         public AddressModel(int addressId, int employeeId, string line1, string line2, string townCity, string stateOrProvince, string postCod, string countryCode)
         {
             AddressId = addressId;

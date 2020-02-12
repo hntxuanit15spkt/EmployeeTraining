@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EmployeeDB.BLL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -63,7 +64,7 @@ namespace EmployeeTraining.Code
         /// </summary>
         public DateTime? CreatedOn { get; set; } = DateTime.Now;
         #endregion
-        public List<AddressModel> Addresses;
+        public List<AddressModel> Addresses { get; set; } = new List<AddressModel>();
 
         public EmployeeModel(int employeeId, string employeeCode, string fullName, string firstName,
                              string middlesName, string lastName, DateTime? dOB, string email, string bio, DateTime? createdOn)
@@ -78,6 +79,18 @@ namespace EmployeeTraining.Code
             Email = email;
             Bio = bio;
             CreatedOn = createdOn;
+        }
+
+        public EmployeeModel(int employeeId, string employeeCode, string fullName, string firstName, string middlesName, string lastName, DateTime? dOB, string email, string bio, DateTime? createdOn, TList<Address> addresses) : this(employeeId, employeeCode, fullName, firstName, middlesName, lastName, dOB, email, bio, createdOn)
+        {
+            var listAddressModels = new List<AddressModel>();
+            foreach (var address in addresses)
+            {
+                var addressModel = new AddressModel(address.AddressId, address.EmployeeId, address.Line1, address.Line2,
+                                                    address.TownCity, address.StateOrProvince, address.PostCod, address.CountryCode);
+                listAddressModels.Add(addressModel);
+            }
+            Addresses = listAddressModels;
         }
 
         public EmployeeModel(string employeeCode, string fullName, string firstName, string middlesName, string lastName, DateTime? dOB, string email, string bio)

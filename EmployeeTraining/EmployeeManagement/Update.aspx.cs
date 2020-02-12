@@ -43,6 +43,11 @@ namespace EmployeeTraining.EmployeeManagement
             }
         }
 
+        protected void btnBack_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(Constant.LIST_URL);
+        }
+
         private void ShowGridRows(TList<Address> addressesModel)
         {
             gvAddresses.DataSource = addressesModel;

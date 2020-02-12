@@ -177,22 +177,22 @@ namespace EmployeeTraining.EmployeeManagement
         protected global::System.Web.UI.WebControls.Button btnAddRow;
 
         /// <summary>
-        /// gvContacts control.
+        /// gvAddresses control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvContacts;
+        protected global::System.Web.UI.WebControls.GridView gvAddresses;
 
         /// <summary>
-        /// PanelSave control.
+        /// PanelAdd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelSave;
+        protected global::System.Web.UI.WebControls.Panel PanelAdd;
 
         /// <summary>
         /// btnSave control.
@@ -211,5 +211,14 @@ namespace EmployeeTraining.EmployeeManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMsg;
+
+        /// <summary>
+        /// btnBack control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnBack;
     }
 }

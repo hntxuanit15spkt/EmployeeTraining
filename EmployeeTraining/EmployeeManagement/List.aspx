@@ -11,20 +11,20 @@
             background: left 3px top 5px no-repeat #563d7c;
         }
     </style>
-    <asp:Button runat="server" ID="BtnCreate" Text="Create new employee" CssClass="insert" OnClick="Redirect_Click" />
+    <asp:Button runat="server" ID="BtnCreate" Text="Create new employee" CssClass="insert" OnClick="RedirectToCreate_Click" />
     <br />
-    <asp:Label ID="lblMsg" ForeColor="Red" runat="server" ></asp:Label>
+    <asp:Label ID="lblMsg" ForeColor="Red" runat="server"></asp:Label>
     <br />
-    <asp:GridView ID="EmployeeGrid" runat="server" AutoGenerateColumns="False">
+    <asp:GridView ID="EmployeeGrid" runat="server" AutoGenerateColumns="False" AllowPaging="true" PageSize="20" OnPageIndexChanging="EmployeeGrid_PageIndexChanging">
         <Columns>
             <asp:BoundField DataField="FullName" HeaderText="FullName"></asp:BoundField>
             <asp:BoundField DataField="DOB" HeaderText="DOB"></asp:BoundField>
-            <asp:TemplateField HeaderText="Addresses">
+            <asp:TemplateField HeaderText="Addresses (Line 1)">
                 <ItemTemplate>
                     <asp:Repeater ID="Repeater1" runat="server" DataSource='<%# Eval("Addresses") %>'>
                         <ItemTemplate>
                             <%# (Container.ItemIndex+1)+"." %>
-                            <asp:HyperLink ID="HyperLink1" runat="server" Text='<%#(Container.DataItem as EmployeeAddressObject).Text %>'>  
+                            <asp:HyperLink ID="HyperLinkAddress" runat="server" Text='<%#(Container.DataItem as EmployeeTraining.Code.AddressModel).Line1 %>'>  
                             </asp:HyperLink>
                             <br />
                         </ItemTemplate>
@@ -34,12 +34,18 @@
             <asp:TemplateField>
                 <ItemTemplate>
                     <asp:LinkButton ID="lnkUpdate" runat="server" CommandArgument='<%# Eval("EmployeeId") %>' OnClick="lnk_OnUpdate">Update</asp:LinkButton>
-                    <asp:LinkButton ID="DeleteButton" runat="server" CommandArgument='<%# Eval("EmployeeId") %>' CommandName="Delete" OnCommand="CommandBtn_Click"  OnClientClick="return confirm('Are you sure you want to delete this employee?');" AlternateText="Delete">Delete</asp:LinkButton>
+                    <asp:LinkButton ID="DeleteButton" runat="server" CommandArgument='<%# Eval("EmployeeId") %>' CommandName="Delete" OnCommand="CommandBtn_Click" OnClientClick='<%# string.Format("javascript:return ConfirmOnDelete(\"{0}\")", Eval("FullName")) %>' AlternateText="Delete">Delete</asp:LinkButton>
                 </ItemTemplate>
             </asp:TemplateField>
-            <%--<asp:CommandField ShowEditButton="True" />--%>
-            <%--<asp:LinkButton ID="lnkUpdate" runat="server" CommandArgument='<%# Eval("EmployeeId") %>' OnClick="lnk_OnUpdate">Update</asp:LinkButton>
-            <asp:CommandField ShowDeleteButton="true" />--%>
         </Columns>
     </asp:GridView>
+
+    <script type="text/javascript">    
+        function ConfirmOnDelete(fullName) {
+            if (confirm(`Do you really want to delete ${fullName}?`) == true)
+                return true;
+            else
+                return false;
+        }
+    </script>
 </asp:Content>

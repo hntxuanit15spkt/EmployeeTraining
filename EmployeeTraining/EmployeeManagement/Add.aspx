@@ -103,10 +103,10 @@
         The number of records you want to insert : 
         <asp:TextBox ID="txtNoOfRecord" runat="server"></asp:TextBox>
         &nbsp;
-        <asp:Button ID="btnAddRow" runat="server" Text="Add Rows" OnClick="btnAddRow_Click" />
+        <asp:Button ID="btnAddRow" runat="server" Text="Set number of rows" OnClick="btnAddRow_Click" />
 
     </div>
-    <asp:GridView ID="gvContacts" runat="server" AutoGenerateColumns="false" CellPadding="5">
+    <asp:GridView ID="gvAddresses" runat="server" AutoGenerateColumns="false" CellPadding="5" OnRowDataBound="OnRowDataBound">
         <Columns>
             <asp:TemplateField HeaderText="SL No.">
                 <ItemTemplate>
@@ -140,15 +140,17 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="CountryCode">
                 <ItemTemplate>
-                    <asp:TextBox ID="txtCountryCode" runat="server"></asp:TextBox>
+                    <asp:Label ID="lblCountryCode" runat="server" Visible = "false" />
+                    <asp:DropDownList ID="ddlCountries" runat="server" DataTextField="Name" DataValueField="CountryCode"></asp:DropDownList>
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
     <div style="padding: 10px 0px;">
-        <asp:Panel ID="PanelSave" runat="server" Visible="false">
+        <asp:Panel ID="PanelAdd" runat="server" Visible="false">
             <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
             &nbsp;<asp:Label ID="lblMsg" runat="server" ForeColor="Red"></asp:Label>
         </asp:Panel>
+        <asp:Button ID="btnBack" runat="server" Text="Back to list" OnClick="btnBack_Click" />
     </div>
 </asp:Content>
