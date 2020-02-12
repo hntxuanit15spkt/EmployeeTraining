@@ -138,7 +138,7 @@
                     <asp:TextBox ID="txtPostCod" runat="server"></asp:TextBox>
                 </ItemTemplate>
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="CountryCode">
+            <asp:TemplateField HeaderText="Country">
                 <ItemTemplate>
                     <asp:Label ID="lblCountryCode" runat="server" Visible = "false" />
                     <asp:DropDownList ID="ddlCountries" runat="server" DataTextField="Name" DataValueField="CountryCode"></asp:DropDownList>
