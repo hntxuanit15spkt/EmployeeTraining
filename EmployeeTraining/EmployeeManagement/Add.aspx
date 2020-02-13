@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Add.aspx.cs" Inherits="EmployeeTraining.EmployeeManagement.Add" %>
 
+<%@ Register Src="~/AddressControl.ascx" TagPrefix="uc" TagName="AddressControl" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <br />
     <h2>Insert new employee</h2>
@@ -99,14 +101,24 @@
     <br />
     <h2>Insert address for this employee</h2>
     <br />
-    <div style="padding: 10px 0px">
+    <%--<div style="padding: 10px 0px">
         The number of records you want to insert : 
         <asp:TextBox ID="txtNoOfRecord" runat="server"></asp:TextBox>
         &nbsp;
         <asp:Button ID="btnAddRow" runat="server" Text="Set number of rows" OnClick="btnAddRow_Click" />
 
-    </div>
-    <asp:GridView ID="gvAddresses" runat="server" AutoGenerateColumns="false" CellPadding="5" OnRowDataBound="OnRowDataBound">
+    </div>--%>
+    <uc:AddressControl runat="server" ID="Address1" />
+    <%--<asp:GridView ID="gvAddresses" runat="server" AutoGenerateColumns="false" CellPadding="5">
+    
+    </asp:GridView>--%>
+    <%--<asp:Repeater ID="leftLinksTable" runat="server">
+        <ItemTemplate>
+            <uc:AddressControl runat="server" ID="AddressControl" />
+        </ItemTemplate>
+    </asp:Repeater>--%>
+    <%--<asp:PlaceHolder ID="PlaceHolderAddress" runat="server"></asp:PlaceHolder>--%>
+    <%--<asp:GridView ID="gvAddresses" runat="server" AutoGenerateColumns="false" CellPadding="5" OnRowDataBound="OnRowDataBound">
         <Columns>
             <asp:TemplateField HeaderText="SL No.">
                 <ItemTemplate>
@@ -145,9 +157,10 @@
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>
-    </asp:GridView>
+    </asp:GridView>--%>
     <div style="padding: 10px 0px;">
-        <asp:Panel ID="PanelAdd" runat="server" Visible="false">
+        <%--<asp:Panel ID="PanelAdd" runat="server" Visible="false">--%>
+        <asp:Panel ID="PanelAdd" runat="server">
             <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
             &nbsp;<asp:Label ID="lblMsg" runat="server" ForeColor="Red"></asp:Label>
         </asp:Panel>

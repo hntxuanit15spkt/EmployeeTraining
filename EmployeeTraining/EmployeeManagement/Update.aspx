@@ -96,9 +96,10 @@
         </tr>--%>
     </table>
     <br />
-    <h2>Insert address for this employee</h2>
+    <h2>Update address for this employee</h2>
     <br />
-    <asp:GridView ID="gvAddresses" runat="server" AutoGenerateColumns="false" CellPadding="5" OnRowDataBound="OnRowDataBound">
+    <uc:AddressControl runat="server" ID="Address1" />
+    <%--<asp:GridView ID="gvAddresses" runat="server" AutoGenerateColumns="false" CellPadding="5" OnRowDataBound="OnRowDataBound">
         <Columns>
             <asp:TemplateField HeaderText="SL No.">
                 <ItemTemplate>
@@ -134,12 +135,12 @@
             <asp:TemplateField HeaderText="Country">
                 <ItemTemplate>
                     <%--<asp:TextBox ID="txtCountryCode" runat="server" Text='<%#Eval("CountryCode")%>'></asp:TextBox>--%>
-                    <asp:Label ID="lblCountryCode" runat="server" Text='<%# Eval("CountryCode") %>' Visible = "false" />
+                    <%--<asp:Label ID="lblCountryCode" runat="server" Text='<%# Eval("CountryCode") %>' Visible = "false" />
                     <asp:DropDownList ID="ddlCountries" runat="server" DataTextField="Name" DataValueField="CountryCode"></asp:DropDownList>
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>
-    </asp:GridView>
+    </asp:GridView>---%>
     <div style="padding: 10px 0px;">
         <asp:Panel ID="PanelSave" runat="server" Visible="true">
             <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />

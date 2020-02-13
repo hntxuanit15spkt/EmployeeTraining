@@ -1,4 +1,5 @@
-﻿using EmployeeDB.CL;
+﻿using EmployeeDB.BLL;
+using EmployeeDB.CL;
 using EmployeeDB.DAL;
 using EmployeeDB.DAL.Bases;
 using EmployeeTraining.Code;
@@ -18,11 +19,65 @@ namespace EmployeeTraining.EmployeeManagement
                 EmployeeGrid.SelectedIndex = 0;
                 FillGridView();
             }
+            else
+            {
+            }
         }
 
         protected void RedirectToCreate_Click(object sender, EventArgs e)
         {
             Response.Redirect(Constant.ADD_URL);
+        }
+        private void Search(string date, string fromDate, string toDate, string keywords)
+        {
+            EmployeeFilterBuilder employeeFilterBuilder = new EmployeeFilterBuilder();
+            if (!string.IsNullOrEmpty(keywords))
+            {
+                employeeFilterBuilder.Append(EmployeeDB.BLL.EmployeeColumn.FullName, $"%{keywords}%", true);
+            }
+            if (!string.IsNullOrEmpty(date))
+            {
+                DateTime.TryParse(date, out DateTime dateResult);
+                employeeFilterBuilder.AppendEquals(EmployeeColumn.DOB, dateResult.ToString("yyyy-MM-dd"));
+            }
+            //if (!string.IsNullOrEmpty(fromDate))
+            //{
+            //    DateTime.TryParse(fromDate, out DateTime fromDateResult);
+            //    employeeFilterBuilder.AppendGreaterThan(EmployeeColumn.DOB, fromDateResult.ToShortDateString());
+            //}
+            //if (!string.IsNullOrEmpty(toDate))
+            //{
+            //    DateTime.TryParse(toDate, out DateTime toDateResult);
+            //    employeeFilterBuilder.AppendLessThan(EmployeeColumn.DOB, toDateResult.ToShortDateString());
+            //    employeeFilterBuilder.AppendIn(EmployeeColumn.DOB, toDateResult.ToShortDateString());
+            //}
+            //employeeFilterBuilder.Append(EmployeeColumn.DOB, "London, Berlin");
+            //employeeFilterBuilder.Append(EmployeeColumn.DOB, fromDate.ToString(), toDate.ToString());
+
+
+            int count = 0;
+            EmployeeService employeeService = new EmployeeService();
+            TList<Employee> employees = DataRepository.EmployeeProvider.GetPaged(employeeFilterBuilder.ToString(), null, 0, 100, out count);
+            employeeService.DeepLoad(employees);
+            List<EmployeeModel> addressModels = new List<EmployeeModel>();
+            foreach (var employee in employees)
+            {
+                var employeeModel = new EmployeeModel(employee.EmployeeId, employee.EmployeeCode, employee.FullName, employee.FirstName, employee.MiddlesName,
+                                                        employee.LastName, employee.DOB, employee.Email, employee.Bio, employee.CreatedOn, employee.AddressCollection);
+                addressModels.Add(employeeModel);
+            }
+            //EmployeeGrid.DataSource = addressModels.OrderByDescending(e => e.CreatedOn).ToList();
+            EmployeeGrid.DataSource = addressModels;
+            EmployeeGrid.DataBind();
+        }
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            //DateTime fromDate = DateTime.Parse(txtFromDate.Text.Trim());
+            //var a = fromDate.ToShortDateString();
+            //DateTime toDate = DateTime.Parse(txtToDate.Text.Trim());
+            //string keywords = txtSearch.Text.Trim();
+            Search(txtDate.Text.Trim(), txtFromDate.Text.Trim(), txtToDate.Text.Trim(), txtSearch.Text.Trim());
+            // Response.Redirect($"{Constant.LIST_URL}?fromDate={fromDate}&toDate={toDate}&{keywords}");
         }
 
         protected void EmployeeGrid_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -89,7 +144,8 @@ namespace EmployeeTraining.EmployeeManagement
                                                         employee.LastName, employee.DOB, employee.Email, employee.Bio, employee.CreatedOn, employee.AddressCollection);
                 addressModels.Add(employeeModel);
             }
-            EmployeeGrid.DataSource = addressModels.OrderByDescending(e => e.CreatedOn).ToList();
+            //EmployeeGrid.DataSource = addressModels.OrderByDescending(e => e.CreatedOn).ToList();
+            EmployeeGrid.DataSource = addressModels;
             EmployeeGrid.DataBind();
         }
     }

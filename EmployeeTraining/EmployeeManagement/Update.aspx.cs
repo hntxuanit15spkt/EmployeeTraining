@@ -48,19 +48,44 @@ namespace EmployeeTraining.EmployeeManagement
             Response.Redirect(Constant.LIST_URL);
         }
 
-        private void ShowGridRows(TList<Address> addressesModel)
+        //private void ShowGridRows(TList<EmployeeDB.BLL.Address> addressesModel)
+        //{
+        //    //gvAddresses.DataSource = addressesModel;
+        //    //gvAddresses.DataBind();
+        //}
+
+        private void ShowGridRows(Address address)
         {
-            gvAddresses.DataSource = addressesModel;
-            gvAddresses.DataBind();
+            //gvAddresses.DataSource = addressesModel;
+            //gvAddresses.DataBind();
+            //if (address != null)
+            //{
+            //    Address1.AddressId = address.AddressId.ToString();
+            //    Address1.Line1 = address.Line1;
+            //    Address1.Line2 = address.Line2;
+            //    Address1.TownCity = address.TownCity;
+            //    Address1.StateOrProvince = address.StateOrProvince;
+            //    Address1.PostCod = address.PostCod;
+            //    Address1.CountryCode = address.CountryCode;
+            //}
+            Address1.AddressId = address?.AddressId != null ? address.AddressId.ToString() : string.Empty;
+            Address1.Line1 = !string.IsNullOrEmpty(address?.Line1) ? address.Line1 : string.Empty;
+            Address1.Line2 = !string.IsNullOrEmpty(address?.Line2) ? address.Line2 : string.Empty;
+            Address1.TownCity = !string.IsNullOrEmpty(address?.TownCity) ? address.TownCity : string.Empty;
+            Address1.StateOrProvince = !string.IsNullOrEmpty(address?.StateOrProvince) ? address.StateOrProvince : string.Empty;
+            Address1.PostCod = !string.IsNullOrEmpty(address?.PostCod) ? address.PostCod : string.Empty;
+            Address1.CountryCode = !string.IsNullOrEmpty(address?.CountryCode) ? address.CountryCode : string.Empty;
         }
 
-        private TList<Address> LoadAddress()
+        private void LoadAddress()
         {
             AddressService addressService = new AddressService();
             int.TryParse(EmployeeID, out int employeeId);
-            var addresses = addressService.GetByEmployeeId(employeeId);
-            ShowGridRows(addresses);
-            return addresses;
+            //var addresses = addressService.GetByEmployeeId(employeeId);
+            var address = addressService.GetByEmployeeId(employeeId).FirstOrDefault();
+            //ShowGridRows(addresses);
+            ShowGridRows(address);
+            //return addresses;
         }
 
         private TList<Countries> LoadCountries()
@@ -88,7 +113,10 @@ namespace EmployeeTraining.EmployeeManagement
 
                     //Select the Country of Employee in DropDownList
                     string country = (e.Row.FindControl("lblCountryCode") as Label).Text;
-                    ddlCountries.Items.FindByValue(country).Selected = true;
+                    if (!string.IsNullOrEmpty(country))
+                    {
+                        ddlCountries.Items.FindByValue(country).Selected = true;
+                    }
                 }
             }
         }
@@ -104,20 +132,52 @@ namespace EmployeeTraining.EmployeeManagement
             var employeeObj = new EmployeeModel(txtEmployeeCode.Text.Trim(), txtFullName.Text.Trim(), txtFirstName.Text.Trim(),
                                                 txtMiddlesName.Text.Trim(), txtLastName.Text.Trim(), DateTime.Parse(txtDOB.Text.Trim()), txtEmail.Text.Trim(), txtBio.Text.Trim());
             List<AddressModel> listOfAddresses = new List<AddressModel>();
-            foreach (GridViewRow row in gvAddresses.Rows)
-            {
-                var addressId = ((HiddenField)row.FindControl("txtAddressId")).Value;
-                var line1 = ((TextBox)row.FindControl("txtLine1")).Text.Trim();
-                var line2 = ((TextBox)row.FindControl("txtLine2")).Text.Trim();
-                var townCity = ((TextBox)row.FindControl("txtTownCity")).Text.Trim();
-                var stateOrProvince = ((TextBox)row.FindControl("txtStateOrProvince")).Text.Trim();
-                var postCod = ((TextBox)row.FindControl("txtPostCod")).Text.Trim();
-                var countryCode = ((DropDownList)row.FindControl("ddlCountries")).SelectedItem.Value;
-                AddressModel address = new AddressModel(int.Parse(addressId), Employee.EmployeeId, line1, line2, townCity, stateOrProvince, postCod, countryCode);
-                listOfAddresses.Add(address);
-            }
+            //foreach (GridViewRow row in gvAddresses.Rows)
+            //{
+            //    var addressId = ((HiddenField)row.FindControl("txtAddressId")).Value;
+            //    var line1 = ((TextBox)row.FindControl("txtLine1")).Text.Trim();
+            //    var line2 = ((TextBox)row.FindControl("txtLine2")).Text.Trim();
+            //    var townCity = ((TextBox)row.FindControl("txtTownCity")).Text.Trim();
+            //    var stateOrProvince = ((TextBox)row.FindControl("txtStateOrProvince")).Text.Trim();
+            //    var postCod = ((TextBox)row.FindControl("txtPostCod")).Text.Trim();
+            //    var countryCode = ((DropDownList)row.FindControl("ddlCountries")).SelectedItem.Value;
+            //    AddressModel address = new AddressModel(int.Parse(addressId), Employee.EmployeeId, line1, line2, townCity, stateOrProvince, postCod, countryCode);
+            //    listOfAddresses.Add(address);
+            //}
+            int addressId = 0;
+            int.TryParse(Address1.AddressId, out addressId);
+            var address1 = new AddressModel(addressId, Employee.EmployeeId, Address1.Line1, Address1.Line2, Address1.TownCity, Address1.StateOrProvince, Address1.PostCod, Address1.CountryCode);
+            listOfAddresses.Add(address1);
             UpdateEmployee(employeeObj, listOfAddresses);
         }
+
+        //private void SaveAddress(Address address)
+        //{
+        //    AddressService addressService = new AddressService();
+        //    addressService.Insert()
+        //    TransactionManager transactionManager = null;
+        //    try
+        //    {
+        //        transactionManager = ConnectionScope.CreateTransaction();
+        //        NetTiersProvider dataProvider = ConnectionScope.Current.DataProvider;
+        //        EmployeeService employeeService = new EmployeeService();
+        //        dataProvider.EmployeeProvider.Insert(transactionManager, employee);
+
+        //        foreach (var address in addresses)
+        //        {
+        //            address.EmployeeId = employee.EmployeeId;
+        //        }
+        //        dataProvider.AddressProvider.Insert(transactionManager, addresses);
+        //        transactionManager.Commit();
+        //        Clear();
+        //    }
+        //    catch (Exception exc)
+        //    {
+        //        if (transactionManager != null && transactionManager.IsOpen)
+        //            transactionManager.Rollback();
+        //        lblMsg.Text = "An error occurred while processing your request!";
+        //    }
+        //}
 
         private bool UpdateEmployee(EmployeeModel employeeModel, List<AddressModel> addressModels)
         {
@@ -158,43 +218,61 @@ namespace EmployeeTraining.EmployeeManagement
                 {
                     Employee.Bio = employeeModel.Bio;
                 }
-                if (!dataProvider.EmployeeProvider.Update(transactionManager, Employee))
-                {
-                    throw new Exception("Can't update Employee");
-                }
+                dataProvider.EmployeeProvider.Update(transactionManager, Employee);
+                //if (!dataProvider.EmployeeProvider.Update(transactionManager, Employee))
+                //{
+                //    throw new Exception("Can't update Employee");
+                //}
                 TList<Address> addressForUpdate = Employee.AddressCollection;
                 foreach (var model in addressModels)
                 {
-                    var address = addressForUpdate.Single(a => a.AddressId == model.AddressId);
-                    if (string.IsNullOrEmpty(address.Line1) || !address.Line1.Equals(model.Line1))
+                    if (model.AddressId == 0)
                     {
-                        address.Line1 = model.Line1;
+                        var address = new Address {
+                            EmployeeId = model.EmployeeId,
+                            Line1 = model.Line1,
+                            Line2 = model.Line2,
+                            TownCity = model.TownCity,
+                            StateOrProvince = model.StateOrProvince,
+                            PostCod = model.PostCod,
+                            CountryCode = model.CountryCode
+                        };
+                        dataProvider.AddressProvider.Insert(transactionManager, address);
                     }
-                    if (string.IsNullOrEmpty(address.Line2) || !address.Line2.Equals(model.Line2))
+                    else
                     {
-                        address.Line2 = model.Line2;
-                    }
-                    if (string.IsNullOrEmpty(address.TownCity) || !address.TownCity.Equals(model.TownCity))
-                    {
-                        address.TownCity = model.TownCity;
-                    }
-                    if (string.IsNullOrEmpty(address.StateOrProvince) || !address.StateOrProvince.Equals(model.StateOrProvince))
-                    {
-                        address.StateOrProvince = model.StateOrProvince;
-                    }
-                    if (string.IsNullOrEmpty(address.PostCod) || !address.PostCod.Equals(model.PostCod))
-                    {
-                        address.PostCod = model.PostCod;
-                    }
-                    if (string.IsNullOrEmpty(address.CountryCode) || !address.CountryCode.Equals(model.CountryCode))
-                    {
-                        address.CountryCode = model.CountryCode;
+                        var address = addressForUpdate.Single(a => a.AddressId == model.AddressId);
+                        if (string.IsNullOrEmpty(address.Line1) || !address.Line1.Equals(model.Line1))
+                        {
+                            address.Line1 = model.Line1;
+                        }
+                        if (string.IsNullOrEmpty(address.Line2) || !address.Line2.Equals(model.Line2))
+                        {
+                            address.Line2 = model.Line2;
+                        }
+                        if (string.IsNullOrEmpty(address.TownCity) || !address.TownCity.Equals(model.TownCity))
+                        {
+                            address.TownCity = model.TownCity;
+                        }
+                        if (string.IsNullOrEmpty(address.StateOrProvince) || !address.StateOrProvince.Equals(model.StateOrProvince))
+                        {
+                            address.StateOrProvince = model.StateOrProvince;
+                        }
+                        if (string.IsNullOrEmpty(address.PostCod) || !address.PostCod.Equals(model.PostCod))
+                        {
+                            address.PostCod = model.PostCod;
+                        }
+                        if (string.IsNullOrEmpty(address.CountryCode) || !address.CountryCode.Equals(model.CountryCode))
+                        {
+                            address.CountryCode = model.CountryCode;
+                        }
                     }
                 }
-                if (dataProvider.AddressProvider.Update(transactionManager, addressForUpdate) == 0)
-                {
-                    throw new Exception("Can't update Address");
-                }
+                dataProvider.AddressProvider.Update(transactionManager, addressForUpdate);
+                //if (dataProvider.AddressProvider.Update(transactionManager, addressForUpdate) == 0)
+                //{
+                //    throw new Exception("Can't update Address");
+                //}
 
                 transactionManager.Commit();
             }
