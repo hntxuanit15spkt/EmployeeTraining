@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="List.aspx.cs" Inherits="EmployeeTraining.EmployeeManagement.List" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="List.aspx.cs" Inherits="EmployeeTraining.EmployeeManagement.List" 
+    UICulture="vi"%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server" PageSize="10" AllowPaging="true" AllowSorting="true">
     <style type="text/css">
@@ -11,6 +12,7 @@
             background: left 3px top 5px no-repeat #563d7c;
         }
     </style>
+    <asp:Label runat="server" ID="lblHelloWorld" Text="Hello, world!" meta:resourcekey="lblHelloWorld" />
     <asp:Button runat="server" ID="BtnCreate" Text="Create new employee" CssClass="insert" OnClick="RedirectToCreate_Click" />
     <br />
     <br />
